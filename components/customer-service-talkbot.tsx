@@ -6,21 +6,17 @@ import { useState, useRef, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Mic, Send, StopCircle, Volume2, Calendar } from "lucide-react"
+import { Mic, Send, StopCircle, Volume2, Calendar, Bot, User } from "lucide-react"
 import Image from "next/image"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle, CheckCircle } from "lucide-react"
 import { formatDate, formatTime } from "@/lib/calendly-service"
 
-// Fallback responses when all APIs fail
-const fallbackResponses = [
-  "I'm Shoaib's AI assistant. He's an AI engineer with expertise in conversational AI, voice systems, and multilingual chatbots. How can I help you today?",
-  "Shoaib has worked with companies like PTA, Wosler Corp Canada, and Orizen Technology, developing AI solutions for various business needs.",
-  "Shoaib specializes in AI engineering, including local and cloud AI setup, speech-to-text, text-to-speech, and building multi-agent talkbot systems.",
-  "Shoaib is currently available for consulting and project work. Would you like to schedule a meeting to discuss your AI needs?",
-  "You can reach Shoaib via email at shoaib.tashrif@gmail.com or WhatsApp at +92 304 0610720.",
-  "Shoaib has experience developing multilingual chatbots in English and Urdu, as well as voice AI systems for medical booking and customer support.",
-]
+// Type declarations for Speech Recognition
+declare global {
+  interface Window {
+    SpeechRecognition: any
+    webkitSpeechRecognition: any
+  }
+}
 
 // Booking states
 type BookingState = "idle" | "asking_date_time" | "asking_email" | "asking_topic" | "confirming" | "completed"
@@ -32,40 +28,42 @@ interface AvailableSlot {
 }
 
 export default function CustomerServiceTalkbot() {
-  // Store chat messages in localStorage to persist until page reload
-  const [messages, setMessages] = useState<{ role: string; content: string }[]>(() => {
+  // Initialize with a consistent state to avoid hydration mismatch
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>([
+    {
+      role: "assistant",
+      content:
+        "Hi there! I'm Shoaib's AI assistant. How can I help you today? Feel free to ask about his experience, skills, or if you'd like to schedule a meeting.",
+    },
+  ])
+
+  // Save messages to localStorage whenever they change (only on client)
+  useEffect(() => {
     if (typeof window !== "undefined") {
       const savedMessages = localStorage.getItem("chatMessages")
-      return savedMessages
-        ? JSON.parse(savedMessages)
-        : [
-            {
-              role: "assistant",
-              content:
-                "Hi there! I'm Shoaib's AI assistant. How can I help you today? Feel free to ask about his experience, skills, or if you'd like to schedule a meeting.",
-            },
-          ]
+      if (savedMessages) {
+        try {
+          const parsedMessages = JSON.parse(savedMessages)
+          if (parsedMessages.length > 0) {
+            setMessages(parsedMessages)
+          }
+        } catch (error) {
+          console.error("Error parsing saved messages:", error)
+        }
+      }
     }
-    return [
-      {
-        role: "assistant",
-        content:
-          "Hi there! I'm Shoaib's AI assistant. How can I help you today? Feel free to ask about his experience, skills, or if you'd like to schedule a meeting.",
-      },
-    ]
-  })
+  }, [])
 
-  // Save messages to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem("chatMessages", JSON.stringify(messages))
+    if (typeof window !== "undefined") {
+      localStorage.setItem("chatMessages", JSON.stringify(messages))
+    }
   }, [messages])
 
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [isListening, setIsListening] = useState(false)
   const [isSpeaking, setIsSpeaking] = useState(false)
-  const [apiFailCount, setApiFailCount] = useState(0)
-  const [usedMicrophone, setUsedMicrophone] = useState(false) // Track if user used microphone
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const chatContainerRef = useRef<HTMLDivElement>(null)
   const speechRecognitionRef = useRef<any>(null)
@@ -112,204 +110,67 @@ export default function CustomerServiceTalkbot() {
           }
 
           speechRecognitionRef.current.onerror = (event: any) => {
-            console.error("Speech recognition error", event.error)
-            // Handle "no-speech" error gracefully
-            if (event.error === "no-speech") {
-              setMessages((prev) => [
-                ...prev,
-                {
-                  role: "assistant",
-                  content: "I couldn't hear anything. Please try speaking again or type your message.",
-                },
-              ])
-            }
+            console.error("Speech recognition error:", event.error)
             setIsListening(false)
           }
 
           speechRecognitionRef.current.onend = () => {
             setIsListening(false)
           }
-        } catch (e) {
-          console.error("Error initializing speech recognition:", e)
-        }
-      }
-    }
-
-    return () => {
-      if (speechRecognitionRef.current) {
-        try {
-          speechRecognitionRef.current.abort()
-        } catch (e) {
-          console.error("Error aborting speech recognition:", e)
-        }
-      }
-      if (speechSynthesisRef.current && window.speechSynthesis) {
-        try {
-          window.speechSynthesis.cancel()
-        } catch (e) {
-          console.error("Error canceling speech synthesis:", e)
+        } catch (error) {
+          console.error("Error initializing speech recognition:", error)
         }
       }
     }
   }, [])
 
-  // Function to parse natural language date and time
-  const parseDateTime = (input: string): { date: string; time: string } | null => {
-    try {
-      // Current date for reference
-      const now = new Date()
-      let date = now
-      let hours = 9 // Default to 9 AM
-      let minutes = 0
-
-      // Common time patterns
-      const timePatterns = [
-        {
-          regex: /(\d{1,2})\s*(am|pm)/i,
-          handler: (match: RegExpMatchArray) => {
-            let h = Number.parseInt(match[1])
-            if (match[2].toLowerCase() === "pm" && h < 12) h += 12
-            if (match[2].toLowerCase() === "am" && h === 12) h = 0
-            hours = h
-          },
-        },
-        {
-          regex: /(\d{1,2}):(\d{2})\s*(am|pm)/i,
-          handler: (match: RegExpMatchArray) => {
-            let h = Number.parseInt(match[1])
-            if (match[3].toLowerCase() === "pm" && h < 12) h += 12
-            if (match[3].toLowerCase() === "am" && h === 12) h = 0
-            hours = h
-            minutes = Number.parseInt(match[2])
-          },
-        },
-        {
-          regex: /(\d{1,2})\s*o'clock/i,
-          handler: (match: RegExpMatchArray) => {
-            hours = Number.parseInt(match[1])
-          },
-        },
-        {
-          regex: /morning/i,
-          handler: () => {
-            hours = 9
-          },
-        },
-        {
-          regex: /noon/i,
-          handler: () => {
-            hours = 12
-            minutes = 0
-          },
-        },
-        {
-          regex: /afternoon/i,
-          handler: () => {
-            hours = 14
-          },
-        },
-        {
-          regex: /evening/i,
-          handler: () => {
-            hours = 18
-          },
-        },
-      ]
-
-      // Common date patterns
-      const datePatterns = [
-        {
-          regex: /today/i,
-          handler: () => {
-            date = new Date()
-          },
-        },
-        {
-          regex: /tomorrow/i,
-          handler: () => {
-            date = new Date()
-            date.setDate(date.getDate() + 1)
-          },
-        },
-        {
-          regex: /next\s*(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/i,
-          handler: (match: RegExpMatchArray) => {
-            const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
-            const targetDay = days.indexOf(match[1].toLowerCase())
-            const currentDay = date.getDay()
-            let daysToAdd = targetDay - currentDay
-            if (daysToAdd <= 0) daysToAdd += 7
-            date.setDate(date.getDate() + daysToAdd)
-          },
-        },
-        {
-          regex: /(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/i,
-          handler: (match: RegExpMatchArray) => {
-            const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
-            const targetDay = days.indexOf(match[1].toLowerCase())
-            const currentDay = date.getDay()
-            let daysToAdd = targetDay - currentDay
-            if (daysToAdd <= 0) daysToAdd += 7
-            date.setDate(date.getDate() + daysToAdd)
-          },
-        },
-        {
-          regex: /(\d{1,2})[/-](\d{1,2})(?:[/-](\d{2,4}))?/i,
-          handler: (match: RegExpMatchArray) => {
-            const month = Number.parseInt(match[1]) - 1
-            const day = Number.parseInt(match[2])
-            let year = match[3] ? Number.parseInt(match[3]) : date.getFullYear()
-            if (year < 100) year += 2000
-            date = new Date(year, month, day)
-          },
-        },
-        {
-          regex: /(\d{4})[/-](\d{1,2})[/-](\d{1,2})/i,
-          handler: (match: RegExpMatchArray) => {
-            const year = Number.parseInt(match[1])
-            const month = Number.parseInt(match[2]) - 1
-            const day = Number.parseInt(match[3])
-            date = new Date(year, month, day)
-          },
-        },
-      ]
-
-      // Check for time patterns
-      for (const pattern of timePatterns) {
-        const match = input.match(pattern.regex)
-        if (match) {
-          pattern.handler(match)
-          break
+  // Function to toggle listening
+  const toggleListening = () => {
+    if (isListening) {
+      if (speechRecognitionRef.current) {
+        speechRecognitionRef.current.stop()
+      }
+      setIsListening(false)
+    } else {
+      if (speechRecognitionRef.current) {
+        try {
+          speechRecognitionRef.current.start()
+          setIsListening(true)
+        } catch (error) {
+          console.error("Error starting speech recognition:", error)
+          setIsListening(false)
         }
       }
+    }
+  }
 
-      // Check for date patterns
-      for (const pattern of datePatterns) {
-        const match = input.match(pattern.regex)
-        if (match) {
-          pattern.handler(match)
-          break
-        }
+  // Function to speak a message
+  const speakMessage = (text: string) => {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      // Stop any current speech
+      if (speechSynthesisRef.current) {
+        window.speechSynthesis.cancel()
       }
 
-      // Ensure the date is in the future
-      if (date < now) {
-        if (hours < now.getHours()) {
-          date.setDate(date.getDate() + 1)
-        }
-      }
+      const utterance = new SpeechSynthesisUtterance(text)
+      utterance.rate = 0.9
+      utterance.pitch = 1
+      utterance.volume = 0.8
 
-      // Set the time
-      date.setHours(hours, minutes, 0, 0)
+      utterance.onstart = () => setIsSpeaking(true)
+      utterance.onend = () => setIsSpeaking(false)
+      utterance.onerror = () => setIsSpeaking(false)
 
-      // Format the date and time
-      const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`
-      const formattedTime = `${hours % 12 || 12}:${String(minutes).padStart(2, "0")} ${hours >= 12 ? "PM" : "AM"}`
+      speechSynthesisRef.current = utterance
+      window.speechSynthesis.speak(utterance)
+    }
+  }
 
-      return { date: formattedDate, time: formattedTime }
-    } catch (error) {
-      console.error("Error parsing date/time:", error)
-      return null
+  // Function to stop speaking
+  const stopSpeaking = () => {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel()
+      setIsSpeaking(false)
     }
   }
 
@@ -485,52 +346,47 @@ export default function CustomerServiceTalkbot() {
     }
   }
 
-  // Function to process booking-related user input
+  // Function to process booking input
   const processBookingInput = (userInput: string) => {
     switch (bookingState) {
       case "asking_date_time":
-        // Try to parse natural language date and time
-        const dateTime = parseDateTime(userInput)
-
-        if (dateTime) {
-          setSelectedDate(dateTime.date)
-          setSelectedTime(dateTime.time)
-          checkAvailabilityForDate(dateTime.date, dateTime.time)
+        // Extract date and time from user input
+        const dateTimeMatch = userInput.match(/(\w+)\s+at\s+(\d+(?::\d+)?\s*(?:am|pm)?)/i)
+        if (dateTimeMatch) {
+          const [, dateStr, timeStr] = dateTimeMatch
+          // Convert relative dates to actual dates
+          let actualDate = new Date()
+          if (dateStr.toLowerCase().includes("tomorrow")) {
+            actualDate.setDate(actualDate.getDate() + 1)
+          } else if (dateStr.toLowerCase().includes("next")) {
+            actualDate.setDate(actualDate.getDate() + 7)
+          }
+          const formattedDate = actualDate.toISOString().split("T")[0]
+          setSelectedDate(formattedDate)
+          setSelectedTime(timeStr)
+          checkAvailabilityForDate(formattedDate, timeStr)
         } else {
           setMessages((prev) => [
             ...prev,
             {
               role: "assistant",
               content:
-                "I'm having trouble understanding that date and time. Could you please specify when you'd like to meet? For example, 'tomorrow at 2pm' or 'next Monday at 10am'.",
+                "I didn't understand that format. Could you please specify a date and time? For example: 'tomorrow at 2pm' or 'next Monday at 3pm'.",
             },
           ])
         }
         break
 
       case "asking_email":
-        // Simple email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if (emailRegex.test(userInput)) {
-          setUserEmail(userInput)
-          setMessages((prev) => [
-            ...prev,
-            {
-              role: "assistant",
-              content: "Perfect! What topic would you like to discuss with Shoaib during this session?",
-            },
-          ])
-          setBookingState("asking_topic")
-        } else {
-          setMessages((prev) => [
-            ...prev,
-            {
-              role: "assistant",
-              content:
-                "That doesn't look like a valid email address. Please provide a valid email so we can send you the meeting details.",
-            },
-          ])
-        }
+        setUserEmail(userInput)
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: "Great! What would you like to discuss with Shoaib? (e.g., AI consultation, project discussion, etc.)",
+          },
+        ])
+        setBookingState("asking_topic")
         break
 
       case "asking_topic":
@@ -658,186 +514,6 @@ export default function CustomerServiceTalkbot() {
     }
   }
 
-  // Function to handle real speech recognition
-  const toggleListening = () => {
-    if (isListening) {
-      if (speechRecognitionRef.current) {
-        try {
-          speechRecognitionRef.current.abort()
-        } catch (e) {
-          console.error("Error aborting speech recognition:", e)
-        }
-      }
-      setIsListening(false)
-    } else {
-      setUsedMicrophone(true) // Mark that user has used microphone
-      if (speechRecognitionRef.current) {
-        try {
-          speechRecognitionRef.current.start()
-          setIsListening(true)
-        } catch (error) {
-          console.error("Error starting speech recognition:", error)
-          setMessages((prev) => [
-            ...prev,
-            {
-              role: "assistant",
-              content:
-                "I'm having trouble accessing your microphone. Please check your browser permissions or try typing instead.",
-            },
-          ])
-        }
-      } else {
-        // Fallback if speech recognition is not available
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: "assistant",
-            content: "Speech recognition is not supported in your browser. Please type your message instead.",
-          },
-        ])
-      }
-    }
-  }
-
-  // Function for text-to-speech with improved voice quality
-  const speakMessage = (message: string) => {
-    if ("speechSynthesis" in window) {
-      // If already speaking, stop it
-      if (isSpeaking) {
-        window.speechSynthesis.cancel()
-        setIsSpeaking(false)
-        speechSynthesisRef.current = null
-        return
-      }
-
-      // Cancel any ongoing speech
-      window.speechSynthesis.cancel()
-
-      try {
-        // Create a new utterance
-        const utterance = new SpeechSynthesisUtterance(message)
-        speechSynthesisRef.current = utterance
-
-        // Set properties for better voice quality
-        utterance.lang = "en-US"
-        utterance.rate = 0.9 // Slightly slower for better clarity
-        utterance.pitch = 1.1 // Slightly higher pitch for more natural sound
-        utterance.volume = 1.0 // Maximum volume
-
-        // Get available voices
-        const voices = window.speechSynthesis.getVoices()
-
-        // If no voices are available yet, wait for them to load
-        if (voices.length === 0) {
-          window.speechSynthesis.onvoiceschanged = () => {
-            const allVoices = window.speechSynthesis.getVoices()
-
-            // Try to find a high-quality voice in this order of preference
-            const preferredVoice =
-              allVoices.find((voice) => voice.name.includes("Google") && voice.name.includes("Female")) ||
-              allVoices.find((voice) => voice.name.includes("Samantha")) ||
-              allVoices.find((voice) => voice.name.includes("Google")) ||
-              allVoices.find((voice) => voice.name.includes("Female")) ||
-              allVoices.find((voice) => voice.lang === "en-US" && voice.localService === false) ||
-              allVoices[0] // Fallback to first available voice
-
-            if (preferredVoice) {
-              utterance.voice = preferredVoice
-              console.log("Using voice:", preferredVoice.name)
-            }
-
-            // Speak the message
-            try {
-              // Pre-process the message to improve pronunciation
-              utterance.text = improveTextForSpeech(message)
-
-              window.speechSynthesis.speak(utterance)
-              setIsSpeaking(true)
-            } catch (e) {
-              console.error("Speech synthesis error:", e)
-              setIsSpeaking(false)
-            }
-          }
-        } else {
-          // Try to find a high-quality voice
-          const preferredVoice =
-            voices.find((voice) => voice.name.includes("Google") && voice.name.includes("Female")) ||
-            voices.find((voice) => voice.name.includes("Samantha")) ||
-            voices.find((voice) => voice.name.includes("Google")) ||
-            voices.find((voice) => voice.name.includes("Female")) ||
-            voices.find((voice) => voice.lang === "en-US" && voice.localService === false) ||
-            voices[0] // Fallback to first available voice
-
-          if (preferredVoice) {
-            utterance.voice = preferredVoice
-            console.log("Using voice:", preferredVoice.name)
-          }
-
-          // Pre-process the message to improve pronunciation
-          utterance.text = improveTextForSpeech(message)
-
-          // Speak the message
-          window.speechSynthesis.speak(utterance)
-          setIsSpeaking(true)
-        }
-
-        // Set event handlers
-        utterance.onstart = () => {
-          setIsSpeaking(true)
-        }
-
-        utterance.onend = () => {
-          setIsSpeaking(false)
-          speechSynthesisRef.current = null
-        }
-
-        utterance.onerror = (event) => {
-          console.error("Speech synthesis error:", event)
-          setIsSpeaking(false)
-          speechSynthesisRef.current = null
-        }
-      } catch (e) {
-        console.error("Error initializing speech synthesis:", e)
-        setIsSpeaking(false)
-      }
-    } else {
-      // Fallback for browsers without speech synthesis
-      console.log("Speech synthesis not supported")
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: "Speech synthesis is not supported in your browser.",
-        },
-      ])
-    }
-  }
-
-  // Helper function to improve text for speech synthesis
-  const improveTextForSpeech = (text: string) => {
-    // Replace abbreviations and symbols with full words for better pronunciation
-    let improvedText = text
-      .replace(/AI/g, "A.I.")
-      .replace(/LLM/g, "L.L.M.")
-      .replace(/NLP/g, "N.L.P.")
-      .replace(/API/g, "A.P.I.")
-      .replace(/AWS/g, "A.W.S.")
-      .replace(/UI/g, "U.I.")
-      .replace(/UX/g, "U.X.")
-      .replace(/&/g, " and ")
-      .replace(/\+/g, " plus ")
-      .replace(/-/g, " ")
-      .replace(/\//g, " or ")
-      .replace(/@/g, " at ")
-      .replace(/(\d+):(\d+)/g, "$1 $2") // Improve time pronunciation
-      .replace(/(\d{4})-(\d{2})-(\d{2})/g, "$1 $2 $3") // Improve date pronunciation
-
-    // Add pauses with commas for better rhythm
-    improvedText = improvedText.replace(/\. /g, ". , ").replace(/! /g, "! , ").replace(/\? /g, "? , ")
-
-    return improvedText
-  }
-
   // Handle key press to prevent default Enter behavior
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -855,111 +531,96 @@ export default function CustomerServiceTalkbot() {
   }, [messages])
 
   return (
-    <Card className="w-full max-w-4xl mx-auto shadow-lg dark-glass bg-gray-800/40">
-      <CardHeader className="bg-primary/10 border-b border-gray-700">
+    <Card className="w-full max-w-4xl mx-auto shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 border-gray-700">
+      <CardHeader className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-b border-gray-700">
         <div className="flex items-center gap-3">
-          <div className="relative w-10 h-10 rounded-full overflow-hidden bg-primary/20 flex items-center justify-center">
-            <Image src="/profile-image-new.png" alt="Shoaib Tashrif" width={40} height={40} className="object-cover" />
+          <div className="relative w-12 h-12 rounded-full overflow-hidden bg-white/20 flex items-center justify-center">
+            <Image src="/profile-image-new.png" alt="Shoaib Tashrif" width={48} height={48} className="object-cover" />
           </div>
           <div>
-            <CardTitle className="text-white">Shoaib's Personal Assistant</CardTitle>
-            <CardDescription className="text-gray-300">
+            <CardTitle className="text-white text-lg sm:text-xl">Shoaib's AI Assistant</CardTitle>
+            <CardDescription className="text-gray-200 text-sm">
               Ask me anything about Shoaib's skills and experience
             </CardDescription>
           </div>
         </div>
       </CardHeader>
       <CardContent className="p-0">
-        <div className="flex flex-col h-[400px]">
-          <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 grid-pattern">
+        <div className="flex flex-col h-[500px] sm:h-[600px]">
+          <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-900/50">
             {messages.map((message, index) => (
               <div key={index} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                 {message.content === "booking_widget" ? (
-                  <div className="max-w-[80%] rounded-lg p-3 bg-gray-800/70 text-gray-200">
-                    <p className="mb-2">You can book a session here:</p>
+                  <div className="max-w-[85%] rounded-2xl p-4 bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 text-gray-200">
+                    <p className="mb-3 text-sm">You can book a session here:</p>
                     <div className="flex flex-col sm:flex-row gap-2">
-                      <Button onClick={openCalendlyWidget} className="bg-primary hover:bg-primary/90">
+                      <Button onClick={openCalendlyWidget} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
                         <Calendar className="mr-2 h-4 w-4" />
                         Open Calendly
                       </Button>
                     </div>
                   </div>
-                ) : message.content === "booking_buttons" ? (
-                  <div className="max-w-[80%] rounded-lg p-3 bg-gray-800/70 text-gray-200">
-                    <div className="flex flex-col sm:flex-row gap-2">
-                      <Button onClick={handleBookingRequest} className="bg-primary hover:bg-primary/90">
-                        Book a Session
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          setMessages((prev) => [...prev, { role: "user", content: "No thanks, I'll book later" }])
-                        }
-                        variant="outline"
-                        className="border-gray-700 text-white hover:bg-gray-700"
-                      >
-                        Not Now
-                      </Button>
-                    </div>
-                  </div>
                 ) : (
                   <div
-                    className={`max-w-[80%] rounded-lg p-3 ${
-                      message.role === "user" ? "bg-primary/80 text-white" : "bg-gray-800/70 text-gray-200"
+                    className={`max-w-[85%] rounded-2xl p-4 ${
+                      message.role === "user"
+                        ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
+                        : "bg-gradient-to-r from-gray-800/80 to-gray-700/80 text-gray-200 border border-gray-600/50"
                     }`}
                   >
-                    <p>{message.content}</p>
+                    <div className="flex items-start gap-3">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                        message.role === "user" ? "bg-white/20" : "bg-indigo-600/20"
+                      }`}>
+                        {message.role === "user" ? (
+                          <User className="h-4 w-4 text-white" />
+                        ) : (
+                          <Bot className="h-4 w-4 text-indigo-400" />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm sm:text-base leading-relaxed">{message.content}</p>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="max-w-[80%] rounded-lg p-3 bg-gray-800/70">
-                  <div className="flex space-x-2">
-                    <div className="w-2 h-2 rounded-full bg-primary animate-bounce" />
-                    <div
-                      className="w-2 h-2 rounded-full bg-primary animate-bounce"
-                      style={{ animationDelay: "0.2s" }}
-                    />
-                    <div
-                      className="w-2 h-2 rounded-full bg-primary animate-bounce"
-                      style={{ animationDelay: "0.4s" }}
-                    />
+                <div className="max-w-[85%] rounded-2xl p-4 bg-gradient-to-r from-gray-800/80 to-gray-700/80 border border-gray-600/50">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-indigo-600/20 flex items-center justify-center flex-shrink-0">
+                      <Bot className="h-4 w-4 text-indigo-400" />
+                    </div>
+                    <div className="flex space-x-2">
+                      <div className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce" />
+                      <div
+                        className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce"
+                        style={{ animationDelay: "0.2s" }}
+                      />
+                      <div
+                        className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce"
+                        style={{ animationDelay: "0.4s" }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             )}
-            {apiFailCount > 2 && (
-              <Alert className="bg-amber-900/20 border-amber-800">
-                <AlertCircle className="h-4 w-4 text-amber-500" />
-                <AlertTitle className="text-amber-500">Connection Issues</AlertTitle>
-                <AlertDescription className="text-gray-300 text-sm">
-                  I'm having trouble connecting to my knowledge base. You can still ask questions, but for the best
-                  experience, consider using the booking widget to schedule a call with Shoaib directly.
-                </AlertDescription>
-              </Alert>
-            )}
-            {bookingState === "completed" && (
-              <Alert className="bg-green-900/20 border-green-800">
-                <CheckCircle className="h-4 w-4 text-green-500" />
-                <AlertTitle className="text-green-500">Booking Confirmed</AlertTitle>
-                <AlertDescription className="text-gray-300 text-sm">
-                  Your session with Shoaib has been scheduled. You'll receive a confirmation email shortly.
-                </AlertDescription>
-              </Alert>
-            )}
             <div ref={messagesEndRef} />
           </div>
-          <div className="border-t border-gray-700 p-4 bg-gray-900/50">
-            <form onSubmit={(e) => handleSubmit(e, false)} className="flex items-center gap-2">
+
+          <div className="border-t border-gray-700 p-4 bg-gray-900/80">
+            <form onSubmit={(e) => handleSubmit(e, false)} className="flex items-center gap-3">
               <Button
                 type="button"
                 size="icon"
                 variant={isListening ? "destructive" : "outline"}
-                className="rounded-full bg-gray-800/70 border-gray-700"
+                className="rounded-full bg-gray-800/70 border-gray-600 hover:bg-gray-700 flex-shrink-0"
                 onClick={toggleListening}
               >
-                {isListening ? <StopCircle className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
+                {isListening ? <StopCircle className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
               </Button>
               <Input
                 value={input}
@@ -976,34 +637,34 @@ export default function CustomerServiceTalkbot() {
                           ? "Type 'yes' to confirm"
                           : "Ask about Shoaib's experience or skills..."
                 }
-                className="flex-1 bg-gray-800/50 border-gray-700 text-white placeholder:text-gray-400"
+                className="flex-1 bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400 text-sm sm:text-base rounded-xl"
                 disabled={isLoading || isListening}
               />
               <Button
                 type="submit"
                 size="icon"
-                className="rounded-full bg-primary hover:bg-primary/90"
+                className="rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 flex-shrink-0"
                 disabled={isLoading || input.trim() === ""}
               >
-                <Send className="h-5 w-5" />
+                <Send className="h-4 w-4" />
               </Button>
-              {messages.length > 1 && usedMicrophone && (
+              {messages.length > 1 && (
                 <Button
                   type="button"
                   size="icon"
                   variant="outline"
-                  className={`rounded-full bg-gray-800/70 border-gray-700 ${isSpeaking ? "bg-red-500/20" : ""}`}
+                  className={`rounded-full bg-gray-800/70 border-gray-600 flex-shrink-0 ${isSpeaking ? "bg-red-500/20" : ""}`}
                   onClick={() => speakMessage(messages[messages.length - 1].content)}
                 >
-                  {isSpeaking ? <StopCircle className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+                  {isSpeaking ? <StopCircle className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
                 </Button>
               )}
             </form>
           </div>
         </div>
       </CardContent>
-      <CardFooter className="bg-primary/10 border-t border-gray-700 text-xs text-gray-400">
-        <p>Shoaib's Personal AI Assistant • Ask about skills, experience, or book a session</p>
+      <CardFooter className="bg-gray-900/50 border-t border-gray-700 text-xs text-gray-400">
+        <p>Shoaib's Personal AI Assistant • Powered by AI</p>
       </CardFooter>
     </Card>
   )
