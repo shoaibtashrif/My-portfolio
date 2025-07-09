@@ -8,51 +8,41 @@ export async function POST(req: NextRequest) {
       return Response.json({ response: "Hello! I'm Shoaib's AI assistant. How can I help you today?" })
     }
     
-    const prompt = `You are Shoaib Tashrif's AI assistant. Answer questions about his experience and skills naturally.
-
-About Shoaib:
-- AI Software Engineer with 4+ years experience
-- Worked at Wosler Corp Canada, Valyrian System Inc., PTA
-- Specializes in Voice AI, Conversational AI, Generative AI
-- Built projects like Hilum AI, ControlshiftAI, Intelli Firewall
-- Skills: Python, Langchain, OpenAI GPT, Hugging Face, TensorFlow
-- Contact: shoaib.tashrif@gmail.com, +92 304 0610720
-- Available for AI consulting and project work
-
-User question: ${lastUserMessage.content}
-
-Provide a helpful, natural response about Shoaib's experience, skills, or how to contact him. Keep it conversational and informative.`
+    const prompt = `You are Shoaib Tashrif's AI assistant. Only answer the user's question directly and concisely. Do not provide any extra information or context that is not asked.\n\nUser question: ${lastUserMessage.content}\n\nAnswer:`
 
     // Use a reliable free model - Microsoft DialoGPT
     const hfResponse = await fetch("https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}`,
         "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        inputs: prompt,
-        parameters: {
+          },
+          body: JSON.stringify({
+            inputs: prompt,
+            parameters: {
           max_length: 150,
-          temperature: 0.7,
+              temperature: 0.7,
           do_sample: true
         }
       })
     })
 
+    // Debug log for Hugging Face API response
+    let debugData = null
     if (hfResponse.ok) {
       const data = await hfResponse.json()
+      debugData = data
       let response = ""
       
-      if (Array.isArray(data) && data.length > 0) {
+          if (Array.isArray(data) && data.length > 0) {
         response = data[0].generated_text || data[0].text || ""
       } else if (typeof data === "string") {
         response = data
       } else if (data && typeof data === "object") {
         response = data.generated_text || data.text || ""
-      }
+          }
 
-      // Clean up the response
+          // Clean up the response
       response = response.replace(prompt, "").trim()
       
       // If no meaningful response, provide a fallback
@@ -60,16 +50,16 @@ Provide a helpful, natural response about Shoaib's experience, skills, or how to
         response = getFallbackResponse(lastUserMessage.content)
       }
 
-      return Response.json({ response })
+      return Response.json({ response, debug: debugData })
     } else {
       // Fallback to intelligent responses based on keywords
       const response = getFallbackResponse(lastUserMessage.content)
-      return Response.json({ response })
+      return Response.json({ response, debug: { error: "Hugging Face API failed", status: hfResponse.status } })
     }
   } catch (error) {
     console.error("Chat API error:", error)
     const fallbackResponse = getFallbackResponse("general")
-    return Response.json({ response: fallbackResponse })
+    return Response.json({ response: fallbackResponse, debug: { error: error?.toString() } })
   }
 }
 
