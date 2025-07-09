@@ -11,7 +11,6 @@ export default function HeroSection() {
   const [showCVModal, setShowCVModal] = useState(false)
 
   const handleViewResume = () => {
-    // Open the Google Drive CV in a new tab for viewing
     window.open("https://drive.google.com/file/d/1_oNUYyZjVM-fJSVxxb2QBLvAv3uazt0Z/view?usp=drive_link", "_blank")
   }
 
@@ -20,16 +19,14 @@ export default function HeroSection() {
       {/* Background Effects */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
       <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10" />
-
-      {/* Floating Elements */}
       <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
 
-      <div className="relative z-10 max-w-6xl mx-auto w-full">
-        <div className="flex flex-col items-center justify-center gap-8 sm:gap-12 text-center">
-          {/* Profile Image - Mobile Optimized */}
-          <div className="flex-shrink-0 order-1 relative">
-            <div className="relative">
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left py-8 lg:py-20">
+          {/* Profile Image - Left on Desktop, Top on Mobile */}
+          <div className="flex-shrink-0 order-1 lg:order-1 relative mb-6 lg:mb-0">
+            <div className="relative flex flex-col items-center lg:items-start">
               <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-2xl">
                 <Image
                   src="/profile-image-new.png"
@@ -47,53 +44,39 @@ export default function HeroSection() {
                   Available
                 </Badge>
               </div>
-              {/* Floating Tech Icons - Smaller on Mobile */}
-              <div className="absolute -bottom-2 -left-2 w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-blue-500/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-blue-500/30">
-                <span className="text-sm sm:text-lg md:text-2xl">🤖</span>
-              </div>
-              <div className="absolute -bottom-2 -left-2 w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-purple-500/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-purple-500/30">
-                <span className="text-sm sm:text-lg md:text-2xl">⚡</span>
-              </div>
             </div>
           </div>
 
-          {/* Content - Mobile Optimized */}
-          <div className="flex-1 text-center max-w-2xl mx-auto">
-            {/* Main Heading - Mobile Optimized */}
+          {/* Content - Right on Desktop, Below on Mobile */}
+          <div className="flex-1 max-w-2xl mx-auto order-2 lg:order-2">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
               AI Engineer &{" "}
               <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Innovation Expert
               </span>
             </h1>
-
-            {/* Subheading - Mobile Optimized */}
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 sm:mb-8 leading-relaxed px-2">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 sm:mb-8 leading-relaxed px-2 lg:px-0">
               Transforming businesses with cutting-edge AI solutions, voice agents, and intelligent automation systems.
             </p>
-
-            {/* Key Points - Mobile Optimized Grid */}
             <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
-              <div className="flex items-center justify-center text-gray-300 text-xs sm:text-sm">
+              <div className="flex items-center justify-center lg:justify-start text-gray-300 text-xs sm:text-sm">
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-400 rounded-full mr-2" />
                 4+ Years AI Experience
               </div>
-              <div className="flex items-center justify-center text-gray-300 text-xs sm:text-sm">
+              <div className="flex items-center justify-center lg:justify-start text-gray-300 text-xs sm:text-sm">
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-purple-400 rounded-full mr-2" />
                 10+ Projects Delivered
               </div>
-              <div className="flex items-center justify-center text-gray-300 text-xs sm:text-sm">
+              <div className="flex items-center justify-center lg:justify-start text-gray-300 text-xs sm:text-sm">
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-pink-400 rounded-full mr-2" />
                 Voice AI Specialist
               </div>
-              <div className="flex items-center justify-center text-gray-300 text-xs sm:text-sm">
+              <div className="flex items-center justify-center lg:justify-start text-gray-300 text-xs sm:text-sm">
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full mr-2" />
                 Enterprise Solutions
               </div>
             </div>
-
-            {/* CTA Buttons - Mobile Optimized */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8 justify-center lg:justify-start">
               <Button
                 onClick={handleViewResume}
                 size="lg"
@@ -114,9 +97,7 @@ export default function HeroSection() {
                 <Mail className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
               </Button>
             </div>
-
-            {/* Contact Links - Mobile Optimized */}
-            <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
+            <div className="flex flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start">
               <a
                 href="mailto:shoaib.tashrif@gmail.com"
                 className="flex items-center text-gray-400 hover:text-white transition-colors text-xs sm:text-sm"
@@ -147,8 +128,6 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-
-      {/* CV Modal */}
       <CVModal isOpen={showCVModal} onClose={() => setShowCVModal(false)} />
     </section>
   )
