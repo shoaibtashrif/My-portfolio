@@ -13,7 +13,7 @@ const projects = [
   {
     title: "Hilum AI (Nexus AI Voice Assistant)",
     description:
-      "AI-powered patient management system built for healthcare facilities. Hilum handles intake, calls, and scheduling to reduce costs, enhance patient experience, and streamline operations.",
+      "Voice-to-voice calling AI bot for booking, modification/cancelation of existing booking, customer support, and services inquiry regarding health. Delivered whole functionality of the slots booking, APIs building, pipeline setup, database models and system deployment on AWS (EC2).",
     image: "/hilum-ai-image.png",
     tags: ["Voice AI", "Python", "Langchain", "AWS", "Medical"],
     demoUrl: "https://hilum.wosler.ca/",
@@ -27,15 +27,37 @@ const projects = [
       "A comprehensive AI platform that makes work easy, fast, and reliable. Features dashboard insights, bot management, and extensive guides to help users build and deploy AI assistants efficiently.",
     image: "/controlshift-ai-image.png",
     tags: ["No-Code", "Backend", "API", "AI Agents", "Platform"],
-    demoUrl: "https://controlshiftai.com/",
+    demoUrl: "https://app.controlshiftai.com/auth",
     githubUrl: "private",
     isPrivate: true,
     features: ["No-Code Interface", "AI Agent Builder", "Backend APIs", "User Management"],
   },
   {
+    title: "VoxEnt AI (Multi-lingual AI Talkbot)",
+    description:
+      "SDK to create multi-agent and multilingual chatbots and talkbots. Simplifies conversational AI development, creates custom AI agents, and offers the flexibility to integrate personalized tools on the fly. Deployed on Hyperstack A100.",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=200&fit=crop&auto=format",
+    tags: ["Talkbot", "NLP", "Multi-language", "SDK", "Voice AI"],
+    demoUrl: "#",
+    githubUrl: "private",
+    isPrivate: true,
+    features: ["Multi-language Support", "Custom Integration", "Voice Processing", "Real-time Processing"],
+  },
+  {
+    title: "Cabee (AI Ride Booking)",
+    description:
+      "AI-powered ride booking system used in the UK to book rides through AI calling. Users can book, schedule, and cancel rides seamlessly using natural voice commands.",
+    image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=400&h=200&fit=crop&auto=format",
+    tags: ["Voice AI", "Ride Booking", "AI Calling", "UK Market"],
+    demoUrl: "https://agent.cabex.co.uk/",
+    githubUrl: "private",
+    isPrivate: true,
+    features: ["AI Calling", "Ride Scheduling", "Booking Management", "Voice Interface"],
+  },
+  {
     title: "Intelli Firewall",
     description:
-      "Real-time internet traffic monitoring system with AI-powered rule-based blocking, spam detection, and unknown traffic identification for enhanced cybersecurity.",
+      "Real-time internet traffic monitoring system with AI-powered rule-based blocking, spam detection, and unknown traffic identification for enhanced cybersecurity. Offers controls for monitoring user activity within organizations.",
     image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400&h=200&fit=crop&auto=format",
     tags: ["Cybersecurity", "AI", "Python", "React", "Django"],
     demoUrl: "#",
@@ -44,15 +66,26 @@ const projects = [
     features: ["Real-time Monitoring", "AI Detection", "Rule-based Blocking", "Traffic Analysis"],
   },
   {
-    title: "VoxEnt AI Talkbot",
+    title: "Spammer ID",
     description:
-      "Customizable AI talkbot that can be tailored for any use case. Multi-lingual support with advanced voice processing and contextual understanding for natural conversations.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=200&fit=crop&auto=format",
-    tags: ["Talkbot", "NLP", "Multi-language", "Customizable", "Voice AI"],
+      "AI-based Voice recognition system to identify persons by their voice. Helps in detection of spammer voices based on unique voice features.",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=200&fit=crop&auto=format",
+    tags: ["Voice Recognition", "AI", "Python", "Linux", "LLM"],
     demoUrl: "#",
     githubUrl: "private",
     isPrivate: true,
-    features: ["Multi-language Support", "Custom Integration", "Voice Processing", "Real-time Processing"],
+    features: ["Voice Identification", "Spammer Detection", "Feature Extraction", "Security"],
+  },
+  {
+    title: "Howkeye-100",
+    description:
+      "Internet traffic management system responsible for URL classification through AI. Handles backend processing for efficient traffic analysis and categorization.",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=200&fit=crop&auto=format",
+    tags: ["Traffic Management", "AI Classification", "Python", "Node.js"],
+    demoUrl: "#",
+    githubUrl: "private",
+    isPrivate: true,
+    features: ["URL Classification", "Traffic Management", "Backend Processing", "AI Analysis"],
   },
 ]
 

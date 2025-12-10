@@ -523,10 +523,22 @@ export default function CustomerServiceTalkbot() {
   }
 
   // Auto-scroll to bottom when messages change
+  const isFirstRender = useRef(true)
+
   useEffect(() => {
-    if (messagesEndRef.current && chatContainerRef.current) {
-      // Use scrollIntoView with block: "nearest" to prevent page scrolling
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" })
+    // Skip scroll on first render
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
+
+    if (chatContainerRef.current) {
+      // Use scrollTop to scroll the container ONLY, not the whole page
+      const { scrollHeight, clientHeight } = chatContainerRef.current
+      chatContainerRef.current.scrollTo({
+        top: scrollHeight - clientHeight,
+        behavior: "smooth",
+      })
     }
   }, [messages])
 
@@ -562,16 +574,14 @@ export default function CustomerServiceTalkbot() {
                   </div>
                 ) : (
                   <div
-                    className={`max-w-[85%] rounded-2xl p-4 ${
-                      message.role === "user"
-                        ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
-                        : "bg-gradient-to-r from-gray-800/80 to-gray-700/80 text-gray-200 border border-gray-600/50"
-                    }`}
+                    className={`max-w-[85%] rounded-2xl p-4 ${message.role === "user"
+                      ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
+                      : "bg-gradient-to-r from-gray-800/80 to-gray-700/80 text-gray-200 border border-gray-600/50"
+                      }`}
                   >
                     <div className="flex items-start gap-3">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        message.role === "user" ? "bg-white/20" : "bg-indigo-600/20"
-                      }`}>
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.role === "user" ? "bg-white/20" : "bg-indigo-600/20"
+                        }`}>
                         {message.role === "user" ? (
                           <User className="h-4 w-4 text-white" />
                         ) : (

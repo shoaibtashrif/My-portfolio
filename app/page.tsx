@@ -4,7 +4,6 @@ import ProjectsSection from "@/components/projects-section"
 import WorkProcessSection from "@/components/work-process-section"
 import DemoSection from "@/components/demo-section"
 import ContactSection from "@/components/contact-section"
-import DynamicCalendlyWidget from "@/components/dynamic-calendly-widget"
 
 export default function Home() {
   return (
@@ -15,7 +14,6 @@ export default function Home() {
       <WorkProcessSection />
       <DemoSection />
       <ContactSection />
-      <DynamicCalendlyWidget />
     </main>
   )
 }

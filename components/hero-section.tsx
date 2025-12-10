@@ -11,7 +11,7 @@ export default function HeroSection() {
   const [showCVModal, setShowCVModal] = useState(false)
 
   const handleViewResume = () => {
-    window.open("https://drive.google.com/file/d/1_oNUYyZjVM-fJSVxxb2QBLvAv3uazt0Z/view?usp=drive_link", "_blank")
+    window.open("/Shoaib_Tashrif-AI_ENGINEER.pdf", "_blank")
   }
 
   return (
