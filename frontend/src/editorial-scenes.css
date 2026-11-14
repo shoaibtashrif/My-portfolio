@@ -1,0 +1,745 @@
+/* Route-specific compositions. Home keeps its approved portrait treatment. */
+.ea-scene-hero {
+  overflow: clip;
+  padding-block: 62px 78px;
+}
+.ea-scene-hero .ea-page-hero-grid {
+  grid-template-columns: 1fr 1fr;
+  gap: 58px;
+}
+.ea-scene-hero .ea-page-hero-grid > * {
+  min-width: 0;
+}
+.ea-scene-hero h1 {
+  font-size: clamp(3rem, 4.65vw, 4.7rem);
+}
+.ea-scene-rule {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, #0284c7 0 70px, #c8d9e6 70px);
+  margin: 0 0 28px;
+  transform-origin: left;
+}
+.ea-hero-scene {
+  position: relative;
+  margin: 0;
+  padding: 28px 0 56px 20px;
+  isolation: isolate;
+}
+.ea-scene-plane {
+  position: absolute;
+  z-index: -1;
+  inset: 0 28px 55px 0;
+  background: #0284c7;
+  transform-origin: bottom left;
+}
+.ea-scene-window {
+  position: relative;
+  overflow: hidden;
+  background: #dceaf3;
+}
+.ea-scene-hero .ea-scene-window img {
+  display: block;
+  width: 100%;
+  height: 430px;
+  object-fit: cover;
+  border-radius: 0;
+  object-position: 50% center;
+}
+.ea-scene-caption {
+  position: relative;
+  margin: -45px 25px 0 -20px;
+  padding: 24px 50px 24px 24px;
+  background: #fff;
+  box-shadow: 0 10px 30px #0b203f12;
+  border-left: 4px solid #0284c7;
+}
+.ea-scene-caption strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 1.8vw, 1.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  color: #0a1930;
+}
+.ea-scene-index {
+  display: block;
+  font-size: 0.61rem;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  font-weight: 650;
+  color: #41647a;
+  margin-bottom: 9px;
+}
+.ea-scene-caption > svg {
+  position: absolute;
+  right: 18px;
+  bottom: 26px;
+  color: #0284c7;
+}
+.ea-scene-credit {
+  position: absolute;
+  bottom: 22px;
+  left: 24px;
+  color: #617588;
+  font-size: 0.57rem;
+}
+.ea-scene-individuals .ea-scene-plane {
+  border-radius: 100px 4px 4px 4px;
+  transform: rotate(-4deg);
+}
+.ea-scene-individuals .ea-scene-window {
+  border-radius: 100px 4px 45px 4px;
+}
+.ea-individuals .ea-page-hero {
+  background: linear-gradient(90deg, #fff 0 58%, #eef6fb 58%);
+}
+/* Organizations: a wider, architectural frame on navy, with a blue title band. */
+.ea-organizations .ea-scene-hero {
+  background: #070d1e;
+}
+.public-site .ea-organizations .ea-scene-hero h1 {
+  color: #fff;
+}
+.ea-organizations .ea-scene-hero .blue-text {
+  color: #50c6ff;
+}
+.public-site .ea-organizations .ea-scene-hero p {
+  color: #c7d4e3;
+}
+.ea-organizations .ea-scene-hero .eyebrow {
+  color: #70d0ff;
+}
+.ea-organizations .ea-scene-hero .ea-hero-note {
+  color: #a9bdd0;
+}
+.ea-organizations .ea-scene-rule {
+  background: linear-gradient(90deg, #38bdf8 0 70px, #30445c 70px);
+}
+.ea-scene-organizations {
+  padding: 40px 0 60px 0;
+}
+.ea-scene-organizations .ea-scene-plane {
+  inset: 10px -20px 100px 45px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 86%);
+}
+.ea-scene-organizations .ea-scene-window {
+  clip-path: polygon(0 0, 91% 0, 100% 12%, 100% 100%, 0 100%);
+}
+.ea-scene-organizations .ea-scene-window img {
+  height: 410px;
+  object-position: 40% center;
+}
+.ea-scene-organizations .ea-scene-caption {
+  margin: -38px -10px 0 40px;
+  background: #0284c7;
+  border-left: 0;
+  padding: 25px 48px 25px 25px;
+}
+.ea-scene-organizations .ea-scene-caption strong,
+.ea-scene-organizations .ea-scene-index,
+.ea-scene-organizations .ea-scene-caption > svg {
+  color: #fff;
+}
+.ea-scene-organizations .ea-scene-credit {
+  color: #a9bdd0;
+  left: 40px;
+}
+/* About: the terrace portrait, with a tall open arch and personal signature card. */
+.ea-about-authentic .ea-scene-hero {
+  background: #f2f7fb;
+}
+.ea-about-authentic .ea-page-hero-grid > .ea-hero-scene {
+  padding: 10px 25px 56px 25px;
+}
+.ea-about-authentic .ea-page-hero-grid > .ea-hero-scene::before {
+  content: none;
+}
+.ea-scene-about .ea-scene-plane {
+  inset: 48px 0 95px 0;
+  border-radius: 180px 180px 3px 3px;
+  transform: rotate(4deg);
+}
+.ea-scene-about .ea-scene-window {
+  border-radius: 180px 180px 3px 3px;
+}
+.ea-about-authentic .ea-scene-window img {
+  height: 490px;
+  object-position: 54% center;
+  border-radius: 0;
+}
+.ea-scene-about .ea-scene-caption {
+  margin: -34px -25px 0 20px;
+}
+.ea-scene-about .ea-scene-credit {
+  left: 48px;
+}
+/* Insights and Contact: editorial typography paired with rising graphic panels. */
+.ea-editorial-hero {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  align-items: center;
+  gap: 65px;
+  padding-block: 62px 58px;
+}
+.ea-editorial-hero .ea-page-heading {
+  padding: 0;
+  min-width: 0;
+}
+.ea-editorial-hero h1 {
+  font-size: clamp(2.8rem, 4.55vw, 4.4rem);
+}
+.ea-editorial-hero .ea-page-heading > p {
+  max-width: 530px;
+}
+.ea-editorial-tile {
+  background: #0284c7;
+  color: #fff;
+  padding: 28px 30px;
+  position: relative;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.ea-tile-insights {
+  border-radius: 4px 4px 75px 4px;
+}
+.ea-tile-kicker {
+  font-size: 0.61rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  position: absolute;
+  top: 28px;
+  left: 30px;
+  right: 20px;
+}
+.ea-editorial-tile > svg {
+  position: absolute;
+  top: 60px;
+  right: 24px;
+}
+.public-site .ea-editorial-tile p {
+  font-family: var(--font-heading);
+  color: #fff;
+  font-size: clamp(1.6rem, 2.4vw, 2.5rem);
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  margin: 110px 0 20px;
+}
+.ea-tile-line {
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: #ffffff80;
+  transform-origin: left;
+  margin-bottom: 16px;
+}
+.ea-tile-footer {
+  font-size: 0.69rem;
+  line-height: 1.6;
+}
+.ea-tile-contact {
+  background: #0a1930;
+  border-top: 10px solid #0284c7;
+  border-radius: 55px 4px 4px 4px;
+}
+.ea-tile-contact > svg {
+  color: #50c6ff;
+  top: 55px;
+}
+.ea-contact-page .ea-editorial-hero {
+  grid-template-columns: 1.4fr 1fr;
+}
+/* Supporting photography is an editorial beat, separate from the service lists. */
+.ea-people-story {
+  background: #edf5fa;
+}
+.ea-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 85px;
+  align-items: center;
+}
+.ea-story-photo {
+  margin: 0;
+  min-width: 0;
+  position: relative;
+}
+.ea-story-window {
+  overflow: hidden;
+  border-radius: 3px;
+}
+.ea-story-window img {
+  display: block;
+  width: 100%;
+  height: 460px;
+  object-fit: cover;
+}
+.ea-story-photo figcaption {
+  font-size: 0.65rem;
+  color: #445d72;
+  padding-block: 18px 0;
+  border-bottom: 1px solid #bbd0df;
+  padding-bottom: 15px;
+  line-height: 1.6;
+}
+.ea-story-copy p {
+  margin-block: 22px 30px;
+  max-width: 470px;
+}
+.ea-story-copy h2 {
+  font-size: clamp(2.1rem, 3.7vw, 3.7rem);
+}
+.ea-story-individuals .ea-story-photo {
+  max-width: 430px;
+  margin-left: 35px;
+}
+.ea-story-individuals .ea-story-window {
+  border-radius: 100px 3px 3px 3px;
+}
+.ea-story-individuals .ea-story-window img {
+  object-position: center 42%;
+  height: 510px;
+}
+.ea-story-organizations {
+  background: #fff;
+}
+.ea-story-organizations .ea-story-grid {
+  grid-template-columns: 1fr 1.2fr;
+}
+.ea-story-organizations .ea-story-photo {
+  order: 2;
+}
+.ea-story-organizations .ea-story-window img {
+  object-position: 85% center;
+  height: 420px;
+}
+.ea-story-contact .ea-story-grid {
+  grid-template-columns: 400px 1fr;
+  max-width: 1080px;
+}
+.ea-story-contact .ea-story-window img {
+  height: auto;
+  aspect-ratio: 1;
+}
+/* Original sports scenes have their own moments, separated by philosophy and values. */
+.ea-running-story {
+  background: #eef5fa;
+}
+.ea-sport-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  align-items: center;
+  gap: 100px;
+  max-width: 1080px;
+}
+.ea-sport-copy h2 {
+  font-size: clamp(2.3rem, 4vw, 4rem);
+}
+.ea-sport-copy > p {
+  max-width: 365px;
+}
+.ea-sport-story-line {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: #b8cedd;
+  margin: 30px 0;
+  transform-origin: left;
+}
+.public-site .ea-sport-big-note {
+  color: #0a1930;
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.4;
+  margin-top: 28px;
+}
+.ea-sport-story .ea-sport-photo {
+  margin: 0;
+}
+.ea-sport-story .ea-sport-frame {
+  border-radius: 3px;
+}
+.ea-running-story .ea-sport-frame {
+  aspect-ratio: 444 / 572;
+}
+.ea-sport-source {
+  display: block;
+  font-size: 0.55rem;
+  color: #5e7285;
+  margin-top: 14px;
+}
+.ea-cycling-story {
+  background: #070d1e;
+}
+.public-site .ea-cycling-story h2,
+.public-site .ea-cycling-story .ea-section-heading p {
+  color: #fff;
+}
+.ea-cycling-story .eyebrow {
+  color: #50c6ff;
+}
+.ea-cycling-story .ea-section-heading::after {
+  background: linear-gradient(90deg, #38bdf8 0 90px, #30445c 90px);
+}
+.ea-cycling-story .ea-sport-photo {
+  position: relative;
+}
+.ea-cycling-story .ea-sport-frame {
+  aspect-ratio: 1600 / 1065;
+  max-width: 940px;
+}
+.ea-cycling-story .ea-sport-frame img {
+  object-fit: contain;
+}
+.ea-cycling-story .ea-sport-photo figcaption {
+  position: relative;
+  margin: -65px 0 0 auto;
+  width: 380px;
+  max-width: 90%;
+  background: #0284c7;
+  padding: 28px 32px;
+}
+.ea-cycling-story .ea-sport-photo figcaption > span,
+.ea-cycling-story .ea-sport-photo figcaption > strong {
+  color: #fff;
+}
+.ea-cycling-story .ea-sport-photo figcaption > strong {
+  font-size: 2rem;
+  line-height: 1.18;
+}
+.public-site .ea-cycling-story .ea-sport-credit {
+  color: #a9bdd0;
+}
+.ea-resource-with-photo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0;
+  overflow: hidden;
+  gap: 0;
+}
+.ea-resource-with-photo > img {
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  object-fit: cover;
+}
+.ea-resource-with-photo > div {
+  padding: 40px;
+}
+.ea-resource-with-photo .ea-button {
+  margin-top: 24px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ea-scene-hero .ea-page-hero-grid > * {
+    animation: none;
+  }
+  .ea-motion-ready .ea-scene-hero .ea-page-hero-grid > [data-reveal] {
+    transform: none;
+  }
+  .ea-scene-hero .ea-scene-rule,
+  .ea-editorial-hero .ea-scene-rule {
+    animation: ea-rule-draw 1.25s 0.2s ease both;
+  }
+  .ea-motion-ready .ea-hero-scene.ea-in-view .ea-scene-plane {
+    animation: ea-scene-plane-rise 1.15s 0.12s cubic-bezier(0.16, 1, 0.3, 1)
+      both;
+  }
+  .ea-motion-ready .ea-hero-scene.ea-in-view .ea-scene-window {
+    animation: ea-portrait-unmask 1.25s 0.25s cubic-bezier(0.22, 0.61, 0.36, 1)
+      both;
+  }
+  .ea-motion-ready .ea-hero-scene.ea-in-view .ea-scene-window img {
+    animation: ea-photo-settle 1.6s 0.3s ease both;
+  }
+  .ea-motion-ready .ea-hero-scene.ea-in-view .ea-scene-caption {
+    animation: ea-rise 0.8s 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .ea-motion-ready .ea-editorial-tile.ea-in-view {
+    animation: ea-tile-rise 1.1s 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .ea-motion-ready .ea-editorial-tile.ea-in-view > svg {
+    animation: ea-rise 0.85s 0.55s ease both;
+  }
+  .ea-motion-ready .ea-editorial-tile.ea-in-view .ea-tile-line,
+  .ea-motion-ready .ea-sport-copy.ea-in-view .ea-sport-story-line {
+    animation: ea-rule-draw 1.15s 0.4s ease both;
+  }
+  .ea-motion-ready .ea-story-photo.ea-in-view .ea-story-window {
+    animation: ea-portrait-unmask 1.1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+  .ea-motion-ready .ea-cycling-story .ea-sport-photo.ea-in-view figcaption {
+    animation: ea-tile-rise 1s 0.4s ease both;
+  }
+  .ea-motion-ready .ea-keyboard-visible,
+  .ea-motion-ready .ea-keyboard-visible * {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ea-scene-plane-rise {
+  from {
+    opacity: 0;
+    translate: 0 95px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@media (max-width: 1100px) {
+  .ea-scene-hero .ea-page-hero-grid {
+    gap: 35px;
+  }
+  .ea-scene-hero h1 {
+    font-size: clamp(2.8rem, 4.6vw, 4rem);
+  }
+  .ea-scene-hero .ea-scene-window img {
+    height: 390px;
+  }
+  .ea-about-authentic .ea-scene-window img {
+    height: 450px;
+  }
+  .ea-editorial-hero {
+    gap: 35px;
+  }
+  .ea-editorial-tile {
+    padding-inline: 24px;
+  }
+  .ea-story-grid {
+    gap: 45px;
+  }
+  .ea-sport-story-grid {
+    gap: 60px;
+  }
+}
+@media (max-width: 800px) {
+  .ea-scene-hero {
+    padding-block: 44px 42px;
+  }
+  .ea-scene-hero .ea-page-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+  .ea-scene-hero h1 {
+    font-size: clamp(2.8rem, 7.2vw, 4rem);
+  }
+  .ea-scene-hero .ea-page-hero-grid > div {
+    max-width: 620px;
+  }
+  .ea-hero-scene {
+    width: 100%;
+    max-width: 600px;
+    justify-self: center;
+  }
+  .ea-scene-hero .ea-scene-window img {
+    height: auto;
+    aspect-ratio: 1.35;
+  }
+  .ea-scene-about {
+    max-width: 500px;
+  }
+  .ea-about-authentic .ea-scene-window img {
+    aspect-ratio: 1;
+  }
+  .ea-individuals .ea-page-hero {
+    background: #f2f7fb;
+  }
+  .ea-editorial-hero,
+  .ea-contact-page .ea-editorial-hero {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-block: 40px;
+  }
+  .ea-editorial-hero h1 {
+    font-size: clamp(2.6rem, 6.5vw, 3.8rem);
+  }
+  .ea-editorial-tile {
+    min-height: 230px;
+    padding: 26px;
+  }
+  .ea-tile-kicker {
+    left: 26px;
+    top: 25px;
+  }
+  .ea-editorial-tile > svg {
+    top: 65px;
+    right: 30px;
+    width: 54px;
+    height: 54px;
+  }
+  .public-site .ea-editorial-tile p {
+    font-size: 2rem;
+    margin-top: 40px;
+    padding-right: 60px;
+  }
+  .ea-story-grid,
+  .ea-story-organizations .ea-story-grid,
+  .ea-story-contact .ea-story-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .ea-story-photo,
+  .ea-story-individuals .ea-story-photo {
+    width: 100%;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+  .ea-story-organizations .ea-story-photo {
+    order: 0;
+    max-width: 100%;
+  }
+  .ea-story-contact .ea-story-photo {
+    max-width: 400px;
+  }
+  .ea-story-individuals .ea-story-window img {
+    height: 420px;
+  }
+  .ea-story-copy p {
+    max-width: 600px;
+  }
+  .ea-sport-story-grid {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+  .ea-running-story .ea-sport-photo {
+    max-width: 450px;
+    width: 100%;
+    margin-inline: auto;
+  }
+  .ea-sport-copy h2 {
+    font-size: clamp(2.4rem, 6vw, 3.3rem);
+  }
+  .ea-sport-copy > p {
+    max-width: 520px;
+  }
+  .ea-cycling-story .ea-sport-photo figcaption {
+    width: 340px;
+    padding: 24px;
+    margin-top: -30px;
+  }
+  .ea-cycling-story .ea-sport-photo figcaption > strong {
+    font-size: 1.6rem;
+  }
+  .ea-resource-with-photo {
+    grid-template-columns: 1fr;
+  }
+  .ea-resource-with-photo > img {
+    height: 230px;
+    min-height: 0;
+  }
+}
+@media (max-width: 480px) {
+  .ea-scene-hero {
+    padding-block: 30px;
+  }
+  .ea-scene-hero h1 {
+    font-size: clamp(2.5rem, 10vw, 3rem);
+  }
+  .ea-scene-rule {
+    margin-bottom: 22px;
+  }
+  .ea-hero-scene {
+    padding: 18px 0 48px 13px;
+  }
+  .ea-scene-individuals .ea-scene-window,
+  .ea-scene-individuals .ea-scene-plane {
+    border-top-left-radius: 65px;
+  }
+  .ea-scene-caption {
+    margin: -25px 10px 0 -13px;
+    padding: 18px 42px 18px 17px;
+  }
+  .ea-scene-index {
+    font-size: 0.55rem;
+    letter-spacing: 0.03em;
+  }
+  .ea-scene-caption strong {
+    font-size: 1.25rem;
+  }
+  .ea-scene-caption > svg {
+    width: 20px;
+    right: 14px;
+    bottom: 20px;
+  }
+  .ea-scene-credit {
+    left: 3px;
+    bottom: 17px;
+    font-size: 0.5rem;
+  }
+  .ea-scene-organizations {
+    padding: 24px 0 48px;
+  }
+  .ea-scene-organizations .ea-scene-plane {
+    inset: 0 -9px 70px 30px;
+  }
+  .ea-scene-organizations .ea-scene-caption {
+    margin: -25px 0 0 15px;
+    padding: 20px 40px 20px 18px;
+  }
+  .ea-scene-organizations .ea-scene-credit {
+    left: 15px;
+  }
+  .ea-about-authentic .ea-page-hero-grid > .ea-hero-scene {
+    padding: 8px 12px 48px;
+  }
+  .ea-scene-about .ea-scene-window {
+    border-radius: 120px 120px 3px 3px;
+  }
+  .ea-scene-about .ea-scene-plane {
+    inset: 40px 0 80px;
+    border-radius: 130px 130px 3px 3px;
+  }
+  .ea-scene-about .ea-scene-caption {
+    margin: -28px -12px 0 10px;
+  }
+  .ea-scene-about .ea-scene-credit {
+    left: 22px;
+  }
+  .ea-editorial-hero h1 {
+    font-size: clamp(2.2rem, 8.8vw, 3rem);
+  }
+  .ea-editorial-tile {
+    min-height: 235px;
+  }
+  .public-site .ea-editorial-tile p {
+    font-size: 1.6rem;
+  }
+  .ea-editorial-tile > svg {
+    width: 38px;
+    right: 22px;
+  }
+  .ea-story-individuals .ea-story-window img {
+    height: 370px;
+  }
+  .ea-story-organizations .ea-story-window img {
+    height: 280px;
+  }
+  .ea-resource-with-photo > div {
+    padding: 25px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ea-scene-hero *,
+  .ea-editorial-hero *,
+  .ea-people-story *,
+  .ea-sport-story * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media print {
+  .ea-hero-scene *,
+  .ea-editorial-hero *,
+  .ea-people-story *,
+  .ea-sport-story * {
+    animation: none !important;
+    opacity: 1 !important;
+    translate: none !important;
+  }
+}

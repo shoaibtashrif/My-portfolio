@@ -1,0 +1,1078 @@
+/* ==========================================================================
+   EXECUTIVE ALLY — ADMIN WORKSPACE DESIGN SYSTEM
+   Website-Matched Executive Blue & Deep Navy Theme
+   ========================================================================== */
+
+.ea-admin-shell {
+  --admin-bg: #F4F7FB;
+  --admin-surface: #FFFFFF;
+  --admin-surface-blue: #F4F7FB;
+  --admin-border: #D7E2EE;
+  --admin-border-strong: #B6CBE0;
+  --admin-navy: #070D1E;
+  --admin-text: #070D1E;
+  --admin-text-secondary: #1E3A5F;
+  --admin-text-muted: #475569;
+  --admin-blue: #0284C7;
+  --admin-blue-hover: #0369A1;
+  --admin-blue-soft: #E0F2FE;
+  --admin-success-bg: #dcfce7;
+  --admin-success-text: #15803d;
+  --admin-success-border: #86efac;
+  --admin-warn-bg: #fef3c7;
+  --admin-warn-text: #b45309;
+  --admin-warn-border: #fcd34d;
+  --admin-danger-bg: #fee2e2;
+  --admin-danger-text: #b91c1c;
+  --admin-danger-border: #fca5a5;
+
+  display: flex;
+  height: calc(100vh - 80px);
+  overflow: hidden;
+  background: #F4F7FB;
+  color: var(--admin-text);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Deep Website Navy Static Fixed Sidebar */
+.ea-admin-sidebar {
+  width: 256px;
+  flex-shrink: 0;
+  background: #070D1E;
+  border-right: 1px solid rgba(2, 132, 199, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  bottom: 0;
+  z-index: 40;
+  padding: 1.35rem 1rem 1.15rem;
+  box-sizing: border-box;
+  color: #ffffff;
+  box-shadow: 4px 0 24px rgba(10, 25, 48, 0.14);
+}
+
+.ea-admin-nav-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.ea-admin-brand {
+  padding: 0 0.75rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  margin-bottom: 1rem;
+}
+
+.ea-admin-brand-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #38bdf8;
+  margin-bottom: 0.25rem;
+}
+
+.ea-admin-brand-title {
+  font-family: "Archivo", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.ea-admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.ea-admin-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.68rem 0.9rem;
+  border-radius: 9px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: rgba(226, 238, 252, 0.84);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.16s ease;
+}
+
+.ea-admin-nav-btn:hover {
+  background-color: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+}
+
+.ea-admin-nav-btn.is-active {
+  background: #0284C7;
+  border-color: #0284C7;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.ea-admin-nav-count {
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.12rem 0.5rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.14);
+  color: #e0f2fe;
+}
+
+.ea-admin-nav-btn.is-active .ea-admin-nav-count {
+  background-color: #ffffff;
+  color: #007fbe;
+}
+
+.ea-admin-sidebar-footer {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.ea-admin-sidebar-footer .ea-btn-secondary {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.ea-admin-sidebar-footer .ea-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+.ea-admin-sidebar-footer .ea-btn-ghost {
+  color: #bae6fd;
+}
+
+.ea-admin-sidebar-footer .ea-btn-ghost:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+/* Main Content: Slim Sticky Header + Scrollable Body Below */
+.ea-admin-main {
+  flex: 1;
+  min-width: 0;
+  margin-left: 256px;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0.85rem 1.5rem 0;
+  box-sizing: border-box;
+}
+
+.ea-admin-topbar {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+  padding: 0.55rem 1.15rem;
+  background: #070D1E;
+  border: 1px solid rgba(2, 132, 199, 0.35);
+  border-radius: 10px;
+  color: #ffffff;
+}
+
+.ea-admin-page-title {
+  font-family: "Archivo", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.ea-admin-page-sub {
+  font-size: 0.78rem;
+  color: #bae6fd;
+  margin: 0.1rem 0 0;
+}
+
+.ea-admin-scroll-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 1.5rem;
+  padding-right: 4px;
+}
+
+/* Hide all inner scrollbars visually (still scrollable via wheel/touch), keep only 1 sleek main scrollbar */
+.ea-admin-shell * {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.ea-admin-shell *::-webkit-scrollbar {
+  display: none;
+}
+
+.ea-admin-scroll-body {
+  scrollbar-width: thin !important;
+  scrollbar-color: #0284c7 rgba(10, 25, 48, 0.08) !important;
+}
+
+.ea-admin-scroll-body::-webkit-scrollbar {
+  display: block !important;
+  width: 7px;
+  height: 7px;
+}
+
+.ea-admin-scroll-body::-webkit-scrollbar-track {
+  background: rgba(10, 25, 48, 0.07);
+  border-radius: 999px;
+}
+
+.ea-admin-scroll-body::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #0ea5e9 0%, #0369a1 100%);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ea-admin-scroll-body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+}
+
+/* Cards & Tables (Website Solid Colors Only — No Shades/Orbs) */
+.ea-admin-card,
+.ea-admin-card-dark {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #D7E2EE;
+  border-radius: 12px;
+  color: #070D1E;
+  box-shadow: 0 4px 14px rgba(7, 13, 30, 0.05);
+}
+
+.ea-admin-main {
+  position: relative;
+  isolation: isolate;
+}
+
+.ea-admin-main::before,
+.ea-admin-main::after {
+  display: none;
+}
+
+.ea-admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.ea-admin-stat {
+  background: linear-gradient(135deg, #0b294a 0%, #064b7c 65%, #007fbe 100%);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 6px 18px rgba(10, 25, 48, 0.12);
+}
+
+.ea-admin-stat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 127, 190, 0.24);
+}
+
+.ea-admin-stat-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #bae6fd;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ea-admin-stat-value {
+  font-family: "Archivo", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 0.25rem;
+}
+
+.ea-admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.ea-admin-table th {
+  padding: 0.85rem 1.15rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #e0f2fe;
+  background-color: #0d2b4e;
+  border-bottom: 1px solid var(--admin-border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: 0 2px 6px rgba(10, 25, 48, 0.25);
+}
+
+.ea-admin-table td {
+  padding: 0.85rem 1.05rem;
+  border-bottom: 1px solid #e3edf8;
+  background-color: rgba(255, 255, 255, 0.6);
+  vertical-align: middle;
+}
+
+.ea-admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.ea-admin-table tbody tr:hover td {
+  background-color: #eef6fe;
+}
+
+/* Buttons */
+.ea-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.ea-btn-primary {
+  background: #0284C7;
+  color: #ffffff;
+}
+
+.ea-btn-primary:hover {
+  background: #0369A1;
+}
+
+.ea-btn-secondary {
+  background-color: #ffffff;
+  color: var(--admin-navy);
+  border-color: var(--admin-border-strong);
+}
+
+.ea-btn-secondary:hover {
+  background-color: #eef6fd;
+  border-color: var(--admin-blue);
+}
+
+.ea-btn-ghost {
+  background-color: transparent;
+  color: var(--admin-text-secondary);
+}
+
+.ea-btn-ghost:hover {
+  background-color: var(--admin-blue-soft);
+  color: var(--admin-navy);
+}
+
+.ea-btn-sm {
+  padding: 0.38rem 0.75rem;
+  font-size: 0.8rem;
+  border-radius: 6px;
+}
+
+/* Badges */
+.ea-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.ea-badge-blue {
+  background-color: var(--admin-blue-soft);
+  color: #0369a1;
+  border-color: #bae6fd;
+}
+
+.ea-badge-green {
+  background-color: var(--admin-success-bg);
+  color: var(--admin-success-text);
+  border-color: var(--admin-success-border);
+}
+
+.ea-badge-amber {
+  background-color: var(--admin-warn-bg);
+  color: var(--admin-warn-text);
+  border-color: var(--admin-warn-border);
+}
+
+.ea-badge-slate {
+  background-color: #f1f5f9;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+
+.ea-badge-red {
+  background-color: var(--admin-danger-bg);
+  color: var(--admin-danger-text);
+  border-color: var(--admin-danger-border);
+}
+
+/* Inputs & Selects */
+.ea-input,
+.ea-select,
+.ea-textarea {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  background-color: #ffffff;
+  border: 1px solid var(--admin-border-strong);
+  border-radius: 8px;
+  color: var(--admin-navy);
+  font-size: 0.875rem;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.ea-input:focus,
+.ea-select:focus,
+.ea-textarea:focus {
+  outline: none;
+  border-color: var(--admin-blue);
+  box-shadow: 0 0 0 3px rgba(0, 127, 190, 0.16);
+}
+
+/* Action Dropdown Menu */
+.ea-action-menu-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.ea-action-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  min-width: 215px;
+  background: #ffffff;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  box-shadow: 0 12px 28px -5px rgba(10, 25, 48, 0.18);
+  padding: 0.35rem;
+  z-index: 60;
+}
+
+.ea-action-dropdown-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.52rem 0.75rem;
+  border: none;
+  background: transparent;
+  color: var(--admin-navy);
+  font-size: 0.825rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.ea-action-dropdown-item:hover {
+  background-color: var(--admin-blue-soft);
+  color: var(--admin-blue);
+}
+
+/* Modals */
+.ea-admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(10, 25, 48, 0.58);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1.25rem;
+}
+
+.ea-admin-modal {
+  background-color: #ffffff;
+  border: 1px solid var(--admin-border);
+  border-radius: 14px;
+  box-shadow: 0 25px 50px -12px rgba(10, 25, 48, 0.28);
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 1.75rem;
+  color: var(--admin-navy);
+  position: relative;
+}
+
+/* Animations for Overview & Charts */
+@keyframes eaFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes eaBarGrow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes eaBarSlide {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes eaLineDraw {
+  from {
+    stroke-dashoffset: 1200;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.ea-animate-in {
+  animation: eaFadeUp 0.35s ease-out both;
+}
+
+.ea-chart-bar {
+  transform-origin: bottom;
+  animation: eaBarGrow 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ea-chart-hbar {
+  transform-origin: left;
+  animation: eaBarSlide 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ea-chart-line {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: eaLineDraw 1.1s ease-out forwards;
+}
+
+/* Google Calendar-style Grid */
+.ea-gcal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-top: 1px solid var(--admin-border);
+  border-left: 1px solid var(--admin-border);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.ea-gcal-dow {
+  background-color: #0a1930;
+  color: #e0f2fe;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.6rem 0.5rem;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ea-gcal-cell {
+  min-height: 112px;
+  padding: 0.5rem;
+  border-right: 1px solid #c9ddf0;
+  border-bottom: 1px solid #c9ddf0;
+  background-color: #f3f8fe;
+  cursor: pointer;
+  transition: background-color 0.14s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ea-gcal-cell:hover:not(.is-past) {
+  background-color: #e2effc;
+}
+
+.ea-gcal-cell.is-past {
+  background-color: #e6eef6;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ea-gcal-cell.is-blocked {
+  background-color: #fdeeee;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #fdeeee,
+    #fdeeee 6px,
+    #f9dede 6px,
+    #f9dede 12px
+  );
+}
+
+.ea-gcal-cell.is-today {
+  background-color: #e1f0fd;
+  box-shadow: inset 0 0 0 2px #007fbe;
+}
+
+/* Google Calendar-Style Executive Blue Time Grid (Week & Day views) */
+.ea-gcal-workspace {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.ea-gcal-mini {
+  background: #070D1E;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(2, 132, 199, 0.28);
+}
+
+.ea-gcal-timegrid-wrap {
+  background-color: #FFFFFF;
+  border: 1px solid #D7E2EE;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ea-gcal-timegrid-head {
+  display: grid;
+  background: #070D1E;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(2, 132, 199, 0.28);
+}
+
+.ea-gcal-timegrid-row {
+  display: grid;
+  border-bottom: 1px solid #d4e4f4;
+  min-height: 52px;
+}
+
+.ea-gcal-timegrid-row:last-child {
+  border-bottom: none;
+}
+
+.ea-gcal-time-gutter {
+  padding: 0.45rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #3e5b7a;
+  background-color: #e3eef9;
+  border-right: 1px solid #c4daf0;
+  text-align: right;
+}
+
+.ea-gcal-time-cell {
+  padding: 0.3rem 0.4rem;
+  border-right: 1px solid #d4e4f4;
+  background-color: #f4f9fe;
+  cursor: pointer;
+  transition: background-color 0.12s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.ea-gcal-time-cell:last-child {
+  border-right: none;
+}
+
+.ea-gcal-time-cell:hover:not(.is-past) {
+  background-color: #dff0fc;
+}
+
+.ea-gcal-time-cell.is-past {
+  background-color: #e4edf6;
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.ea-gcal-time-cell.is-off {
+  background-color: #e8f0f8;
+}
+
+.ea-gcal-notavail-chip {
+  background-color: #dc2626;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.22rem 0.45rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.25);
+}
+
+.ea-gcal-slot-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.18rem 0.4rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ea-gcal-slot-booked,
+.ea-gcal-slot-reserved,
+.ea-gcal-slot-blocked {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+/* Mobile Responsive */
+@media (max-width: 960px) {
+  .ea-admin-shell {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+  .ea-admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+    padding: 1rem;
+  }
+  .ea-admin-main {
+    margin-left: 0;
+    height: auto;
+    overflow: visible;
+    padding: 1.15rem;
+  }
+  .ea-admin-scroll-body {
+    overflow: visible;
+  }
+  .ea-gcal-workspace {
+    grid-template-columns: 1fr;
+  }
+  .ea-admin-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0.35rem;
+  }
+  .ea-admin-nav-btn {
+    width: auto;
+    white-space: nowrap;
+  }
+  .ea-admin-sidebar-footer {
+    display: none;
+  }
+  .ea-admin-main {
+    padding: 1.15rem;
+  }
+  .ea-gcal-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .ea-gcal-dow {
+    display: none;
+  }
+}
+
+
+/* =====================================================================
+   Admin Theme Toggle (Sun / Moon) — admin panel only
+   ===================================================================== */
+.ea-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.ea-theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: rotate(-12deg);
+}
+
+/* =====================================================================
+   DARK (WEBSITE NAVY) THEME — Exact website #070D1E / #0E172C / #0284C7, no shades
+   ===================================================================== */
+.ea-admin-shell.ea-theme-dark {
+  --admin-text: #F8FAFC;
+  --admin-text-secondary: #CBD5E1;
+  --admin-navy: #F8FAFC;
+  --admin-border: rgba(2, 132, 199, 0.28);
+  --admin-border-strong: rgba(2, 132, 199, 0.45);
+  --admin-blue-soft: rgba(2, 132, 199, 0.18);
+  background: #070D1E;
+  color: var(--admin-text);
+}
+
+.ea-theme-dark .ea-admin-topbar {
+  background: #0E172C;
+  border: 1px solid rgba(2, 132, 199, 0.35);
+}
+
+/* Cards / Sections — Solid Website Surface Navy */
+.ea-theme-dark .ea-admin-card,
+.ea-theme-dark .ea-admin-card-dark {
+  background: #0E172C;
+  border: 1px solid rgba(2, 132, 199, 0.28);
+  color: #F8FAFC;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+}
+
+/* Tables */
+.ea-theme-dark .ea-admin-table th {
+  background-color: #070D1E;
+  color: #38BDF8;
+  border-bottom: 1px solid rgba(2, 132, 199, 0.3);
+}
+
+.ea-theme-dark .ea-admin-table td {
+  background-color: #0E172C;
+  border-bottom: 1px solid rgba(2, 132, 199, 0.16);
+  color: #E2E8F0;
+}
+
+.ea-theme-dark .ea-admin-table tbody tr:hover td {
+  background-color: #13203B;
+}
+
+/* Buttons, Inputs, Badges, Menus, Modals */
+.ea-theme-dark .ea-admin-scroll-body .ea-btn-secondary,
+.ea-theme-dark .ea-admin-modal .ea-btn-secondary {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(125, 211, 252, 0.35);
+  color: #e0f2fe;
+}
+
+.ea-theme-dark .ea-admin-scroll-body .ea-btn-secondary:hover,
+.ea-theme-dark .ea-admin-modal .ea-btn-secondary:hover {
+  background-color: rgba(56, 189, 248, 0.16);
+}
+
+.ea-theme-dark .ea-btn-ghost {
+  color: #bae6fd;
+}
+
+.ea-theme-dark .ea-input,
+.ea-theme-dark .ea-select,
+.ea-theme-dark .ea-textarea,
+.ea-theme-dark input:not([type="checkbox"]):not([type="radio"]),
+.ea-theme-dark select,
+.ea-theme-dark textarea {
+  background-color: #0b2342 !important;
+  border-color: rgba(125, 211, 252, 0.3) !important;
+  color: #e6f0fa !important;
+  color-scheme: dark;
+}
+
+.ea-theme-dark select option,
+.ea-theme-dark select optgroup {
+  background-color: #0b2342 !important;
+  color: #e6f0fa !important;
+}
+
+.ea-theme-dark .ea-badge-blue {
+  background-color: rgba(56, 189, 248, 0.16);
+  color: #7dd3fc;
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.ea-theme-dark .ea-badge-slate {
+  background-color: rgba(148, 163, 184, 0.16);
+  color: #cbd5e1;
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+.ea-theme-dark .ea-action-dropdown,
+.ea-theme-dark .ea-admin-modal {
+  background-color: #0c2340;
+  border-color: rgba(125, 211, 252, 0.22);
+  color: #e6f0fa;
+}
+
+.ea-theme-dark .ea-action-dropdown-item {
+  color: #e0f2fe;
+}
+
+.ea-theme-dark .ea-action-dropdown-item:hover {
+  background-color: rgba(56, 189, 248, 0.16);
+  color: #7dd3fc;
+}
+
+/* Inline dark text colors -> light text (overrides React inline styles) */
+.ea-theme-dark [style*="color: rgb(7, 27, 51)"],
+.ea-theme-dark [style*="color: rgb(10, 25, 48)"],
+.ea-theme-dark [style*="color: rgb(15, 23, 42)"],
+.ea-theme-dark [style*="color: rgb(30, 41, 59)"],
+.ea-theme-dark [style*="color: rgb(30, 58, 95)"] {
+  color: #f1f6fc !important;
+}
+
+.ea-theme-dark [style*="color: rgb(51, 65, 85)"],
+.ea-theme-dark [style*="color: rgb(39, 67, 99)"],
+.ea-theme-dark [style*="color: rgb(71, 85, 105)"],
+.ea-theme-dark [style*="color: rgb(100, 116, 139)"],
+.ea-theme-dark [style*="color: rgb(83, 97, 116)"],
+.ea-theme-dark [style*="color: rgb(53, 88, 128)"] {
+  color: #a9c2dd !important;
+}
+
+.ea-theme-dark [style*="color: rgb(2, 92, 142)"],
+.ea-theme-dark [style*="color: rgb(0, 127, 190)"],
+.ea-theme-dark [style*="color: rgb(3, 105, 161)"] {
+  color: #7dd3fc !important;
+}
+
+/* Inline light backgrounds -> navy surfaces */
+.ea-theme-dark .ea-admin-scroll-body [style*="background-color: rgb(255, 255, 255)"],
+.ea-theme-dark .ea-admin-scroll-body [style*="background: rgb(255, 255, 255)"],
+.ea-theme-dark [style*="background-color: rgb(248, 250, 252)"],
+.ea-theme-dark [style*="background: rgb(243, 248, 254)"],
+.ea-theme-dark [style*="background: rgb(227, 239, 251)"],
+.ea-theme-dark [style*="background-color: rgb(227, 239, 251)"] {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(125, 211, 252, 0.18) !important;
+}
+
+.ea-theme-dark [style*="background: rgba(10, 25, 48"],
+.ea-theme-dark [style*="background-color: rgba(10, 25, 48"] {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #bae6fd;
+}
+
+.ea-theme-dark [style*="border-bottom: 1px solid rgb(181, 210, 236)"],
+.ea-theme-dark [style*="border-bottom: 1px solid rgb(224, 230, 237)"] {
+  border-bottom-color: rgba(125, 211, 252, 0.14) !important;
+}
+
+/* SVG chart labels & gridlines */
+.ea-theme-dark svg [fill="#475569"],
+.ea-theme-dark svg [fill="#64748b"],
+.ea-theme-dark svg [fill="#94a3b8"] {
+  fill: #93c5fd;
+}
+
+.ea-theme-dark svg [stroke="rgba(10,25,48,0.12)"] {
+  stroke: rgba(148, 197, 253, 0.16);
+}
+
+.ea-theme-dark svg circle[stroke="#ffffff"] {
+  stroke: #0a1f3d;
+}
+
+/* Google-style Calendar */
+/* Google-style Calendar — Exact Website Navy (#070D1E / #0E172C / #0284C7) */
+.ea-theme-dark .ea-gcal-mini {
+  background-color: #0E172C;
+  border-color: rgba(2, 132, 199, 0.28);
+}
+
+.ea-theme-dark .ea-gcal-grid,
+.ea-theme-dark .ea-gcal-timegrid-wrap {
+  background-color: #0E172C;
+  border-color: rgba(2, 132, 199, 0.28);
+}
+
+.ea-theme-dark .ea-gcal-dow,
+.ea-theme-dark .ea-gcal-timegrid-head {
+  background-color: #070D1E;
+  border-bottom-color: rgba(2, 132, 199, 0.28);
+}
+
+.ea-theme-dark .ea-gcal-cell,
+.ea-theme-dark .ea-gcal-time-cell {
+  background-color: #0E172C;
+  border-color: rgba(2, 132, 199, 0.16);
+  color: #F8FAFC;
+}
+
+.ea-theme-dark .ea-gcal-cell:hover:not(.is-past),
+.ea-theme-dark .ea-gcal-time-cell:hover:not(.is-past) {
+  background-color: #13203B;
+}
+
+.ea-theme-dark .ea-gcal-cell.is-past,
+.ea-theme-dark .ea-gcal-time-cell.is-past {
+  background-color: #070D1E;
+}
+
+.ea-theme-dark .ea-gcal-time-cell.is-off {
+  background-color: #0A1226;
+}
+
+.ea-theme-dark .ea-gcal-cell.is-today {
+  background-color: #13203B;
+}
+
+.ea-theme-dark .ea-gcal-timegrid-row {
+  border-bottom-color: rgba(2, 132, 199, 0.16);
+}
+
+.ea-theme-dark .ea-gcal-time-gutter {
+  background-color: #070D1E;
+  color: #93C5FD;
+  border-right-color: rgba(2, 132, 199, 0.22);
+}
+
+.ea-theme-dark .ea-gcal-cell.is-blocked {
+  background-color: #3a1420;
+  background-image: repeating-linear-gradient(-45deg, #3a1420, #3a1420 6px, #4a1826 6px, #4a1826 12px);
+}
+
+/* Main scrollbar in dark */
+.ea-theme-dark .ea-admin-scroll-body {
+  scrollbar-color: #38bdf8 rgba(255, 255, 255, 0.06) !important;
+}
+
+.ea-theme-dark .ea-admin-scroll-body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Topbar secondary button (e.g. Connect Calendar) — visible in dark mode */
+.ea-theme-dark .ea-admin-topbar .ea-btn-secondary {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+
+.ea-theme-dark .ea-admin-topbar .ea-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+}

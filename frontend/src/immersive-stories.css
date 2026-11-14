@@ -1,0 +1,353 @@
+/* Immersive story and people moment layouts */
+
+.ea-people-moment {
+  padding-block: 72px 84px;
+  background: #f4f8fb;
+  border-top: 1px solid #e1ecf3;
+  border-bottom: 1px solid #e1ecf3;
+  overflow: clip;
+}
+
+.ea-moment-stage {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.ea-moment-organizations .ea-moment-stage {
+  grid-template-columns: 1fr 1.15fr;
+}
+
+.ea-moment-organizations .ea-moment-photo {
+  order: 2;
+}
+
+.ea-moment-organizations .ea-moment-copy {
+  order: 1;
+}
+
+.ea-moment-photo {
+  position: relative;
+  margin: 0;
+}
+
+.ea-moment-window {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #dceaf3;
+  box-shadow: 0 16px 40px rgba(11, 32, 63, 0.08);
+}
+
+.ea-moment-window img {
+  display: block;
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ea-moment-photo:hover .ea-moment-window img {
+  transform: scale(1.02);
+}
+
+.ea-moment-photo figcaption {
+  margin-top: 14px;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: #526f84;
+  font-weight: 500;
+}
+
+.ea-moment-copy {
+  min-width: 0;
+}
+
+.ea-moment-copy .eyebrow {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #0284c7;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.ea-moment-copy h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.1rem, 3.4vw, 3.4rem);
+  line-height: 1.14;
+  letter-spacing: -0.035em;
+  color: #0a1930;
+  margin: 0 0 18px;
+}
+
+.ea-moment-copy h2 span {
+  color: #0284c7;
+}
+
+.ea-moment-line {
+  display: block;
+  width: 54px;
+  height: 2px;
+  background: #0284c7;
+  margin: 20px 0;
+}
+
+.ea-moment-copy p {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: #334e68;
+  max-width: 520px;
+  margin: 0;
+}
+
+/* Contact moments section */
+.ea-contact-moments {
+  background: #ffffff;
+  border-top: 1px solid #e5edf4;
+}
+
+.ea-contact-moments-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 52px;
+  margin-top: 44px;
+  align-items: start;
+}
+
+.ea-contact-listening .ea-moment-window img {
+  height: 420px;
+}
+
+.ea-contact-listening figcaption,
+.ea-contact-connection figcaption {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ea-contact-listening figcaption span,
+.ea-contact-connection figcaption span {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0284c7;
+  font-weight: 700;
+}
+
+.ea-contact-listening figcaption strong,
+.ea-contact-connection figcaption strong {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  line-height: 1.25;
+  color: #0a1930;
+  font-weight: 600;
+}
+
+.ea-contact-connection-story {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.ea-contact-connection-story .ea-moment-copy p {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: #334e68;
+  margin-bottom: 18px;
+}
+
+.ea-contact-connection .ea-moment-window img {
+  height: 260px;
+}
+
+.ea-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #0284c7;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.15s ease;
+}
+
+.ea-text-link:hover {
+  color: #0369a1;
+}
+
+/* Running section immersive stage */
+.ea-running-immersive {
+  background: #f8fafc;
+  padding-block: 68px 84px;
+}
+
+.ea-running-stage {
+  align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .ea-moment-stage,
+  .ea-moment-organizations .ea-moment-stage {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .ea-moment-organizations .ea-moment-photo {
+    order: 0;
+  }
+
+  .ea-moment-organizations .ea-moment-copy {
+    order: 1;
+  }
+
+  .ea-contact-moments-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .ea-moment-window img,
+  .ea-contact-listening .ea-moment-window img {
+    height: 340px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ea-people-moment {
+    padding-block: 48px 56px;
+  }
+
+  .ea-moment-window img,
+  .ea-contact-listening .ea-moment-window img {
+    height: 260px;
+  }
+
+  .ea-contact-connection .ea-moment-window img {
+    height: 200px;
+  }
+}
+
+/* Restore editorial photography without replacing Scott's approved page copy. */
+.ea-section-with-photo {
+  --story-paper: #fff;
+}
+.ea-section-with-photo.ea-programs {
+  --story-paper: #f3f7fb;
+}
+.ea-integrated-photo {
+  margin: 32px 0 0;
+}
+.ea-integrated-photo .ea-moment-window {
+  border-radius: 64px 4px 0 0;
+  box-shadow: none;
+  background: transparent;
+}
+.ea-integrated-photo .ea-moment-window::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 72%,
+    var(--story-paper, #fff) 100%
+  );
+}
+.ea-integrated-photo .ea-moment-window img {
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.ea-contact-page .ea-process {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.ea-contact-page .ea-process .ea-integrated-photo {
+  margin: 0 0 24px;
+}
+.ea-insight-photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 40px 3px 0 0;
+  margin-bottom: 22px;
+}
+.ea-insight-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.5;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+.ea-insight-card:hover .ea-insight-photo img {
+  transform: scale(1.035);
+}
+
+/* Preserve the entire original race scene; dissolve the frame into its paper. */
+.public-site .ea-running-immersive {
+  background: #f8fafc;
+}
+.ea-running-immersive .ea-sport-running .ea-sport-frame {
+  position: relative;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  overflow: visible;
+}
+.ea-running-immersive .ea-sport-running .ea-sport-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transform: none;
+}
+.ea-running-immersive .ea-sport-running .ea-sport-frame::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      #f8fafc 0%,
+      transparent 13%,
+      transparent 90%,
+      #f8fafc 100%
+    ),
+    linear-gradient(
+      180deg,
+      #f8fafc 0%,
+      transparent 8%,
+      transparent 87%,
+      #f8fafc 100%
+    );
+}
+.ea-running-immersive .ea-sport-running figcaption {
+  position: relative;
+  margin-top: -8px;
+  padding-inline: 30px;
+}
+@media (max-width: 700px) {
+  .ea-contact-page .ea-process {
+    grid-template-columns: 1fr;
+  }
+  .ea-integrated-photo .ea-moment-window {
+    border-top-left-radius: 44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ea-insight-photo img {
+    transition: none;
+  }
+  .ea-insight-card:hover .ea-insight-photo img {
+    transform: none;
+  }
+}
