@@ -1,4 +1,5 @@
 import { FormEvent, useRef, useState } from 'react';
+import { apiUrl } from '../config/api';
 import {
   Bot,
   Calendar,
@@ -127,7 +128,7 @@ export default function AssistantDemoPage() {
     setStatusNote('Thinking with Gemini 3.8...');
 
     try {
-      const res = await fetch('/api/assistant/chat', {
+      const res = await fetch(apiUrl('/api/assistant/chat'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -194,7 +195,7 @@ export default function AssistantDemoPage() {
           setStatusNote('Understanding voice & generating reply...');
 
           try {
-            const res = await fetch('/api/assistant/voice', {
+            const res = await fetch(apiUrl('/api/assistant/voice'), {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({

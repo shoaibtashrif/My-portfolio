@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Bot, Calendar, Loader2, MessageSquare, Mic, MicOff, Phone, PhoneOff, Send, X } from 'lucide-react';
 import { useVoiceCall } from '../hooks/useVoiceCall';
 import { PORTFOLIO_PROFILE } from '../data/portfolioData';
+import { apiUrl } from '../config/api';
 import './assistant.css';
 
 type Message = { role: 'user' | 'assistant'; content: string; calendlyUrl?: string };
@@ -41,7 +42,7 @@ export default function FloatingAssistantWidget() {
     setInput('');
     setLoading(true);
     try {
-      const response = await fetch('/api/assistant/chat', {
+      const response = await fetch(apiUrl('/api/assistant/chat'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text, history }),

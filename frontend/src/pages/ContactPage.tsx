@@ -3,6 +3,7 @@ import { ArrowUpRight, Calendar, CheckCircle2, Send } from 'lucide-react';
 import { HeroScene } from '../components/EditorialScenes';
 import { RevealText } from '../components/RevealText';
 import { PORTFOLIO_PROFILE } from '../data/portfolioData';
+import { apiUrl } from '../config/api';
 
 export default function ContactPage() {
   const [name, setName] = useState('');
@@ -23,7 +24,7 @@ export default function ContactPage() {
     setSubmitting(true);
 
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch(apiUrl('/api/contact'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

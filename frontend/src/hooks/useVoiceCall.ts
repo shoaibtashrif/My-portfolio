@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { voiceWsUrl } from '../config/api';
 
 export type VoiceCallStatus =
   | 'idle'
@@ -199,8 +200,7 @@ export function useVoiceCall(
         captureNode.connect(silentGain);
         silentGain.connect(audioContext.destination);
 
-        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        const wsUrl = `${protocol}//${window.location.host}/api/v1/voice`;
+        const wsUrl = voiceWsUrl();
         const socket = new WebSocket(wsUrl);
         socket.binaryType = 'arraybuffer';
         socketRef.current = socket;
