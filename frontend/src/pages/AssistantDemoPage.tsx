@@ -12,6 +12,7 @@ import {
   VolumeX,
 } from 'lucide-react';
 import { PORTFOLIO_PROFILE } from '../data/portfolioData';
+import ChatMessageText from '../components/ChatMessageText';
 
 interface Message {
   role: 'user' | 'model';
@@ -125,14 +126,18 @@ export default function AssistantDemoPage() {
     setMessages(nextMessages);
     setInput('');
     setLoading(true);
-    setStatusNote('Thinking with Gemini 3.8...');
+    setStatusNote('Replying...');
 
     try {
       const res = await fetch(apiUrl('/api/assistant/chat'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: nextMessages.map((m) => ({ role: m.role, text: m.text })),
+          message: trimmed,
+          history: messages.map((m) => ({
+            role: m.role === 'model' ? 'assistant' : 'user',
+            content: m.text,
+          })),
         }),
       });
       const data = await res.json();
@@ -265,7 +270,7 @@ export default function AssistantDemoPage() {
             <div>
               <span className="eyebrow" style={{ marginBottom: 10 }}>
                 <Bot size={14} />
-                Gemini 3.8 Multilingual Voice &amp; Chat
+                Shoaib AI Multilingual Voice &amp; Chat
               </span>
               <h1 style={{ fontSize: 'clamp(1.9rem, 3.4vw, 2.7rem)', fontWeight: 800 }}>
                 Shoaib&apos;s Personal AI Assistant
@@ -365,7 +370,7 @@ export default function AssistantDemoPage() {
                       whiteSpace: 'pre-wrap',
                     }}
                   >
-                    <div>{m.text}</div>
+                    {m.role === 'model' ? <ChatMessageText text={m.text} /> : <div>{m.text}</div>}
                     {m.bookingSubmitted && (
                       <div
                         style={{

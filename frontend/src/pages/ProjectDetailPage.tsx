@@ -968,373 +968,1056 @@ export default function ProjectDetailPage() {
               </button>
             </div>
 
-            {/* 4 REALISTIC IPHONE 16 PRO MOBILE BODIES WITH SCROLLING APP FEEDS */}
+            {/* 4 AUTHENTIC MOBILE APP SCREENSHOTS IN IPHONE 16 PRO BODIES (INSTAGRAM, YOUTUBE, TIKTOK, FACEBOOK) */}
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(245px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(255px, 1fr))',
                 gap: 24,
                 alignItems: 'stretch',
               }}
             >
-              {[
-                {
-                  platform: 'Instagram',
-                  handle: '@shoaib.ai.studio',
-                  badgeBg: 'linear-gradient(135deg, #f58529, #dd2a7b, #8134af)',
-                  headerBg: '#121212',
-                  accent: '#e1306c',
-                  speed: '16s',
-                  stories: ['AI Reels', 'n8n Bot', 'Viral', 'Clients'],
-                  posts: [
-                    {
-                      tag: 'INSTAGRAM REEL · AUTO-PUBLISHED',
-                      title: 'Autonomous AI Agent builds & schedules 30 Reels in 4 mins ⚡',
-                      stats: '❤️ 14.8K Likes · 💬 642 Comments · 🚀 98.4% Reach',
-                      img: '/images/social-automation.png',
-                    },
-                    {
-                      tag: 'CAROUSEL POST · AI GENERATED',
-                      title: 'How LangGraph + ElevenLabs automates faceless Instagram channels',
-                      stats: '❤️ 9.2K Likes · 💬 318 Comments · 🔖 2.1K Saves',
-                      img: '/images/ai-tech-hero-visual.png',
-                    },
-                    {
-                      tag: 'INSTAGRAM STORY + REEL SYNC',
-                      title: 'Zero-touch captioning, trending audio & auto-DM lead funnel',
-                      stats: '❤️ 19.4K Likes · 💬 890 Comments · 📈 +310% Growth',
-                      img: '/images/social-phones-showcase.jpg',
-                    },
-                  ],
-                  navIcons: ['🏠', '🔍', '➕', '🎬', '👤'],
-                },
-                {
-                  platform: 'YouTube',
-                  handle: 'Shoaib AI Automation · 120K',
-                  badgeBg: 'linear-gradient(135deg, #ff0000, #b30000)',
-                  headerBg: '#0f0f0f',
-                  accent: '#ff0000',
-                  speed: '19s',
-                  stories: ['All', 'Shorts', 'AI Agents', 'Podcasts'],
-                  posts: [
-                    {
-                      tag: 'YOUTUBE SHORT · 4K 60FPS',
-                      title: 'Full Multi-Platform AI Pipeline: Prompt → Voiceover → YouTube Short',
-                      stats: '👁️ 248K Views · 👍 18K Likes · 🔔 +1,420 Subs',
-                      img: '/images/social-phones-showcase.jpg',
-                    },
-                    {
-                      tag: 'LONG-FORM + SHORTS CLIPPER',
-                      title: 'Building an Autonomous 24/7 YouTube Channel with Python & FFmpeg',
-                      stats: '👁️ 112K Views · 👍 9.4K Likes · 💬 740 Comments',
-                      img: '/images/architecture-pipeline-visual.png',
-                    },
-                    {
-                      tag: 'YOUTUBE ANALYTICS · API',
-                      title: 'Auto-A/B Thumbnail & Title Optimizer triggered via YouTube Data API v3',
-                      stats: '👁️ 84K Views · 👍 6.9K Likes · 📈 CTR 11.8%',
-                      img: '/images/social-automation.png',
-                    },
-                  ],
-                  navIcons: ['🏠', '⚡ Shorts', '➕', '📺 Subs', '📚 You'],
-                },
-                {
-                  platform: 'TikTok',
-                  handle: '@aiautomation.engine',
-                  badgeBg: 'linear-gradient(135deg, #00f2fe, #fe0979)',
-                  headerBg: '#090909',
-                  accent: '#00f2fe',
-                  speed: '14s',
-                  stories: ['Following', 'For You', 'AI Viral', 'Live'],
-                  posts: [
-                    {
-                      tag: 'FOR YOU PAGE · TRENDING SOUND',
-                      title: 'POV: Your AI Agent posts 4x/day on TikTok while you sleep 🤖🔥',
-                      stats: '❤️ 62.5K · 💬 1,940 · 🔁 8,410 Shares',
-                      img: '/images/ai-tech-hero-visual.png',
-                    },
-                    {
-                      tag: 'TIKTOK SERIES · AUTO-CAPTIONED',
-                      title: 'Word-by-word kinetic subtitles + neural clone voice rendered in 12s',
-                      stats: '❤️ 41.2K · 💬 980 · 🔖 11.3K Bookmarks',
-                      img: '/images/social-phones-showcase.jpg',
-                    },
-                    {
-                      tag: 'VIRAL HOOK GENERATOR',
-                      title: 'GPT-4o analyzes top 1% TikTok hooks & renders custom B-roll',
-                      stats: '❤️ 88.9K · 💬 3,120 · 🚀 1.1M Plays',
-                      img: '/images/social-automation.png',
-                    },
-                  ],
-                  navIcons: ['🏠 Home', '🧭 Friends', '➕', '📥 Inbox', '👤 Profile'],
-                },
-                {
-                  platform: 'Facebook',
-                  handle: 'AI Growth Page · Verified',
-                  badgeBg: 'linear-gradient(135deg, #1877f2, #0c5dc7)',
-                  headerBg: '#18191a',
-                  accent: '#1877f2',
-                  speed: '18s',
-                  stories: ['Reels', 'Stories', 'Groups', 'Watch'],
-                  posts: [
-                    {
-                      tag: 'FACEBOOK WATCH & REELS',
-                      title: 'Cross-posted HD Reel + Automated Comment Responder & Messenger Bot',
-                      stats: '👍❤️ 12.4K Reactions · 💬 530 Comments · ↗️ 1.8K Shares',
-                      img: '/images/social-automation.png',
-                    },
-                    {
-                      tag: 'META GRAPH API AUTOMATION',
-                      title: 'Instant lead capture from Facebook comments straight into CRM',
-                      stats: '👍🔥 8.7K Reactions · 💬 412 Comments · ↗️ 920 Shares',
-                      img: '/images/social-phones-showcase.jpg',
-                    },
-                    {
-                      tag: 'MULTI-PAGE SCHEDULER',
-                      title: 'Simultaneous publishing across 15+ client Facebook & Instagram pages',
-                      stats: '👍❤️ 21.3K Reactions · 💬 1.1K Comments · 📈 99.98% Uptime',
-                      img: '/images/architecture-pipeline-visual.png',
-                    },
-                  ],
-                  navIcons: ['🏠', '🎬 Watch', '🏪', '🔔', '☰'],
-                },
-              ].map((phone) => (
+              {/* PHONE 1: REAL INSTAGRAM MOBILE APP FEED */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div
-                  key={phone.platform}
                   style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
+                    marginBottom: 12,
+                    padding: '6px 16px',
+                    borderRadius: 999,
+                    background: 'linear-gradient(135deg, #f58529, #dd2a7b, #8134af)',
+                    color: '#ffffff',
+                    fontSize: 12.5,
+                    fontWeight: 800,
+                    boxShadow: '0 8px 20px rgba(0,0,0,0.35)',
                   }}
                 >
-                  {/* Platform Top Pill */}
+                  Instagram · Live App Feed
+                </div>
+                <div
+                  style={{
+                    width: '100%',
+                    maxWidth: 285,
+                    height: 550,
+                    borderRadius: 42,
+                    padding: 11,
+                    background: 'linear-gradient(145deg, #334155 0%, #0f172a 50%, #1e293b 100%)',
+                    boxShadow: '0 26px 60px rgba(0, 0, 0, 0.65), inset 0 0 0 2px rgba(255,255,255,0.18)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                >
                   <div
                     style={{
-                      marginBottom: 12,
-                      padding: '6px 16px',
-                      borderRadius: 999,
-                      background: phone.badgeBg,
-                      color: '#ffffff',
-                      fontSize: 12.5,
-                      fontWeight: 800,
-                      letterSpacing: '0.03em',
-                      boxShadow: '0 8px 20px rgba(0,0,0,0.35)',
-                    }}
-                  >
-                    {phone.platform} · Live Mobile Feed
-                  </div>
-
-                  {/* Realistic iPhone 16 Pro Titanium Bezel Body */}
-                  <div
-                    style={{
-                      width: '100%',
-                      maxWidth: 285,
-                      height: 540,
-                      borderRadius: 42,
-                      padding: 11,
-                      background: 'linear-gradient(145deg, #334155 0%, #0f172a 50%, #1e293b 100%)',
-                      boxShadow: '0 26px 60px rgba(0, 0, 0, 0.65), inset 0 0 0 2px rgba(255,255,255,0.18)',
-                      position: 'relative',
+                      flex: 1,
+                      borderRadius: 32,
+                      background: '#ffffff',
+                      color: '#111827',
+                      overflow: 'hidden',
                       display: 'flex',
                       flexDirection: 'column',
                     }}
                   >
-                    {/* Inner OLED Screen */}
+                    {/* iOS Top Bar */}
                     <div
                       style={{
-                        flex: 1,
-                        borderRadius: 32,
-                        background: phone.headerBg,
-                        overflow: 'hidden',
+                        padding: '8px 16px 4px',
                         display: 'flex',
-                        flexDirection: 'column',
-                        position: 'relative',
-                        border: '1px solid rgba(255,255,255,0.08)',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        fontSize: 10.5,
+                        fontWeight: 800,
+                        color: '#0f172a',
+                        background: '#ffffff',
+                        zIndex: 3,
                       }}
                     >
-                      {/* iOS Status Bar + Dynamic Island */}
+                      <span>9:41</span>
+                      <span style={{ width: 66, height: 15, borderRadius: 999, background: '#0f172a' }} />
+                      <span>5G 🔋</span>
+                    </div>
+
+                    {/* Real Instagram Header */}
+                    <div
+                      style={{
+                        padding: '4px 14px 8px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        background: '#ffffff',
+                        zIndex: 3,
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: 'Georgia, serif',
+                          fontStyle: 'italic',
+                          fontWeight: 900,
+                          fontSize: 18,
+                          color: '#0f172a',
+                          letterSpacing: '-0.03em',
+                        }}
+                      >
+                        Instagram
+                      </span>
+                      <div style={{ display: 'flex', gap: 12, fontSize: 14, color: '#0f172a', fontWeight: 700 }}>
+                        <span>♡</span>
+                        <span>💬</span>
+                      </div>
+                    </div>
+
+                    {/* Instagram Stories Circles Row */}
+                    <div
+                      style={{
+                        padding: '4px 10px 9px',
+                        display: 'flex',
+                        gap: 10,
+                        borderBottom: '1px solid #f1f5f9',
+                        background: '#ffffff',
+                        zIndex: 3,
+                      }}
+                    >
+                      {[
+                        { label: 'Your story', img: '/images/real/h2o-jugs.png', active: false },
+                        { label: 'h2o.water', img: '/images/real/h2o-alkaline.png', active: true },
+                        { label: 'shoaib.ai', img: '/images/shoaib-tech-talk.jpg', active: true },
+                        { label: 'reels.bot', img: '/images/proj-social-automation.jpg', active: true },
+                      ].map((story) => (
+                        <div key={story.label} style={{ textAlign: 'center', width: 52, flexShrink: 0 }}>
+                          <div
+                            style={{
+                              width: 46,
+                              height: 46,
+                              margin: '0 auto',
+                              borderRadius: '50%',
+                              padding: 2,
+                              background: story.active
+                                ? 'linear-gradient(135deg, #f58529, #dd2a7b, #8134af)'
+                                : '#e2e8f0',
+                            }}
+                          >
+                            <img
+                              src={story.img}
+                              alt={story.label}
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                borderRadius: '50%',
+                                objectFit: 'cover',
+                                border: '2px solid #ffffff',
+                                display: 'block',
+                              }}
+                            />
+                          </div>
+                          <div
+                            style={{
+                              fontSize: 9,
+                              color: '#334155',
+                              marginTop: 3,
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            {story.label}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Instagram Scrolling Feed */}
+                    <div style={{ flex: 1, overflow: 'hidden', position: 'relative', background: '#ffffff' }}>
                       <div
                         style={{
-                          padding: '8px 16px 6px',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          animation: 'phoneFeedScroll 18s linear infinite',
+                          animationPlayState: socialScrollPaused ? 'paused' : 'running',
+                        }}
+                      >
+                        {[
+                          {
+                            user: 'h2owater.ba',
+                            avatar: '/images/real/h2o-jugs.png',
+                            photo: '/images/real/h2o-alkaline.png',
+                            likes: '14,820 likes',
+                            caption: 'Fresh 5-gal alkaline water delivered weekly. Auto-scheduled with AI ⚡',
+                          },
+                          {
+                            user: 'shoaib.ai.studio',
+                            avatar: '/images/shoaib-tech-talk.jpg',
+                            photo: '/images/proj-social-automation.jpg',
+                            likes: '9,412 likes',
+                            caption: '30 branded Reels generated, captioned & auto-published via Meta Graph API 🚀',
+                          },
+                          {
+                            user: 'h2owater.ba',
+                            avatar: '/images/real/h2o-jugs.png',
+                            photo: '/images/real/h2o-delivery.jpg',
+                            likes: '19,305 likes',
+                            caption: 'Morning Bay Area routes + instant IG DM lead sync straight to CRM.',
+                          },
+                        ]
+                          .concat([
+                            {
+                              user: 'h2owater.ba',
+                              avatar: '/images/real/h2o-jugs.png',
+                              photo: '/images/real/h2o-alkaline.png',
+                              likes: '14,820 likes',
+                              caption: 'Fresh 5-gal alkaline water delivered weekly. Auto-scheduled with AI ⚡',
+                            },
+                            {
+                              user: 'shoaib.ai.studio',
+                              avatar: '/images/shoaib-tech-talk.jpg',
+                              photo: '/images/proj-social-automation.jpg',
+                              likes: '9,412 likes',
+                              caption: '30 branded Reels generated, captioned & auto-published via Meta Graph API 🚀',
+                            },
+                            {
+                              user: 'h2owater.ba',
+                              avatar: '/images/real/h2o-jugs.png',
+                              photo: '/images/real/h2o-delivery.jpg',
+                              likes: '19,305 likes',
+                              caption: 'Morning Bay Area routes + instant IG DM lead sync straight to CRM.',
+                            },
+                          ])
+                          .map((post, idx) => (
+                            <div key={`ig-${idx}`} style={{ paddingBottom: 14, borderBottom: '1px solid #f1f5f9' }}>
+                              {/* Post Header */}
+                              <div
+                                style={{
+                                  padding: '8px 10px',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between',
+                                }}
+                              >
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                                  <img
+                                    src={post.avatar}
+                                    alt={post.user}
+                                    style={{ width: 24, height: 24, borderRadius: '50%', objectFit: 'cover' }}
+                                  />
+                                  <span style={{ fontSize: 11, fontWeight: 700, color: '#0f172a' }}>
+                                    {post.user} <span style={{ color: '#0ea5e9' }}>✓</span>
+                                  </span>
+                                </div>
+                                <span style={{ fontSize: 11, color: '#64748b', fontWeight: 700 }}>•••</span>
+                              </div>
+                              {/* Full-Width Clean Instagram Photo */}
+                              <img
+                                src={post.photo}
+                                alt={post.user}
+                                style={{ width: '100%', height: 185, objectFit: 'cover', display: 'block' }}
+                              />
+                              {/* Instagram Action Row */}
+                              <div
+                                style={{
+                                  padding: '8px 10px 4px',
+                                  display: 'flex',
+                                  justifyContent: 'space-between',
+                                  fontSize: 14,
+                                }}
+                              >
+                                <div style={{ display: 'flex', gap: 11 }}>
+                                  <span>❤️</span>
+                                  <span>💬</span>
+                                  <span>↗</span>
+                                </div>
+                                <span>🔖</span>
+                              </div>
+                              {/* Likes & Caption */}
+                              <div style={{ padding: '0 10px', fontSize: 10.5, color: '#0f172a', lineHeight: 1.38 }}>
+                                <div style={{ fontWeight: 800, marginBottom: 2 }}>{post.likes}</div>
+                                <div>
+                                  <strong style={{ marginRight: 4 }}>{post.user}</strong>
+                                  {post.caption}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+
+                    {/* Instagram Bottom Bar */}
+                    <div
+                      style={{
+                        padding: '8px 14px 10px',
+                        borderTop: '1px solid #e2e8f0',
+                        background: '#ffffff',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        fontSize: 15,
+                        zIndex: 3,
+                      }}
+                    >
+                      <span>🏠</span>
+                      <span>🔍</span>
+                      <span>⊞</span>
+                      <span>🎬</span>
+                      <img
+                        src="/images/real/h2o-jugs.png"
+                        alt="Profile"
+                        style={{ width: 20, height: 20, borderRadius: '50%', objectFit: 'cover' }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* PHONE 2: REAL YOUTUBE MOBILE APP FEED */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div
+                  style={{
+                    marginBottom: 12,
+                    padding: '6px 16px',
+                    borderRadius: 999,
+                    background: 'linear-gradient(135deg, #ff0000, #b30000)',
+                    color: '#ffffff',
+                    fontSize: 12.5,
+                    fontWeight: 800,
+                    boxShadow: '0 8px 20px rgba(0,0,0,0.35)',
+                  }}
+                >
+                  YouTube · Live App Feed
+                </div>
+                <div
+                  style={{
+                    width: '100%',
+                    maxWidth: 285,
+                    height: 550,
+                    borderRadius: 42,
+                    padding: 11,
+                    background: 'linear-gradient(145deg, #334155 0%, #0f172a 50%, #1e293b 100%)',
+                    boxShadow: '0 26px 60px rgba(0, 0, 0, 0.65), inset 0 0 0 2px rgba(255,255,255,0.18)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                >
+                  <div
+                    style={{
+                      flex: 1,
+                      borderRadius: 32,
+                      background: '#ffffff',
+                      color: '#0f0f0f',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    {/* iOS Top Bar */}
+                    <div
+                      style={{
+                        padding: '8px 16px 4px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        fontSize: 10.5,
+                        fontWeight: 800,
+                        color: '#0f172a',
+                        background: '#ffffff',
+                        zIndex: 3,
+                      }}
+                    >
+                      <span>9:41</span>
+                      <span style={{ width: 66, height: 15, borderRadius: 999, background: '#0f172a' }} />
+                      <span>5G 🔋</span>
+                    </div>
+
+                    {/* Authentic YouTube App Top Header */}
+                    <div
+                      style={{
+                        padding: '5px 12px 7px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        background: '#ffffff',
+                        zIndex: 3,
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                        <span
+                          style={{
+                            background: '#ff0000',
+                            color: '#ffffff',
+                            borderRadius: 5,
+                            padding: '1px 6px',
+                            fontSize: 10,
+                            fontWeight: 900,
+                          }}
+                        >
+                          ▶
+                        </span>
+                        <span style={{ fontWeight: 900, fontSize: 15, letterSpacing: '-0.04em', color: '#0f0f0f' }}>
+                          YouTube
+                        </span>
+                      </div>
+                      <div style={{ display: 'flex', gap: 11, fontSize: 13 }}>
+                        <span>📺</span>
+                        <span>🔔</span>
+                        <span>🔍</span>
+                      </div>
+                    </div>
+
+                    {/* Filter Chips Row */}
+                    <div
+                      style={{
+                        padding: '2px 10px 8px',
+                        display: 'flex',
+                        gap: 6,
+                        borderBottom: '1px solid #e5e7eb',
+                        background: '#ffffff',
+                        zIndex: 3,
+                      }}
+                    >
+                      {['All', 'Shorts', 'AI Agents', 'Podcasts'].map((chip, i) => (
+                        <span
+                          key={chip}
+                          style={{
+                            padding: '4px 9px',
+                            borderRadius: 7,
+                            fontSize: 9.5,
+                            fontWeight: 700,
+                            background: i === 0 ? '#0f0f0f' : '#f1f5f9',
+                            color: i === 0 ? '#ffffff' : '#0f0f0f',
+                          }}
+                        >
+                          {chip}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* YouTube Scrolling Videos */}
+                    <div style={{ flex: 1, overflow: 'hidden', position: 'relative', background: '#ffffff' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          animation: 'phoneFeedScroll 20s linear infinite',
+                          animationPlayState: socialScrollPaused ? 'paused' : 'running',
+                        }}
+                      >
+                        {[
+                          {
+                            thumb: '/images/shoaib-tech-talk.jpg',
+                            avatar: '/images/shoaib-hero-workspace.jpg',
+                            duration: '0:58',
+                            title: 'How Our Autonomous AI Agent Schedules 100+ YouTube Shorts Monthly',
+                            meta: 'Shoaib AI Studio · 248K views · 2 days ago',
+                          },
+                          {
+                            thumb: '/images/hero-ai-architecture.jpg',
+                            avatar: '/images/shoaib-hero-workspace.jpg',
+                            duration: '8:14',
+                            title: 'End-to-End Video Automation: Python, FFmpeg & YouTube Data API v3',
+                            meta: 'Shoaib AI Studio · 112K views · 5 days ago',
+                          },
+                          {
+                            thumb: '/images/proj-h2o-platform.jpg',
+                            avatar: '/images/real/h2o-jugs.png',
+                            duration: '1:24',
+                            title: 'Auto-A/B Thumbnail Optimizer + CRM Lead Sync Case Study',
+                            meta: 'H2O Water Brand · 84K views · 1 week ago',
+                          },
+                        ]
+                          .concat([
+                            {
+                              thumb: '/images/shoaib-tech-talk.jpg',
+                              avatar: '/images/shoaib-hero-workspace.jpg',
+                              duration: '0:58',
+                              title: 'How Our Autonomous AI Agent Schedules 100+ YouTube Shorts Monthly',
+                              meta: 'Shoaib AI Studio · 248K views · 2 days ago',
+                            },
+                            {
+                              thumb: '/images/hero-ai-architecture.jpg',
+                              avatar: '/images/shoaib-hero-workspace.jpg',
+                              duration: '8:14',
+                              title: 'End-to-End Video Automation: Python, FFmpeg & YouTube Data API v3',
+                              meta: 'Shoaib AI Studio · 112K views · 5 days ago',
+                            },
+                            {
+                              thumb: '/images/proj-h2o-platform.jpg',
+                              avatar: '/images/real/h2o-jugs.png',
+                              duration: '1:24',
+                              title: 'Auto-A/B Thumbnail Optimizer + CRM Lead Sync Case Study',
+                              meta: 'H2O Water Brand · 84K views · 1 week ago',
+                            },
+                          ])
+                          .map((vid, idx) => (
+                            <div key={`yt-${idx}`} style={{ paddingBottom: 14 }}>
+                              <div style={{ position: 'relative' }}>
+                                <img
+                                  src={vid.thumb}
+                                  alt={vid.title}
+                                  style={{ width: '100%', height: 142, objectFit: 'cover', display: 'block' }}
+                                />
+                                <span
+                                  style={{
+                                    position: 'absolute',
+                                    bottom: 6,
+                                    right: 6,
+                                    background: 'rgba(0,0,0,0.82)',
+                                    color: '#ffffff',
+                                    fontSize: 9.5,
+                                    fontWeight: 700,
+                                    padding: '2px 5px',
+                                    borderRadius: 4,
+                                  }}
+                                >
+                                  {vid.duration}
+                                </span>
+                              </div>
+                              <div style={{ padding: '9px 10px 2px', display: 'flex', gap: 9, alignItems: 'flex-start' }}>
+                                <img
+                                  src={vid.avatar}
+                                  alt="Channel"
+                                  style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
+                                />
+                                <div style={{ flex: 1 }}>
+                                  <div style={{ fontSize: 11, fontWeight: 700, color: '#0f0f0f', lineHeight: 1.3 }}>
+                                    {vid.title}
+                                  </div>
+                                  <div style={{ fontSize: 9.5, color: '#606060', marginTop: 3 }}>{vid.meta}</div>
+                                </div>
+                                <span style={{ fontSize: 12, color: '#606060' }}>⋮</span>
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+
+                    {/* YouTube Bottom Bar */}
+                    <div
+                      style={{
+                        padding: '7px 10px 9px',
+                        borderTop: '1px solid #e5e7eb',
+                        background: '#ffffff',
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        fontSize: 9.5,
+                        fontWeight: 600,
+                        color: '#0f0f0f',
+                        zIndex: 3,
+                      }}
+                    >
+                      <span>🏠 Home</span>
+                      <span>⚡ Shorts</span>
+                      <span style={{ fontSize: 15 }}>⊕</span>
+                      <span>📺 Subs</span>
+                      <span>👤 You</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* PHONE 3: REAL TIKTOK MOBILE APP FEED */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div
+                  style={{
+                    marginBottom: 12,
+                    padding: '6px 16px',
+                    borderRadius: 999,
+                    background: 'linear-gradient(135deg, #00f2fe, #fe0979)',
+                    color: '#ffffff',
+                    fontSize: 12.5,
+                    fontWeight: 800,
+                    boxShadow: '0 8px 20px rgba(0,0,0,0.35)',
+                  }}
+                >
+                  TikTok · Live App Feed
+                </div>
+                <div
+                  style={{
+                    width: '100%',
+                    maxWidth: 285,
+                    height: 550,
+                    borderRadius: 42,
+                    padding: 11,
+                    background: 'linear-gradient(145deg, #334155 0%, #0f172a 50%, #1e293b 100%)',
+                    boxShadow: '0 26px 60px rgba(0, 0, 0, 0.65), inset 0 0 0 2px rgba(255,255,255,0.18)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                >
+                  <div
+                    style={{
+                      flex: 1,
+                      borderRadius: 32,
+                      background: '#000000',
+                      color: '#ffffff',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      position: 'relative',
+                    }}
+                  >
+                    {/* Fixed TikTok Top Overlay */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        zIndex: 4,
+                        background: 'linear-gradient(180deg, rgba(0,0,0,0.75) 0%, transparent 100%)',
+                      }}
+                    >
+                      <div
+                        style={{
+                          padding: '8px 16px 4px',
                           display: 'flex',
                           justifyContent: 'space-between',
                           alignItems: 'center',
                           fontSize: 10.5,
                           fontWeight: 800,
-                          color: '#f8fafc',
-                          background: phone.headerBg,
-                          zIndex: 3,
                         }}
                       >
                         <span>9:41</span>
-                        <span
-                          style={{
-                            width: 68,
-                            height: 16,
-                            borderRadius: 999,
-                            background: '#000000',
-                            border: '1px solid rgba(255,255,255,0.12)',
-                          }}
-                        />
+                        <span style={{ width: 66, height: 15, borderRadius: 999, background: '#000000' }} />
                         <span>5G 🔋</span>
                       </div>
-
-                      {/* App Header + Stories / Category Pills */}
                       <div
                         style={{
-                          padding: '6px 12px 8px',
-                          borderBottom: '1px solid rgba(255,255,255,0.1)',
-                          background: phone.headerBg,
-                          zIndex: 3,
+                          padding: '4px 16px 8px',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          gap: 14,
+                          fontSize: 12,
+                          fontWeight: 700,
                         }}
                       >
-                        <div
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            marginBottom: 6,
-                          }}
-                        >
-                          <span style={{ fontWeight: 900, fontSize: 13.5, color: '#ffffff' }}>
-                            {phone.platform}
-                          </span>
-                          <span style={{ fontSize: 10, color: '#94a3b8', fontWeight: 700 }}>
-                            {phone.handle}
-                          </span>
-                        </div>
-
-                        <div style={{ display: 'flex', gap: 6, overflow: 'hidden' }}>
-                          {phone.stories.map((st, i) => (
-                            <span
-                              key={st}
-                              style={{
-                                padding: '3px 8px',
-                                borderRadius: 999,
-                                fontSize: 9.5,
-                                fontWeight: 700,
-                                background: i === 0 ? phone.badgeBg : 'rgba(255,255,255,0.08)',
-                                color: '#ffffff',
-                                whiteSpace: 'nowrap',
-                              }}
-                            >
-                              {st}
-                            </span>
-                          ))}
-                        </div>
+                        <span style={{ color: 'rgba(255,255,255,0.65)' }}>Following</span>
+                        <span style={{ borderBottom: '2px solid #ffffff', paddingBottom: 2 }}>For You</span>
                       </div>
+                    </div>
 
-                      {/* Vertically Auto-Scrolling App Feed Track (Duplicated for Seamless Infinite Loop) */}
-                      <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
-                        <div
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: 12,
-                            padding: 10,
-                            animation: `phoneFeedScroll ${phone.speed} linear infinite`,
-                            animationPlayState: socialScrollPaused ? 'paused' : 'running',
-                          }}
-                        >
-                          {[...phone.posts, ...phone.posts].map((post, pIdx) => (
+                    {/* TikTok Scrolling Vertical Full-Bleed Videos */}
+                    <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          animation: 'phoneFeedScroll 16s linear infinite',
+                          animationPlayState: socialScrollPaused ? 'paused' : 'running',
+                        }}
+                      >
+                        {[
+                          {
+                            bg: '/images/shoaib-cafe-coding.jpg',
+                            avatar: '/images/shoaib-hero-workspace.jpg',
+                            handle: '@aiautomation.engine',
+                            caption: 'POV: Your AI agent edits, captions & auto-posts viral TikToks daily 🤖🔥 #ai #automation',
+                            sound: '♫ Original Sound - Shoaib AI Studio',
+                            likes: '62.5K',
+                            comments: '1,940',
+                            saves: '11.3K',
+                            shares: '8,410',
+                          },
+                          {
+                            bg: '/images/proj-social-automation.jpg',
+                            avatar: '/images/real/h2o-jugs.png',
+                            handle: '@h2owater.bayarea',
+                            caption: 'From product photo to trending TikTok Reel in 15 seconds ⚡💧 #marketing #saas',
+                            sound: '♫ Trending Beat - Growth Engine',
+                            likes: '41.2K',
+                            comments: '980',
+                            saves: '7,640',
+                            shares: '4,120',
+                          },
+                        ]
+                          .concat([
+                            {
+                              bg: '/images/shoaib-cafe-coding.jpg',
+                              avatar: '/images/shoaib-hero-workspace.jpg',
+                              handle: '@aiautomation.engine',
+                              caption: 'POV: Your AI agent edits, captions & auto-posts viral TikToks daily 🤖🔥 #ai #automation',
+                              sound: '♫ Original Sound - Shoaib AI Studio',
+                              likes: '62.5K',
+                              comments: '1,940',
+                              saves: '11.3K',
+                              shares: '8,410',
+                            },
+                            {
+                              bg: '/images/proj-social-automation.jpg',
+                              avatar: '/images/real/h2o-jugs.png',
+                              handle: '@h2owater.bayarea',
+                              caption: 'From product photo to trending TikTok Reel in 15 seconds ⚡💧 #marketing #saas',
+                              sound: '♫ Trending Beat - Growth Engine',
+                              likes: '41.2K',
+                              comments: '980',
+                              saves: '7,640',
+                              shares: '4,120',
+                            },
+                          ])
+                          .map((tk, idx) => (
                             <div
-                              key={`${phone.platform}-${pIdx}`}
+                              key={`tk-${idx}`}
                               style={{
-                                borderRadius: 14,
-                                background: 'rgba(255, 255, 255, 0.05)',
-                                border: '1px solid rgba(255, 255, 255, 0.1)',
+                                height: 472,
+                                position: 'relative',
                                 overflow: 'hidden',
+                                borderBottom: '2px solid #000000',
                               }}
                             >
-                              <div style={{ position: 'relative', height: 132, overflow: 'hidden' }}>
-                                <img
-                                  src={post.img}
-                                  alt={post.title}
-                                  style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover',
-                                     display: 'block',
-                                  }}
-                                />
-                                <span
-                                  style={{
-                                    position: 'absolute',
-                                    top: 7,
-                                    left: 7,
-                                    padding: '2px 7px',
-                                    borderRadius: 6,
-                                    background: 'rgba(0, 0, 0, 0.78)',
-                                    color: '#ffffff',
-                                    fontSize: 8.5,
-                                    fontWeight: 800,
-                                    letterSpacing: '0.04em',
-                                  }}
-                                >
-                                  {post.tag}
-                                </span>
-                                <span
-                                  style={{
-                                    position: 'absolute',
-                                    bottom: 7,
-                                    right: 7,
-                                    padding: '2px 7px',
-                                    borderRadius: 6,
-                                    background: phone.badgeBg,
-                                    color: '#ffffff',
-                                    fontSize: 8.5,
-                                    fontWeight: 800,
-                                  }}
-                                >
-                                  ● LIVE
-                                </span>
+                              <img
+                                src={tk.bg}
+                                alt={tk.handle}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                              />
+                              <div
+                                style={{
+                                  position: 'absolute',
+                                  inset: 0,
+                                  background:
+                                    'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, transparent 45%, rgba(0,0,0,0.85) 100%)',
+                                }}
+                              />
+
+                              {/* Authentic Right-Side TikTok Action Stack */}
+                              <div
+                                style={{
+                                  position: 'absolute',
+                                  right: 10,
+                                  bottom: 22,
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  alignItems: 'center',
+                                  gap: 12,
+                                  fontSize: 10,
+                                  fontWeight: 700,
+                                }}
+                              >
+                                <div style={{ position: 'relative', marginBottom: 4 }}>
+                                  <img
+                                    src={tk.avatar}
+                                    alt={tk.handle}
+                                    style={{
+                                      width: 34,
+                                      height: 34,
+                                      borderRadius: '50%',
+                                      border: '2px solid #ffffff',
+                                      objectFit: 'cover',
+                                    }}
+                                  />
+                                  <span
+                                    style={{
+                                      position: 'absolute',
+                                      bottom: -5,
+                                      left: '50%',
+                                      transform: 'translateX(-50%)',
+                                      background: '#fe2c55',
+                                      color: '#ffffff',
+                                      width: 14,
+                                      height: 14,
+                                      borderRadius: '50%',
+                                      fontSize: 10,
+                                      display: 'grid',
+                                      placeItems: 'center',
+                                    }}
+                                  >
+                                    +
+                                  </span>
+                                </div>
+                                <div style={{ textAlign: 'center' }}>
+                                  <div style={{ fontSize: 18 }}>❤️</div>
+                                  <div>{tk.likes}</div>
+                                </div>
+                                <div style={{ textAlign: 'center' }}>
+                                  <div style={{ fontSize: 18 }}>💬</div>
+                                  <div>{tk.comments}</div>
+                                </div>
+                                <div style={{ textAlign: 'center' }}>
+                                  <div style={{ fontSize: 18 }}>🔖</div>
+                                  <div>{tk.saves}</div>
+                                </div>
+                                <div style={{ textAlign: 'center' }}>
+                                  <div style={{ fontSize: 18 }}>↗</div>
+                                  <div>{tk.shares}</div>
+                                </div>
                               </div>
-                              <div style={{ padding: '9px 10px' }}>
-                                <div
-                                  style={{
-                                    fontSize: 11,
-                                    fontWeight: 700,
-                                    color: '#f8fafc',
-                                    lineHeight: 1.35,
-                                    marginBottom: 5,
-                                  }}
-                                >
-                                  {post.title}
-                                </div>
-                                <div style={{ fontSize: 9.5, color: '#94a3b8', fontWeight: 700 }}>
-                                  {post.stats}
-                                </div>
+
+                              {/* Bottom-Left TikTok Caption */}
+                              <div style={{ position: 'absolute', left: 12, right: 56, bottom: 20 }}>
+                                <div style={{ fontSize: 12, fontWeight: 800, marginBottom: 4 }}>{tk.handle}</div>
+                                <div style={{ fontSize: 10.5, lineHeight: 1.35, marginBottom: 6 }}>{tk.caption}</div>
+                                <div style={{ fontSize: 9.5, opacity: 0.9 }}>{tk.sound}</div>
                               </div>
                             </div>
                           ))}
-                        </div>
                       </div>
+                    </div>
 
-                      {/* Bottom Native Mobile App Navigation Bar */}
-                      <div
+                    {/* TikTok Bottom Navigation Bar */}
+                    <div
+                      style={{
+                        padding: '8px 10px 10px',
+                        background: '#000000',
+                        borderTop: '1px solid rgba(255,255,255,0.12)',
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        alignItems: 'center',
+                        fontSize: 9.5,
+                        fontWeight: 700,
+                        zIndex: 4,
+                      }}
+                    >
+                      <span>🏠 Home</span>
+                      <span style={{ opacity: 0.7 }}>Friends</span>
+                      <span
                         style={{
-                          padding: '8px 10px 10px',
-                          background: phone.headerBg,
-                          borderTop: '1px solid rgba(255,255,255,0.1)',
-                          display: 'flex',
-                          justifyContent: 'space-around',
-                          alignItems: 'center',
-                          fontSize: 10,
-                          fontWeight: 700,
-                          color: '#cbd5e1',
-                          zIndex: 3,
+                          padding: '2px 10px',
+                          borderRadius: 6,
+                          background: '#ffffff',
+                          color: '#000000',
+                          fontWeight: 900,
+                          boxShadow: '-3px 0 0 #25f4ee, 3px 0 0 #fe2c55',
                         }}
                       >
-                        {phone.navIcons.map((ic, idx) => (
-                          <span key={idx} style={{ opacity: idx === 0 ? 1 : 0.72 }}>
-                            {ic}
-                          </span>
-                        ))}
+                        +
+                      </span>
+                      <span style={{ opacity: 0.7 }}>Inbox</span>
+                      <span style={{ opacity: 0.7 }}>Profile</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* PHONE 4: REAL FACEBOOK MOBILE APP FEED */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div
+                  style={{
+                    marginBottom: 12,
+                    padding: '6px 16px',
+                    borderRadius: 999,
+                    background: 'linear-gradient(135deg, #1877f2, #0c5dc7)',
+                    color: '#ffffff',
+                    fontSize: 12.5,
+                    fontWeight: 800,
+                    boxShadow: '0 8px 20px rgba(0,0,0,0.35)',
+                  }}
+                >
+                  Facebook · Live App Feed
+                </div>
+                <div
+                  style={{
+                    width: '100%',
+                    maxWidth: 285,
+                    height: 550,
+                    borderRadius: 42,
+                    padding: 11,
+                    background: 'linear-gradient(145deg, #334155 0%, #0f172a 50%, #1e293b 100%)',
+                    boxShadow: '0 26px 60px rgba(0, 0, 0, 0.65), inset 0 0 0 2px rgba(255,255,255,0.18)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                >
+                  <div
+                    style={{
+                      flex: 1,
+                      borderRadius: 32,
+                      background: '#f0f2f5',
+                      color: '#050505',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    {/* iOS Top Bar */}
+                    <div
+                      style={{
+                        padding: '8px 16px 4px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        fontSize: 10.5,
+                        fontWeight: 800,
+                        color: '#0f172a',
+                        background: '#ffffff',
+                        zIndex: 3,
+                      }}
+                    >
+                      <span>9:41</span>
+                      <span style={{ width: 66, height: 15, borderRadius: 999, background: '#0f172a' }} />
+                      <span>5G 🔋</span>
+                    </div>
+
+                    {/* Facebook Top Header */}
+                    <div
+                      style={{
+                        padding: '4px 14px 6px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        background: '#ffffff',
+                        zIndex: 3,
+                      }}
+                    >
+                      <span style={{ fontWeight: 900, fontSize: 19, color: '#1877f2', letterSpacing: '-0.03em' }}>
+                        facebook
+                      </span>
+                      <div style={{ display: 'flex', gap: 10, fontSize: 13 }}>
+                        <span>⊕</span>
+                        <span>🔍</span>
+                        <span>💬</span>
+                      </div>
+                    </div>
+
+                    {/* Facebook App Tab Bar */}
+                    <div
+                      style={{
+                        padding: '4px 10px 6px',
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        background: '#ffffff',
+                        borderBottom: '1px solid #d8dadf',
+                        fontSize: 13,
+                        zIndex: 3,
+                      }}
+                    >
+                      <span style={{ color: '#1877f2', borderBottom: '2px solid #1877f2', paddingBottom: 3 }}>🏠</span>
+                      <span>🎬</span>
+                      <span>👥</span>
+                      <span>🔔</span>
+                      <span>☰</span>
+                    </div>
+
+                    {/* Facebook Scrolling Page Feed */}
+                    <div style={{ flex: 1, overflow: 'hidden', position: 'relative', background: '#f0f2f5' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 8,
+                          animation: 'phoneFeedScroll 19s linear infinite',
+                          animationPlayState: socialScrollPaused ? 'paused' : 'running',
+                        }}
+                      >
+                        {[
+                          {
+                            page: 'H2O Water Company',
+                            avatar: '/images/real/h2o-jugs.png',
+                            time: '2h · 🌐',
+                            copy: 'Fresh alkaline 5-gal bottles auto-scheduled every morning across Bay Area homes & offices 💧',
+                            photo: '/images/proj-h2o-platform.jpg',
+                            reactions: '👍❤️ 12.4K',
+                            meta: '530 Comments · 1.8K Shares',
+                          },
+                          {
+                            page: 'Shoaib AI Growth Lab',
+                            avatar: '/images/shoaib-tech-talk.jpg',
+                            time: '5h · 🌐',
+                            copy: 'Cross-posted HD Reel + automatic Meta Graph API comment reply & instant CRM lead capture.',
+                            photo: '/images/proj-automation-crm.jpg',
+                            reactions: '👍🔥 8.7K',
+                            meta: '412 Comments · 920 Shares',
+                          },
+                          {
+                            page: 'H2O Water Company',
+                            avatar: '/images/real/h2o-jugs.png',
+                            time: '1d · 🌐',
+                            copy: 'Simultaneous publishing across 15+ client Facebook & Instagram Pages on 100% auto-pilot.',
+                            photo: '/images/real/h2o-dispenser.png',
+                            reactions: '👍❤️ 21.3K',
+                            meta: '1.1K Comments · 2.4K Shares',
+                          },
+                        ]
+                          .concat([
+                            {
+                              page: 'H2O Water Company',
+                              avatar: '/images/real/h2o-jugs.png',
+                              time: '2h · 🌐',
+                              copy: 'Fresh alkaline 5-gal bottles auto-scheduled every morning across Bay Area homes & offices 💧',
+                              photo: '/images/proj-h2o-platform.jpg',
+                              reactions: '👍❤️ 12.4K',
+                              meta: '530 Comments · 1.8K Shares',
+                            },
+                            {
+                              page: 'Shoaib AI Growth Lab',
+                              avatar: '/images/shoaib-tech-talk.jpg',
+                              time: '5h · 🌐',
+                              copy: 'Cross-posted HD Reel + automatic Meta Graph API comment reply & instant CRM lead capture.',
+                              photo: '/images/proj-automation-crm.jpg',
+                              reactions: '👍🔥 8.7K',
+                              meta: '412 Comments · 920 Shares',
+                            },
+                            {
+                              page: 'H2O Water Company',
+                              avatar: '/images/real/h2o-jugs.png',
+                              time: '1d · 🌐',
+                              copy: 'Simultaneous publishing across 15+ client Facebook & Instagram Pages on 100% auto-pilot.',
+                              photo: '/images/real/h2o-dispenser.png',
+                              reactions: '👍❤️ 21.3K',
+                              meta: '1.1K Comments · 2.4K Shares',
+                            },
+                          ])
+                          .map((fb, idx) => (
+                            <div key={`fb-${idx}`} style={{ background: '#ffffff', paddingTop: 10 }}>
+                              <div
+                                style={{
+                                  padding: '0 10px',
+                                  display: 'flex',
+                                  justifyContent: 'space-between',
+                                  alignItems: 'center',
+                                }}
+                              >
+                                <div style={{ display: 'flex', gap: 7, alignItems: 'center' }}>
+                                  <img
+                                    src={fb.avatar}
+                                    alt={fb.page}
+                                    style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover' }}
+                                  />
+                                  <div>
+                                    <div style={{ fontSize: 11, fontWeight: 700, color: '#050505' }}>
+                                      {fb.page} <span style={{ color: '#1877f2' }}>✓</span>
+                                    </div>
+                                    <div style={{ fontSize: 9, color: '#65676b' }}>{fb.time}</div>
+                                  </div>
+                                </div>
+                                <span style={{ fontSize: 11, color: '#65676b' }}>•••</span>
+                              </div>
+                              <div style={{ padding: '7px 10px', fontSize: 10.5, lineHeight: 1.38, color: '#050505' }}>
+                                {fb.copy}
+                              </div>
+                              <img
+                                src={fb.photo}
+                                alt={fb.page}
+                                style={{ width: '100%', height: 150, objectFit: 'cover', display: 'block' }}
+                              />
+                              <div
+                                style={{
+                                  padding: '6px 10px',
+                                  display: 'flex',
+                                  justifyContent: 'space-between',
+                                  fontSize: 9.5,
+                                  color: '#65676b',
+                                  borderBottom: '1px solid #e4e6eb',
+                                }}
+                              >
+                                <span>{fb.reactions}</span>
+                                <span>{fb.meta}</span>
+                              </div>
+                              <div
+                                style={{
+                                  padding: '7px 10px',
+                                  display: 'flex',
+                                  justifyContent: 'space-around',
+                                  fontSize: 10,
+                                  fontWeight: 700,
+                                  color: '#65676b',
+                                }}
+                              >
+                                <span>👍 Like</span>
+                                <span>💬 Comment</span>
+                                <span>↗ Share</span>
+                              </div>
+                            </div>
+                          ))}
                       </div>
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
 
             {/* High-Res Multi-Phone Studio Render Banner Below */}

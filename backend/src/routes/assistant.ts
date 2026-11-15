@@ -44,6 +44,15 @@ const BOOKING_TOOL_GROQ = {
   },
 };
 
+function sanitizeChatReply(text: string): string {
+  return text
+    .replace(/\s*[—–]\s*/g, ', ')
+    .replace(/\s*--\s*/g, ' ')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 async function callGroqChat(messages: any[], useTools = true) {
   let lastError: any = null;
   for (const model of GROQ_MODELS) {
@@ -51,8 +60,8 @@ async function callGroqChat(messages: any[], useTools = true) {
       const payload: Record<string, unknown> = {
         model,
         messages,
-        temperature: 0.45,
-        max_tokens: 900,
+        temperature: 0.55,
+        max_tokens: 280,
       };
       if (useTools) {
         payload.tools = [BOOKING_TOOL_GROQ];
@@ -83,22 +92,35 @@ async function callGroqChat(messages: any[], useTools = true) {
 // POST /api/assistant/chat — Powered by Groq GPT-OSS 120B (openai/gpt-oss-120b)
 router.post('/chat', async (req: Request, res: Response) => {
   try {
-    const { message, history = [] } = req.body as {
+    const { message, history = [], messages: legacyMessages } = req.body as {
       message?: string;
       history?: ChatTurn[];
+      messages?: Array<{ role: string; text?: string; content?: string }>;
     };
 
-    if (!message || !message.trim()) {
+    let resolvedMessage = message?.trim() || '';
+    let resolvedHistory: ChatTurn[] = history;
+
+    if (!resolvedMessage && Array.isArray(legacyMessages) && legacyMessages.length > 0) {
+      const last = legacyMessages[legacyMessages.length - 1];
+      resolvedMessage = String(last.text || last.content || '').trim();
+      resolvedHistory = legacyMessages.slice(0, -1).map((m) => ({
+        role: m.role === 'model' || m.role === 'assistant' ? 'assistant' : 'user',
+        content: String(m.text || m.content || ''),
+      }));
+    }
+
+    if (!resolvedMessage) {
       return res.status(400).json({ error: 'Message is required.' });
     }
 
     const groqMessages: any[] = [
       { role: 'system', content: SHOAIB_SYSTEM_PROMPT },
-      ...history.slice(-12).map((turn) => ({
+      ...resolvedHistory.slice(-12).map((turn) => ({
         role: turn.role === 'assistant' ? 'assistant' : 'user',
         content: turn.content,
       })),
-      { role: 'user', content: message.trim() },
+      { role: 'user', content: resolvedMessage },
     ];
 
     const data = await callGroqChat(groqMessages, true);
@@ -122,7 +144,7 @@ router.post('/chat', async (req: Request, res: Response) => {
         const visitorName = String(args.name || 'Visitor');
         const visitorEmail = String(args.email || '');
         const visitorCompany = args.company ? String(args.company) : '';
-        const visitorTopic = String(args.topic || message);
+        const visitorTopic = String(args.topic || resolvedMessage);
         const preferredTime = args.preferredTime ? String(args.preferredTime) : '';
 
         if (visitorEmail && visitorEmail.includes('@')) {
@@ -172,7 +194,7 @@ router.post('/chat', async (req: Request, res: Response) => {
 
     return res.json({
       ok: true,
-      reply: finalReply,
+      reply: sanitizeChatReply(finalReply),
       bookingSubmitted,
       emailSent,
       calendlyUrl: CALENDLY_URL,

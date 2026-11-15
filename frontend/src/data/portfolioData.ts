@@ -448,11 +448,11 @@ export const PROJECTS: ProjectItem[] = [
     id: 'sergeant-ai-coach',
     slug: 'sergeant-ai-coach',
     shortTitle: 'Sergeant AI Coach (Video & Voice)',
-    title: 'Sergeant AI ("Better You") — Interactive AI Anime Video Call with Human-Like Reactions',
-    image: '/images/sergeant-anime-videocall.jpg',
+    title: 'Sergeant AI ("Better You") — Animated Character Video Call & Accountability Coach',
+    image: '/images/proj-sergeant-ui.jpg',
     workImage: '/images/shoaib-whiteboard-architecture.jpg',
     videoUrl: '/videos/sergeant-ai-video-call.mp4',
-    category: ['Interactive Anime Video Call', 'Voice AI', 'Accountability Coach', 'Full Stack'],
+    category: ['Animated Video AI', 'Voice AI', 'Accountability Coach', 'Full Stack'],
     clientLabel: 'Better You / Shaista AI Coaching Platform',
     role: 'Lead AI & Full Stack Engineer',
     summary:
@@ -465,16 +465,16 @@ export const PROJECTS: ProjectItem[] = [
     ],
     gallery: [
       {
-        src: '/images/sergeant-anime-videocall.jpg',
-        title: 'Face-to-Face Video Call with Interactive AI Anime Sergeant',
-        badge: 'Live Anime Video Call',
-        caption: 'Talk just like a normal human video call while the AI Anime Coach reacts with natural expressions, nodding, and lip-sync.',
-      },
-      {
         src: '/images/proj-sergeant-ui.jpg',
         title: 'Better You — Sergeant AI Coaching App Screens',
         badge: 'Real App UI Suite',
         caption: 'Welcome screen, goal & aspiration selection, live voice/video call stage, and coaching chat.',
+      },
+      {
+        src: '/images/sergeant-anime-videocall.jpg',
+        title: 'Face-to-Face Video Call with Interactive AI Anime Sergeant',
+        badge: 'Live Anime Video Call',
+        caption: 'Talk just like a normal human video call while the AI Anime Coach reacts with natural expressions, nodding, and lip-sync.',
       },
       {
         src: '/images/sergeant-avatar.png',

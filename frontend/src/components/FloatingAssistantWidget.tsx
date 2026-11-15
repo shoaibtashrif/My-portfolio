@@ -3,6 +3,7 @@ import { Bot, Calendar, Loader2, MessageSquare, Mic, MicOff, Phone, PhoneOff, Se
 import { useVoiceCall } from '../hooks/useVoiceCall';
 import { PORTFOLIO_PROFILE } from '../data/portfolioData';
 import { apiUrl } from '../config/api';
+import ChatMessageText from './ChatMessageText';
 import './assistant.css';
 
 type Message = { role: 'user' | 'assistant'; content: string; calendlyUrl?: string };
@@ -233,7 +234,11 @@ export default function FloatingAssistantWidget() {
               <div className="pa-messages" role="log" aria-label="Chat messages">
                 {messages.map((message, index) => (
                   <div className={`pa-message ${message.role}`} key={index}>
-                    {message.content}
+                    {message.role === 'assistant' ? (
+                      <ChatMessageText text={message.content} />
+                    ) : (
+                      message.content
+                    )}
                     {message.calendlyUrl && (
                       <a href={message.calendlyUrl} target="_blank" rel="noreferrer">
                         Choose a meeting time ↗

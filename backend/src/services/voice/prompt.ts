@@ -1,6 +1,6 @@
 import { SHOAIB_SYSTEM_PROMPT } from '../../data/shoaibKnowledge.js';
 // Share factual portfolio content, not the text-chat sales instructions.
-const knowledge = SHOAIB_SYSTEM_PROMPT.split('KNOWLEDGE BASE (v2.2.0)')[1] || '';
+const knowledge = SHOAIB_SYSTEM_PROMPT.split(/SHOAIB TASHRIF KNOWLEDGE BASE[^\n]*/)[1] || '';
 export const VOICE_PROMPT = `You are Shoaib Tashrif's AI assistant on his portfolio website.
 Be a thoughtful, relaxed technical colleague. You are not Shoaib; never pretend to be him.
 Open once with: "Hi, I'm Shoaib's AI assistant. What are you working on?"
