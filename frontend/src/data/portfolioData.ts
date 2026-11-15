@@ -75,7 +75,7 @@ export const PORTFOLIO_PROFILE = {
   shortSummary:
     'Full Stack AI Software Engineer specializing in voice and chat agents, agentic workflows, DICOM medical imaging & prediction AI, cybersecurity telemetry, RAG, backend systems and business automation.',
   detailedSummary:
-    'I am a 27-year-old Full Stack AI Software Engineer with 4+ years of professional experience across software engineering and AI. My work spans real-time conversational AI, speech-to-text and text-to-speech pipelines, DICOM ultrasound & diagnostic AI prediction, network cybersecurity intelligence, agentic systems, workflow automation and complete full-stack applications.',
+    'I am a Full Stack AI Software Engineer with 4+ years of professional experience across software engineering and AI. My work spans real-time conversational AI, speech-to-text and text-to-speech pipelines, DICOM ultrasound & diagnostic AI prediction, network cybersecurity intelligence, agentic systems, workflow automation and complete full-stack applications.',
   metrics: [
     { label: 'Experience', value: '4+ Years' },
     { label: 'Upwork Status', value: 'Top Rated' },
@@ -367,21 +367,27 @@ export const PROJECTS: ProjectItem[] = [
     id: 'social-media-automation',
     slug: 'social-media-automation',
     shortTitle: 'AI Social Media Automation',
-    title: 'Autonomous AI Social Media Content Generation & Auto-Posting Engine',
-    image: '/images/proj-social-automation.jpg',
+    title: 'Autonomous AI Social Media Engine — Instagram, YouTube, TikTok & Facebook Mobile Feeds',
+    image: '/images/social-phones-showcase.jpg',
     workImage: '/images/shoaib-tech-talk.jpg',
-    category: ['Marketing AI', 'Content Generation', 'Social Automation', 'CRM Sync'],
+    category: ['Marketing AI', 'Instagram · YouTube · TikTok · FB', 'Social Automation', 'CRM Sync'],
     clientLabel: 'H2O Water Company & Growth Brands',
     role: 'AI Automation & Full Stack Engineer',
     summary:
-      'Dedicated autonomous marketing engine that generates branded social visuals & copy, schedules content calendars, and auto-publishes across Instagram, Facebook, LinkedIn, and X.',
+      'Dedicated autonomous marketing engine that generates branded vertical Reels, Shorts, TikToks & posts, schedules content calendars, and auto-publishes across Instagram, YouTube, TikTok, and Facebook.',
     metrics: [
-      { label: 'Channels', value: 'IG · FB · LinkedIn · X' },
-      { label: 'Content Creation', value: 'AI Copy + Visuals' },
+      { label: 'Mobile Platforms', value: 'IG · YouTube · TikTok · FB' },
+      { label: 'Content Creation', value: 'AI Video + Visuals' },
       { label: 'Publishing Mode', value: '100% Auto-Pilot' },
       { label: 'Lead Capture', value: 'Direct CRM Sync' },
     ],
     gallery: [
+      {
+        src: '/images/social-phones-showcase.jpg',
+        title: 'Instagram, YouTube, TikTok & Facebook Live Mobile App Feeds',
+        badge: '4-Phone Live Showcase',
+        caption: 'Simultaneous native vertical publishing across Instagram Reels, YouTube Shorts, TikTok, and Facebook.',
+      },
       {
         src: '/images/proj-social-automation.jpg',
         title: 'AI Social Media Content Calendar & Auto-Poster',
@@ -442,22 +448,28 @@ export const PROJECTS: ProjectItem[] = [
     id: 'sergeant-ai-coach',
     slug: 'sergeant-ai-coach',
     shortTitle: 'Sergeant AI Coach (Video & Voice)',
-    title: 'Sergeant AI ("Better You") — Animated Character Video Call & Accountability Coach',
-    image: '/images/proj-sergeant-ui.jpg',
+    title: 'Sergeant AI ("Better You") — Interactive AI Anime Video Call with Human-Like Reactions',
+    image: '/images/sergeant-anime-videocall.jpg',
     workImage: '/images/shoaib-whiteboard-architecture.jpg',
     videoUrl: '/videos/sergeant-ai-video-call.mp4',
-    category: ['Animated Video AI', 'Voice AI', 'Accountability Coach', 'Full Stack'],
+    category: ['Interactive Anime Video Call', 'Voice AI', 'Accountability Coach', 'Full Stack'],
     clientLabel: 'Better You / Shaista AI Coaching Platform',
     role: 'Lead AI & Full Stack Engineer',
     summary:
-      'Interactive AI accountability coach featuring an animated Sergeant AI character that conducts live face-to-face video calls, daily voice check-ins, goal tracking, and persistent memory coaching.',
+      'Interactive AI accountability coach where you talk on a real FaceTime/Zoom-style video call with an expressive 3D Anime Sergeant AI character featuring human-like facial reactions, eye contact, nodding, and real-time voice lip-sync.',
     metrics: [
-      { label: 'Live Interaction', value: 'Animated Video Call' },
-      { label: 'Voice Latency', value: 'Real-Time Duplex' },
+      { label: 'Live Interaction', value: 'Anime Video Call' },
+      { label: 'AI Reactions', value: 'Human-Like Emotions' },
       { label: 'Coaching Memory', value: 'Cross-Session RAG' },
       { label: 'Accountability', value: 'Daily Check-In Calls' },
     ],
     gallery: [
+      {
+        src: '/images/sergeant-anime-videocall.jpg',
+        title: 'Face-to-Face Video Call with Interactive AI Anime Sergeant',
+        badge: 'Live Anime Video Call',
+        caption: 'Talk just like a normal human video call while the AI Anime Coach reacts with natural expressions, nodding, and lip-sync.',
+      },
       {
         src: '/images/proj-sergeant-ui.jpg',
         title: 'Better You — Sergeant AI Coaching App Screens',

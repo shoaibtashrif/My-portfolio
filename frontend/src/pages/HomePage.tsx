@@ -51,6 +51,35 @@ export default function HomePage() {
                 <Bot size={17} />
               </button>
             </div>
+
+            {/* PROMINENT TRUSTED BY CLIENTS PROOF PILL */}
+            <div style={{ marginTop: 22 }}>
+              <Link
+                to="/reviews"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: 10,
+                  padding: '10px 16px',
+                  borderRadius: 12,
+                  background: 'rgba(2, 132, 199, 0.12)',
+                  border: '1px solid rgba(56, 189, 248, 0.38)',
+                  color: '#f8fafc',
+                  textDecoration: 'none',
+                  fontSize: 13.5,
+                  fontWeight: 600,
+                }}
+              >
+                <span style={{ color: '#facc15', fontWeight: 800, letterSpacing: '0.04em' }}>★★★★★ 5.0</span>
+                <span>
+                  Trusted by <strong>Wosler Corp (Canada)</strong>, <strong>Executive Ally (USA)</strong>, <strong>VSI</strong> &amp; 15+ Clients
+                </span>
+                <span style={{ color: '#38bdf8', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                  See 14 Verified Reviews &amp; Letters <ArrowUpRight size={15} />
+                </span>
+              </Link>
+            </div>
           </div>
 
           <figure className="ea-hero-portrait">
@@ -141,10 +170,37 @@ export default function HomePage() {
 
       {/* TRUSTED REGIONS & METRICS BAR (LIKE SCOTT'S TRUSTED ORGANIZATIONS) */}
       <section className="ea-trusted-strip">
-        <div className="container">
-          <p className="ea-trusted-label">
-            Trusted by 15+ international clients across Canada, the United States, the United Kingdom, and Australia · Top Rated (100% JSS)
+        <div
+          className="container"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: 14,
+          }}
+        >
+          <p className="ea-trusted-label" style={{ margin: 0 }}>
+            Trusted by 15+ international clients across Canada, the United States, the United Kingdom, and Australia · Top Rated (100% JSS · 5.0 ★)
           </p>
+          <Link
+            to="/reviews"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '8px 16px',
+              borderRadius: 999,
+              background: '#0284c7',
+              color: '#ffffff',
+              fontWeight: 700,
+              fontSize: 13,
+              textDecoration: 'none',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Read Verified Client Reviews &amp; Reference Letters <ArrowUpRight size={15} />
+          </Link>
         </div>
       </section>
 

@@ -152,6 +152,13 @@ export default function Navbar() {
           </div>
 
           <Link
+            to="/reviews"
+            aria-current={pathname === '/reviews' ? 'page' : undefined}
+          >
+            Client Reviews
+          </Link>
+
+          <Link
             to="/about"
             aria-current={pathname === '/about' ? 'page' : undefined}
           >
@@ -254,6 +261,9 @@ export default function Navbar() {
               )}
             </div>
 
+            <Link to="/reviews" onClick={() => setOpen(false)}>
+              Client Reviews
+            </Link>
             <Link to="/about" onClick={() => setOpen(false)}>
               About
             </Link>

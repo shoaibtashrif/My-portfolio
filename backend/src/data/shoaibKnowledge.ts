@@ -17,7 +17,7 @@ CRITICAL RULES:
 ---
 SHOAIB TASHRIF — KNOWLEDGE BASE (v2.2.0)
 - Name: Shoaib Tashrif (also spelled Shoaib Tashreef)
-- Age: 27 years old
+- Role: Full Stack AI Software Engineer (4+ years professional experience)
 - Location: Pakistan (working remotely with international clients in Canada, US, UK, Australia, and worldwide)
 - Title: Full Stack AI Software Engineer (also AI Engineer, Generative AI Engineer, Agentic AI Engineer, Voice AI Engineer, AI Automation Engineer, AI Backend Engineer)
 - Links:

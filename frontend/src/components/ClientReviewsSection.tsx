@@ -30,6 +30,14 @@ export const ALL_PROOF_SCREENSHOTS: ProofScreenshot[] = [
     src: '/images/reviews/wosler-experience-letter-marco-gallone.jpg',
   },
   {
+    id: 'vsi-exp-asim',
+    title: 'Valyrian Systems Inc. (VSI) — Official Experience Certificate',
+    subtitle: 'Signed by Ch. Muhammad Asim · Manager HR, VSI (Dec 2021 – Jan 2025)',
+    category: 'letter',
+    badge: 'Official Experience Letter',
+    src: '/images/reviews/vsi-experience-letter.jpg',
+  },
+  {
     id: 'linkedin-scott',
     title: 'Scott Miles, CMF — Executive Ally (Miles LeHane)',
     subtitle: 'LinkedIn Recommendation · Full-Stack Platform, Payments, E-Signatures & Admin',
@@ -231,8 +239,15 @@ export default function ClientReviewsSection() {
                 border: '1px solid #bae6fd',
               }}
             >
-              <CheckCircle2 size={14} /> 13 Verified Proof Documents
+              <CheckCircle2 size={14} /> 14 Verified Proof Documents
             </span>
+            <Link
+              to="/reviews"
+              className="ea-button ea-button-blue"
+              style={{ padding: '8px 16px', fontSize: 13 }}
+            >
+              Open Full Client Reviews Page <ExternalLink size={14} />
+            </Link>
           </div>
         </div>
 
@@ -536,6 +551,106 @@ export default function ClientReviewsSection() {
               <span style={{ fontSize: 12, color: '#64748b', fontWeight: 600 }}>Jan 2025 · Direct Client</span>
             </div>
           </article>
+
+          {/* CARD 4: VALYRIAN SYSTEMS INCORPORATION (VSI) */}
+          <article
+            style={{
+              background: '#ffffff',
+              borderRadius: 16,
+              padding: 24,
+              border: '1px solid #cbd5e1',
+              boxShadow: '0 10px 30px rgba(10, 25, 48, 0.06)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 16 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div
+                    style={{
+                      width: 52,
+                      height: 52,
+                      borderRadius: 12,
+                      background: '#eff6ff',
+                      border: '1px solid #bfdbfe',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#0284c7',
+                      fontWeight: 900,
+                      fontSize: 16,
+                      flexShrink: 0,
+                    }}
+                  >
+                    VSI
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 800, fontSize: 16, color: '#0a1930' }}>Valyrian Systems Inc. (VSI)</div>
+                    <div style={{ fontSize: 12.5, color: '#475569', lineHeight: 1.35 }}>
+                      Ch. Muhammad Asim · Manager (HR)
+                    </div>
+                  </div>
+                </div>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    padding: '4px 10px',
+                    borderRadius: 999,
+                    background: '#f0fdf4',
+                    color: '#15803d',
+                    border: '1px solid #bbf7d0',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  Official Letter
+                </span>
+              </div>
+
+              <p style={{ fontSize: 14, lineHeight: 1.65, color: '#1e293b', margin: '0 0 12px' }}>
+                &ldquo;This is to certify that Shoaib Tashrif has served as a Jr. Member Technical Staff in this organization from December 01, 2021 through January 31, 2025.&rdquo;
+              </p>
+              <p style={{ fontSize: 14, lineHeight: 1.65, color: '#1e293b', margin: 0 }}>
+                &ldquo;During this period, he assisted with the Frontend Development, Protocol Decoding and DevOps Team for Valyrian&apos;s proprietary Network Management System.&rdquo;
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10, marginTop: 20, paddingTop: 14, borderTop: '1px solid #f1f5f9' }}>
+              <button
+                type="button"
+                onClick={() =>
+                  setLightbox({
+                    src: '/images/reviews/vsi-experience-letter.jpg',
+                    title: 'Valyrian Systems Incorporation (VSI) — Official Experience Letter',
+                    subtitle: 'Ref: VSI-I/HR/G-180 · Signed March 13, 2025',
+                  })
+                }
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '7px 12px',
+                  borderRadius: 8,
+                  border: '1px solid #bae6fd',
+                  background: '#f0f9ff',
+                  color: '#0284c7',
+                  fontSize: 12.5,
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                <FileCheck2 size={14} /> View Experience Letter
+              </button>
+              <Link
+                to="/projects/valyrian-systems"
+                style={{ fontSize: 12.5, fontWeight: 700, color: '#0a1930', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4 }}
+              >
+                VSI Case Study <ExternalLink size={13} />
+              </Link>
+            </div>
+          </article>
         </div>
 
         {/* PART 2: UPWORK 5.0★ VERIFIED CONTRACT REVIEWS GRID */}
@@ -661,7 +776,7 @@ export default function ClientReviewsSection() {
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
               {[
                 { id: 'all', label: `All Proof (${ALL_PROOF_SCREENSHOTS.length})` },
-                { id: 'letter', label: 'Official Letters (2)' },
+                { id: 'letter', label: 'Official Letters (3)' },
                 { id: 'linkedin', label: 'LinkedIn (2)' },
                 { id: 'upwork_contract', label: 'Upwork Contracts (5)' },
                 { id: 'upwork_card', label: 'Upwork Cards (4)' },
@@ -865,3 +980,4 @@ export default function ClientReviewsSection() {
     </section>
   );
 }
+

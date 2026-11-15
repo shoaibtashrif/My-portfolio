@@ -32,6 +32,7 @@ export default function Footer() {
           <div className="ea-footer-links">
             <Link to="/expertise">Expertise</Link>
             <Link to="/projects">Projects</Link>
+            <Link to="/reviews">Client Reviews</Link>
             <Link to="/about">About</Link>
             <Link to="/contact">Contact</Link>
             <a

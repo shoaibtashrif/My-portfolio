@@ -64,6 +64,8 @@ export default function ProjectDetailPage() {
   const [activePipelineIdx, setActivePipelineIdx] = useState(0);
   const [callTurnIdx, setCallTurnIdx] = useState(1);
   const [callAudioOn, setCallAudioOn] = useState(false);
+  const [coachReactionOverride, setCoachReactionOverride] = useState<string | null>(null);
+  const [socialScrollPaused, setSocialScrollPaused] = useState(false);
   const [lightboxImg, setLightboxImg] = useState<{ src: string; title: string; caption: string } | null>(
     null
   );
@@ -124,6 +126,17 @@ export default function ProjectDetailPage() {
           0%, 100% { transform: translateY(0px) scale(1); }
           50% { transform: translateY(-6px) scale(1.025); }
         }
+        @keyframes animeHumanSpeak {
+          0%, 100% { transform: scale(1.01) translateY(0px) rotate(0deg); }
+          25% { transform: scale(1.028) translateY(-4px) rotate(-0.4deg); }
+          50% { transform: scale(1.02) translateY(-2px) rotate(0.4deg); }
+          75% { transform: scale(1.032) translateY(-5px) rotate(-0.2deg); }
+        }
+        @keyframes animeHumanListenNod {
+          0%, 100% { transform: scale(1.01) translateY(0px); }
+          35% { transform: scale(1.018) translateY(5px); }
+          70% { transform: scale(1.015) translateY(-3px); }
+        }
         @keyframes mouthTalk {
           0%, 100% { transform: scaleY(0.35); }
           50% { transform: scaleY(1.15); }
@@ -131,6 +144,10 @@ export default function ProjectDetailPage() {
         @keyframes eqBar {
           0%, 100% { height: 6px; }
           50% { height: 26px; }
+        }
+        @keyframes phoneFeedScroll {
+          0% { transform: translateY(0%); }
+          100% { transform: translateY(-50%); }
         }
       `}</style>
 
@@ -401,11 +418,16 @@ export default function ProjectDetailPage() {
                     marginBottom: 10,
                   }}
                 >
-                  <Video size={15} /> ● LIVE ANIMATED AI CHARACTER VIDEO CALL SIMULATION
+                  <Video size={15} /> ● INTERACTIVE 3D ANIME AI VIDEO CALL (HUMAN-LIKE REACTIONS)
                 </span>
                 <h2 style={{ color: '#ffffff', fontSize: 'clamp(1.7rem, 3vw, 2.4rem)', margin: 0 }}>
-                  Live Video Call: Person Speaking with Animated Sergeant AI Coach
+                  Face-to-Face Video Call with Interactive AI Anime Coach
                 </h2>
+                <p style={{ color: '#cbd5e1', fontSize: 15, marginTop: 8, marginBottom: 0, maxWidth: 760 }}>
+                  Just like talking to a real person on FaceTime or Zoom — you speak face-to-face on webcam while the
+                  expressive AI Anime Sergeant maintains eye contact, nods while listening, reacts with human-like facial
+                  expressions, and speaks back with real-time lip-sync.
+                </p>
               </div>
 
               <button
@@ -429,17 +451,17 @@ export default function ProjectDetailPage() {
               </button>
             </div>
 
-            {/* Interactive Split-Screen Video Call Stage */}
+            {/* Interactive FaceTime / Zoom Style Full-Screen Anime Video Call Stage */}
             <div
               style={{
                 borderRadius: 24,
                 background: '#050d1a',
-                border: '2px solid rgba(56, 189, 248, 0.4)',
-                boxShadow: '0 28px 70px rgba(0, 0, 0, 0.55)',
-                padding: 24,
+                border: '2px solid rgba(56, 189, 248, 0.45)',
+                boxShadow: '0 28px 70px rgba(0, 0, 0, 0.65)',
+                padding: 22,
               }}
             >
-              {/* Top Call HUD Bar */}
+              {/* Top Call HUD Bar + Human Reaction Selector */}
               <div
                 style={{
                   display: 'flex',
@@ -448,7 +470,7 @@ export default function ProjectDetailPage() {
                   justifyContent: 'space-between',
                   gap: 12,
                   paddingBottom: 16,
-                  marginBottom: 20,
+                  marginBottom: 18,
                   borderBottom: '1px solid rgba(148, 163, 184, 0.16)',
                 }}
               >
@@ -462,298 +484,349 @@ export default function ProjectDetailPage() {
                       boxShadow: '0 0 12px #22c55e',
                     }}
                   />
-                  <span style={{ fontWeight: 800, fontSize: 14, color: '#f8fafc' }}>
-                    BETTER YOU · ACCOUNTABILITY VIDEO CALL (ENCRYPTED WEBRTC)
+                  <span style={{ fontWeight: 800, fontSize: 13.5, color: '#f8fafc', letterSpacing: '0.03em' }}>
+                    SERGEANT AI ANIME COACH · LIVE WEBRTC FACE-TO-FACE CALL
                   </span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 13 }}>
-                  <span style={{ color: '#38bdf8', fontWeight: 700 }}>
-                    Streak: {currentTurn.streak}
+
+                {/* Human-Like Reaction Triggers */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 11.5, color: '#94a3b8', fontWeight: 700, marginRight: 4 }}>
+                    AI Human Reaction:
                   </span>
-                  <span
-                    style={{
-                      padding: '4px 12px',
-                      borderRadius: 999,
-                      background: 'rgba(34, 197, 94, 0.2)',
-                      color: '#4ade80',
-                      fontWeight: 800,
-                    }}
-                  >
-                    Accountability Score: {currentTurn.score}%
-                  </span>
-                </div>
-              </div>
-
-              {/* Two Video Feeds Side-by-Side: Animated AI Coach Character + Person Caller */}
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))',
-                  gap: 22,
-                  alignItems: 'stretch',
-                }}
-              >
-                {/* LEFT FEED: ANIMATED SERGEANT AI CHARACTER */}
-                <div
-                  style={{
-                    position: 'relative',
-                    borderRadius: 18,
-                    background:
-                      'radial-gradient(circle at 50% 38%, rgba(0, 127, 190, 0.42) 0%, #071428 72%)',
-                    border:
-                      currentTurn.speaker === 'coach'
-                        ? '3px solid #38bdf8'
-                        : '1px solid rgba(148, 163, 184, 0.25)',
-                    boxShadow:
-                      currentTurn.speaker === 'coach'
-                        ? '0 0 36px rgba(56, 189, 248, 0.45)'
-                        : 'none',
-                    padding: '28px 20px 20px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    minHeight: 370,
-                    overflow: 'hidden',
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: 14,
-                      left: 14,
-                      padding: '5px 12px',
-                      borderRadius: 999,
-                      background: 'rgba(7, 18, 36, 0.85)',
-                      border: '1px solid rgba(56, 189, 248, 0.4)',
-                      fontSize: 12,
-                      fontWeight: 800,
-                      color: '#38bdf8',
-                    }}
-                  >
-                    🤖 Animated Sergeant AI Coach
-                  </div>
-
-                  {currentTurn.speaker === 'coach' && (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: 14,
-                        right: 14,
-                        padding: '5px 11px',
-                        borderRadius: 999,
-                        background: '#007fbe',
-                        color: '#ffffff',
-                        fontSize: 11,
-                        fontWeight: 800,
-                      }}
-                    >
-                      ● SPEAKING LIVE
-                    </div>
-                  )}
-
-                  {/* Animated Character Avatar with Glowing Pulse Rings & Lip-Sync Indicator */}
-                  <div
-                    style={{
-                      position: 'relative',
-                      marginTop: 22,
-                      marginBottom: 14,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    {currentTurn.speaker === 'coach' && (
-                      <div
-                        style={{
-                          position: 'absolute',
-                          width: 220,
-                          height: 220,
-                          borderRadius: '50%',
-                          border: '2px solid rgba(56, 189, 248, 0.6)',
-                          animation: 'pulseRing 1.4s infinite ease-in-out',
-                        }}
-                      />
-                    )}
-                    <div
-                      style={{
-                        width: 190,
-                        height: 190,
-                        borderRadius: '50%',
-                        overflow: 'hidden',
-                        border: '4px solid #38bdf8',
-                        boxShadow: '0 16px 40px rgba(0, 0, 0, 0.5)',
-                        animation: 'avatarFloat 2.6s infinite ease-in-out',
-                        position: 'relative',
-                        background: '#0a1930',
-                      }}
-                    >
-                      <img
-                        src="/images/sergeant-avatar.png"
-                        alt="Animated Sergeant AI Coach"
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                        }}
-                      />
-                      {/* Animated Mouth/Voice Wave Overlay when Coach speaks */}
-                      {currentTurn.speaker === 'coach' && (
-                        <div
-                          style={{
-                            position: 'absolute',
-                            bottom: 14,
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            padding: '4px 12px',
-                            borderRadius: 999,
-                            background: 'rgba(7, 18, 36, 0.85)',
-                            border: '1px solid #38bdf8',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 3,
-                          }}
-                        >
-                          {[0, 1, 2, 3, 4, 5].map((b) => (
-                            <span
-                              key={b}
-                              style={{
-                                width: 3,
-                                height: 14,
-                                background: '#38bdf8',
-                                borderRadius: 2,
-                                display: 'inline-block',
-                                animation: `eqBar ${0.45 + b * 0.08}s infinite ease-in-out`,
-                              }}
-                            />
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Live Equalizer + Caption */}
-                  <div
-                    style={{
-                      width: '100%',
-                      padding: '12px 16px',
-                      borderRadius: 12,
-                      background: 'rgba(10, 25, 48, 0.92)',
-                      border: '1px solid rgba(56, 189, 248, 0.3)',
-                      textAlign: 'left',
-                    }}
-                  >
-                    <div style={{ fontSize: 11, fontWeight: 800, color: '#38bdf8', marginBottom: 4 }}>
-                      SERGEANT AI LIVE AUDIO STREAM
-                    </div>
-                    <div style={{ fontSize: 13.5, color: '#f8fafc', lineHeight: 1.5 }}>
-                      {currentTurn.speaker === 'coach'
-                        ? `"${currentTurn.text}"`
-                        : 'Listening to caller & analyzing daily goal completion...'}
-                    </div>
-                  </div>
-                </div>
-
-                {/* RIGHT FEED: CALLER ON LIVE VIDEO CALL */}
-                <div
-                  style={{
-                    position: 'relative',
-                    borderRadius: 18,
-                    background: '#071428',
-                    border:
-                      currentTurn.speaker === 'caller'
-                        ? '3px solid #22c55e'
-                        : '1px solid rgba(148, 163, 184, 0.25)',
-                    boxShadow:
-                      currentTurn.speaker === 'caller'
-                        ? '0 0 36px rgba(34, 197, 94, 0.35)'
-                        : 'none',
-                    overflow: 'hidden',
-                    minHeight: 370,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  <img
-                    src="/images/shoaib-cafe-coding.jpg"
-                    alt="Caller on Live Accountability Video Call"
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      filter: 'brightness(0.88)',
-                    }}
-                  />
-
-                  {/* Top Overlay */}
-                  <div
-                    style={{
-                      position: 'relative',
-                      zIndex: 2,
-                      padding: 14,
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <span
-                      style={{
-                        padding: '5px 12px',
-                        borderRadius: 999,
-                        background: 'rgba(7, 18, 36, 0.85)',
-                        border: '1px solid rgba(34, 197, 94, 0.45)',
-                        fontSize: 12,
-                        fontWeight: 800,
-                        color: '#4ade80',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 6,
-                      }}
-                    >
-                      <Mic size={13} /> Caller Webcam · HD Live
-                    </span>
-
-                    {currentTurn.speaker === 'caller' && (
-                      <span
+                  {[
+                    { id: 'encouraging', label: '😊 Warm & Encouraging' },
+                    { id: 'listening', label: '👂 Active Listening & Nodding' },
+                    { id: 'tactical', label: '🤔 Tactical Thinking' },
+                    { id: 'celebrating', label: '🔥 Fired Up Salute (96% Streak)' },
+                  ].map((react) => {
+                    const activeReaction =
+                      coachReactionOverride ||
+                      (currentTurn.speaker === 'caller'
+                        ? 'listening'
+                        : callTurnIdx === 3
+                          ? 'celebrating'
+                          : callTurnIdx === 1
+                            ? 'tactical'
+                            : 'encouraging');
+                    const isSelected = activeReaction === react.id;
+                    return (
+                      <button
+                        key={react.id}
+                        type="button"
+                        onClick={() => setCoachReactionOverride(react.id)}
                         style={{
                           padding: '5px 11px',
                           borderRadius: 999,
-                          background: '#16a34a',
+                          fontSize: 11.5,
+                          fontWeight: 800,
+                          cursor: 'pointer',
+                          border: isSelected ? '1px solid #38bdf8' : '1px solid rgba(148,163,184,0.25)',
+                          background: isSelected ? '#007fbe' : 'rgba(15, 23, 42, 0.8)',
                           color: '#ffffff',
+                          transition: 'all 0.2s ease',
+                        }}
+                      >
+                        {react.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* MAIN FULL-SCREEN ANIME VIDEO CALL VIEWPORT WITH PIP CALLER WEBCAM */}
+              <div
+                style={{
+                  position: 'relative',
+                  borderRadius: 20,
+                  overflow: 'hidden',
+                  border:
+                    currentTurn.speaker === 'coach'
+                      ? '3px solid #38bdf8'
+                      : '2px solid rgba(34, 197, 94, 0.65)',
+                  boxShadow:
+                    currentTurn.speaker === 'coach'
+                      ? '0 0 42px rgba(56, 189, 248, 0.35)'
+                      : '0 0 36px rgba(34, 197, 94, 0.25)',
+                  background: '#071428',
+                  minHeight: 500,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                }}
+              >
+                {/* Full-Screen 3D Anime Coach Video Stream with Human Breathing / Nodding Motion */}
+                <img
+                  src="/images/sergeant-anime-videocall.jpg"
+                  alt="Interactive AI Anime Sergeant Coach in Live Face-to-Face Video Call"
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center 20%',
+                    animation:
+                      currentTurn.speaker === 'coach'
+                        ? 'animeHumanSpeak 2.8s infinite ease-in-out'
+                        : 'animeHumanListenNod 3.2s infinite ease-in-out',
+                    filter:
+                      (coachReactionOverride || (currentTurn.speaker === 'caller' ? 'listening' : 'encouraging')) ===
+                      'celebrating'
+                        ? 'saturate(1.22) contrast(1.06) brightness(1.05)'
+                        : 'contrast(1.03)',
+                    transition: 'filter 0.4s ease',
+                  }}
+                />
+
+                {/* Subtle Vignette Gradient for HUD Readability */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background:
+                      'linear-gradient(180deg, rgba(4,10,22,0.72) 0%, rgba(4,10,22,0.08) 32%, rgba(4,10,22,0.18) 62%, rgba(4,10,22,0.92) 100%)',
+                    pointerEvents: 'none',
+                  }}
+                />
+
+                {/* TOP OVERLAY: Anime Coach Identity + Live Emotion Telemetry */}
+                <div
+                  style={{
+                    position: 'relative',
+                    zIndex: 2,
+                    padding: '18px 20px',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    gap: 12,
+                  }}
+                >
+                  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10 }}>
+                    <span
+                      style={{
+                        padding: '6px 14px',
+                        borderRadius: 999,
+                        background: 'rgba(7, 18, 36, 0.88)',
+                        border: '1px solid rgba(56, 189, 248, 0.55)',
+                        fontSize: 12.5,
+                        fontWeight: 800,
+                        color: '#38bdf8',
+                        backdropFilter: 'blur(8px)',
+                      }}
+                    >
+                      🎌 Sergeant AI Anime Coach · 60fps Neural Lip-Sync
+                    </span>
+                    <span
+                      style={{
+                        padding: '6px 13px',
+                        borderRadius: 999,
+                        background:
+                          currentTurn.speaker === 'coach'
+                            ? 'rgba(0, 127, 190, 0.92)'
+                            : 'rgba(22, 163, 74, 0.9)',
+                        color: '#ffffff',
+                        fontSize: 12,
+                        fontWeight: 800,
+                      }}
+                    >
+                      {currentTurn.speaker === 'coach'
+                        ? '● AI ANIME SPEAKING TO YOU'
+                        : '👂 NODDING & LISTENING TO YOUR MIC'}
+                    </span>
+                  </div>
+
+                  {/* Emotion & Eye-Contact Pill */}
+                  <div
+                    style={{
+                      padding: '6px 14px',
+                      borderRadius: 999,
+                      background: 'rgba(7, 18, 36, 0.88)',
+                      border: '1px solid rgba(74, 222, 128, 0.45)',
+                      color: '#4ade80',
+                      fontSize: 12,
+                      fontWeight: 800,
+                      backdropFilter: 'blur(8px)',
+                    }}
+                  >
+                    Eye Contact: Locked · Streak: {currentTurn.streak} ({currentTurn.score}%)
+                  </div>
+                </div>
+
+                {/* BOTTOM AREA: Live Subtitle + Voice Waveform + Picture-in-Picture (PiP) User Webcam */}
+                <div
+                  style={{
+                    position: 'relative',
+                    zIndex: 2,
+                    padding: '18px 20px',
+                    display: 'grid',
+                    gridTemplateColumns: '1fr auto',
+                    gap: 18,
+                    alignItems: 'end',
+                  }}
+                >
+                  {/* Left: Live Face-to-Face Dialogue Subtitles & Equalizer */}
+                  <div
+                    style={{
+                      padding: '16px 20px',
+                      borderRadius: 16,
+                      background: 'rgba(7, 18, 36, 0.88)',
+                      border:
+                        currentTurn.speaker === 'coach'
+                          ? '1px solid rgba(56, 189, 248, 0.55)'
+                          : '1px solid rgba(34, 197, 94, 0.55)',
+                      backdropFilter: 'blur(12px)',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: 10,
+                        marginBottom: 8,
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 11.5,
+                          fontWeight: 800,
+                          letterSpacing: '0.06em',
+                          textTransform: 'uppercase',
+                          color: currentTurn.speaker === 'coach' ? '#38bdf8' : '#4ade80',
+                        }}
+                      >
+                        {currentTurn.speaker === 'coach'
+                          ? '🎌 SERGEANT AI ANIME COACH (SPEAKING LIVE)'
+                          : '🎙️ YOU (CALLER WEBCAM MICROPHONE)'}
+                      </span>
+
+                      {/* Animated Voice Equalizer Bars */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 3, height: 18 }}>
+                        {[0, 1, 2, 3, 4, 5, 6].map((b) => (
+                          <span
+                            key={b}
+                            style={{
+                              width: 3,
+                              height: 14,
+                              background: currentTurn.speaker === 'coach' ? '#38bdf8' : '#4ade80',
+                              borderRadius: 2,
+                              display: 'inline-block',
+                              animation: `eqBar ${0.42 + b * 0.07}s infinite ease-in-out`,
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    <div style={{ fontSize: 15.5, fontWeight: 600, color: '#ffffff', lineHeight: 1.55 }}>
+                      &ldquo;{currentTurn.text}&rdquo;
+                    </div>
+
+                    {/* FaceTime / Zoom Call Controls Bar */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        alignItems: 'center',
+                        gap: 8,
+                        marginTop: 12,
+                        paddingTop: 10,
+                        borderTop: '1px solid rgba(148, 163, 184, 0.18)',
+                      }}
+                    >
+                      <span
+                        style={{
+                          padding: '4px 10px',
+                          borderRadius: 999,
+                          background: 'rgba(34, 197, 94, 0.18)',
+                          color: '#4ade80',
                           fontSize: 11,
                           fontWeight: 800,
                         }}
                       >
-                        ● CALLER SPEAKING
+                        🎥 HD Camera On
                       </span>
-                    )}
+                      <span
+                        style={{
+                          padding: '4px 10px',
+                          borderRadius: 999,
+                          background: 'rgba(56, 189, 248, 0.18)',
+                          color: '#38bdf8',
+                          fontSize: 11,
+                          fontWeight: 800,
+                        }}
+                      >
+                        ⚡ Expression Engine: Human-Like Anime v2
+                      </span>
+                      <span style={{ fontSize: 11.5, color: '#94a3b8', marginLeft: 'auto' }}>
+                        Click any turn below to test conversation
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Bottom Live Caller Speech Bubble */}
+                  {/* Right: Picture-in-Picture (PiP) Caller Webcam Window (Like Real Video Calling) */}
                   <div
                     style={{
+                      width: 195,
+                      height: 142,
+                      borderRadius: 16,
+                      overflow: 'hidden',
                       position: 'relative',
-                      zIndex: 2,
-                      margin: 16,
-                      padding: '12px 16px',
-                      borderRadius: 12,
-                      background: 'rgba(7, 18, 36, 0.9)',
-                      border: '1px solid rgba(34, 197, 94, 0.4)',
+                      border:
+                        currentTurn.speaker === 'caller'
+                          ? '3px solid #22c55e'
+                          : '2px solid rgba(255, 255, 255, 0.35)',
+                      boxShadow: '0 16px 36px rgba(0, 0, 0, 0.65)',
+                      background: '#0a1930',
+                      flexShrink: 0,
                     }}
                   >
-                    <div style={{ fontSize: 11, fontWeight: 800, color: '#4ade80', marginBottom: 4 }}>
-                      USER LIVE MICROPHONE TRANSCRIPT
+                    <img
+                      src="/images/shoaib-cafe-coding.jpg"
+                      alt="You (Caller Picture-in-Picture Webcam)"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 8,
+                        left: 8,
+                        padding: '3px 8px',
+                        borderRadius: 999,
+                        background: 'rgba(7, 18, 36, 0.85)',
+                        color: '#4ade80',
+                        fontSize: 10,
+                        fontWeight: 800,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 4,
+                      }}
+                    >
+                      <Mic size={10} /> You (Webcam)
                     </div>
-                    <div style={{ fontSize: 13.5, color: '#f8fafc', lineHeight: 1.5 }}>
-                      {currentTurn.speaker === 'caller'
-                        ? `"${currentTurn.text}"`
-                        : 'Watching Sergeant AI Coach respond in real time...'}
-                    </div>
+                    {currentTurn.speaker === 'caller' && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          bottom: 8,
+                          right: 8,
+                          padding: '2px 8px',
+                          borderRadius: 999,
+                          background: '#16a34a',
+                          color: '#ffffff',
+                          fontSize: 9.5,
+                          fontWeight: 800,
+                        }}
+                      >
+                        ● SPEAKING
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -773,21 +846,24 @@ export default function ProjectDetailPage() {
                 >
                   <div>
                     <div style={{ fontSize: 12, fontWeight: 800, color: '#38bdf8', textTransform: 'uppercase' }}>
-                      RECORDED ANIMATION CLIP
+                      INTERACTIVE DIALOGUE TURNS & RECORDED DEMO
                     </div>
                     <h3 style={{ color: '#ffffff', fontSize: 19, marginTop: 4, marginBottom: 8 }}>
-                      Animated Video Call Session Preview
+                      Test Live Anime Video Call Turns & Reactions
                     </h3>
                     <p style={{ color: '#cbd5e1', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
-                      Click any dialogue step below or watch the continuous video loop showing real-time
-                      lip-sync, waveform telemetry, and accountability tracking.
+                      Click any dialogue turn below to watch the AI Anime Coach switch between active listening,
+                      nodding, tactical analysis, and speaking with real-time voice synthesis.
                     </p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 14 }}>
                       {COACH_CALL_SCRIPT.map((turn, idx) => (
                         <button
                           key={idx}
                           type="button"
-                          onClick={() => setCallTurnIdx(idx)}
+                          onClick={() => {
+                            setCoachReactionOverride(null);
+                            setCallTurnIdx(idx);
+                          }}
                           style={{
                             padding: '6px 12px',
                             borderRadius: 8,
@@ -803,7 +879,7 @@ export default function ProjectDetailPage() {
                             cursor: 'pointer',
                           }}
                         >
-                          Turn 0{idx + 1}: {turn.speaker === 'coach' ? 'Sergeant AI' : 'Caller'}
+                          Turn 0{idx + 1}: {turn.speaker === 'coach' ? '🎌 Anime Coach' : '🎙️ You'}
                         </button>
                       ))}
                     </div>
@@ -829,6 +905,486 @@ export default function ProjectDetailPage() {
                   </div>
                 </div>
               )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* LIVE SCROLLING MOBILE APPS SHOWCASE (INSTAGRAM, YOUTUBE, TIKTOK, FACEBOOK INSIDE PHONE BODIES) */}
+      {project.slug === 'social-media-automation' && (
+        <section
+          style={{
+            background: 'linear-gradient(180deg, #040b16 0%, #091931 100%)',
+            padding: '68px 0',
+            borderBottom: '1px solid rgba(56, 189, 248, 0.25)',
+            color: '#ffffff',
+          }}
+        >
+          <div className="container">
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end',
+                gap: 16,
+                marginBottom: 32,
+              }}
+            >
+              <div>
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    padding: '6px 14px',
+                    borderRadius: 999,
+                    background: 'rgba(56, 189, 248, 0.16)',
+                    border: '1px solid rgba(56, 189, 248, 0.45)',
+                    color: '#38bdf8',
+                    fontSize: 12,
+                    fontWeight: 800,
+                    marginBottom: 10,
+                  }}
+                >
+                  📱 LIVE MULTI-PLATFORM MOBILE FEEDS (AUTO-SCROLLING INSIDE PHONE BODIES)
+                </span>
+                <h2 style={{ color: '#ffffff', fontSize: 'clamp(1.75rem, 3vw, 2.45rem)', margin: 0 }}>
+                  Instagram, YouTube, TikTok &amp; Facebook Scrolling Live on Mobile
+                </h2>
+                <p style={{ color: '#cbd5e1', fontSize: 15, marginTop: 8, marginBottom: 0, maxWidth: 780 }}>
+                  Watch how our autonomous AI content engine publishes viral Reels, Shorts, TikToks, and Facebook video
+                  posts that continuously scroll inside real mobile app interfaces with live engagement telemetry.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setSocialScrollPaused((prev) => !prev)}
+                className="ea-button ea-button-blue"
+                style={{ cursor: 'pointer' }}
+              >
+                {socialScrollPaused ? '▶ Resume Mobile App Scrolling' : '⏸ Pause Mobile Feeds'}
+              </button>
+            </div>
+
+            {/* 4 REALISTIC IPHONE 16 PRO MOBILE BODIES WITH SCROLLING APP FEEDS */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(245px, 1fr))',
+                gap: 24,
+                alignItems: 'stretch',
+              }}
+            >
+              {[
+                {
+                  platform: 'Instagram',
+                  handle: '@shoaib.ai.studio',
+                  badgeBg: 'linear-gradient(135deg, #f58529, #dd2a7b, #8134af)',
+                  headerBg: '#121212',
+                  accent: '#e1306c',
+                  speed: '16s',
+                  stories: ['AI Reels', 'n8n Bot', 'Viral', 'Clients'],
+                  posts: [
+                    {
+                      tag: 'INSTAGRAM REEL · AUTO-PUBLISHED',
+                      title: 'Autonomous AI Agent builds & schedules 30 Reels in 4 mins ⚡',
+                      stats: '❤️ 14.8K Likes · 💬 642 Comments · 🚀 98.4% Reach',
+                      img: '/images/social-automation.png',
+                    },
+                    {
+                      tag: 'CAROUSEL POST · AI GENERATED',
+                      title: 'How LangGraph + ElevenLabs automates faceless Instagram channels',
+                      stats: '❤️ 9.2K Likes · 💬 318 Comments · 🔖 2.1K Saves',
+                      img: '/images/ai-tech-hero-visual.png',
+                    },
+                    {
+                      tag: 'INSTAGRAM STORY + REEL SYNC',
+                      title: 'Zero-touch captioning, trending audio & auto-DM lead funnel',
+                      stats: '❤️ 19.4K Likes · 💬 890 Comments · 📈 +310% Growth',
+                      img: '/images/social-phones-showcase.jpg',
+                    },
+                  ],
+                  navIcons: ['🏠', '🔍', '➕', '🎬', '👤'],
+                },
+                {
+                  platform: 'YouTube',
+                  handle: 'Shoaib AI Automation · 120K',
+                  badgeBg: 'linear-gradient(135deg, #ff0000, #b30000)',
+                  headerBg: '#0f0f0f',
+                  accent: '#ff0000',
+                  speed: '19s',
+                  stories: ['All', 'Shorts', 'AI Agents', 'Podcasts'],
+                  posts: [
+                    {
+                      tag: 'YOUTUBE SHORT · 4K 60FPS',
+                      title: 'Full Multi-Platform AI Pipeline: Prompt → Voiceover → YouTube Short',
+                      stats: '👁️ 248K Views · 👍 18K Likes · 🔔 +1,420 Subs',
+                      img: '/images/social-phones-showcase.jpg',
+                    },
+                    {
+                      tag: 'LONG-FORM + SHORTS CLIPPER',
+                      title: 'Building an Autonomous 24/7 YouTube Channel with Python & FFmpeg',
+                      stats: '👁️ 112K Views · 👍 9.4K Likes · 💬 740 Comments',
+                      img: '/images/architecture-pipeline-visual.png',
+                    },
+                    {
+                      tag: 'YOUTUBE ANALYTICS · API',
+                      title: 'Auto-A/B Thumbnail & Title Optimizer triggered via YouTube Data API v3',
+                      stats: '👁️ 84K Views · 👍 6.9K Likes · 📈 CTR 11.8%',
+                      img: '/images/social-automation.png',
+                    },
+                  ],
+                  navIcons: ['🏠', '⚡ Shorts', '➕', '📺 Subs', '📚 You'],
+                },
+                {
+                  platform: 'TikTok',
+                  handle: '@aiautomation.engine',
+                  badgeBg: 'linear-gradient(135deg, #00f2fe, #fe0979)',
+                  headerBg: '#090909',
+                  accent: '#00f2fe',
+                  speed: '14s',
+                  stories: ['Following', 'For You', 'AI Viral', 'Live'],
+                  posts: [
+                    {
+                      tag: 'FOR YOU PAGE · TRENDING SOUND',
+                      title: 'POV: Your AI Agent posts 4x/day on TikTok while you sleep 🤖🔥',
+                      stats: '❤️ 62.5K · 💬 1,940 · 🔁 8,410 Shares',
+                      img: '/images/ai-tech-hero-visual.png',
+                    },
+                    {
+                      tag: 'TIKTOK SERIES · AUTO-CAPTIONED',
+                      title: 'Word-by-word kinetic subtitles + neural clone voice rendered in 12s',
+                      stats: '❤️ 41.2K · 💬 980 · 🔖 11.3K Bookmarks',
+                      img: '/images/social-phones-showcase.jpg',
+                    },
+                    {
+                      tag: 'VIRAL HOOK GENERATOR',
+                      title: 'GPT-4o analyzes top 1% TikTok hooks & renders custom B-roll',
+                      stats: '❤️ 88.9K · 💬 3,120 · 🚀 1.1M Plays',
+                      img: '/images/social-automation.png',
+                    },
+                  ],
+                  navIcons: ['🏠 Home', '🧭 Friends', '➕', '📥 Inbox', '👤 Profile'],
+                },
+                {
+                  platform: 'Facebook',
+                  handle: 'AI Growth Page · Verified',
+                  badgeBg: 'linear-gradient(135deg, #1877f2, #0c5dc7)',
+                  headerBg: '#18191a',
+                  accent: '#1877f2',
+                  speed: '18s',
+                  stories: ['Reels', 'Stories', 'Groups', 'Watch'],
+                  posts: [
+                    {
+                      tag: 'FACEBOOK WATCH & REELS',
+                      title: 'Cross-posted HD Reel + Automated Comment Responder & Messenger Bot',
+                      stats: '👍❤️ 12.4K Reactions · 💬 530 Comments · ↗️ 1.8K Shares',
+                      img: '/images/social-automation.png',
+                    },
+                    {
+                      tag: 'META GRAPH API AUTOMATION',
+                      title: 'Instant lead capture from Facebook comments straight into CRM',
+                      stats: '👍🔥 8.7K Reactions · 💬 412 Comments · ↗️ 920 Shares',
+                      img: '/images/social-phones-showcase.jpg',
+                    },
+                    {
+                      tag: 'MULTI-PAGE SCHEDULER',
+                      title: 'Simultaneous publishing across 15+ client Facebook & Instagram pages',
+                      stats: '👍❤️ 21.3K Reactions · 💬 1.1K Comments · 📈 99.98% Uptime',
+                      img: '/images/architecture-pipeline-visual.png',
+                    },
+                  ],
+                  navIcons: ['🏠', '🎬 Watch', '🏪', '🔔', '☰'],
+                },
+              ].map((phone) => (
+                <div
+                  key={phone.platform}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
+                  {/* Platform Top Pill */}
+                  <div
+                    style={{
+                      marginBottom: 12,
+                      padding: '6px 16px',
+                      borderRadius: 999,
+                      background: phone.badgeBg,
+                      color: '#ffffff',
+                      fontSize: 12.5,
+                      fontWeight: 800,
+                      letterSpacing: '0.03em',
+                      boxShadow: '0 8px 20px rgba(0,0,0,0.35)',
+                    }}
+                  >
+                    {phone.platform} · Live Mobile Feed
+                  </div>
+
+                  {/* Realistic iPhone 16 Pro Titanium Bezel Body */}
+                  <div
+                    style={{
+                      width: '100%',
+                      maxWidth: 285,
+                      height: 540,
+                      borderRadius: 42,
+                      padding: 11,
+                      background: 'linear-gradient(145deg, #334155 0%, #0f172a 50%, #1e293b 100%)',
+                      boxShadow: '0 26px 60px rgba(0, 0, 0, 0.65), inset 0 0 0 2px rgba(255,255,255,0.18)',
+                      position: 'relative',
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    {/* Inner OLED Screen */}
+                    <div
+                      style={{
+                        flex: 1,
+                        borderRadius: 32,
+                        background: phone.headerBg,
+                        overflow: 'hidden',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        position: 'relative',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                      }}
+                    >
+                      {/* iOS Status Bar + Dynamic Island */}
+                      <div
+                        style={{
+                          padding: '8px 16px 6px',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          fontSize: 10.5,
+                          fontWeight: 800,
+                          color: '#f8fafc',
+                          background: phone.headerBg,
+                          zIndex: 3,
+                        }}
+                      >
+                        <span>9:41</span>
+                        <span
+                          style={{
+                            width: 68,
+                            height: 16,
+                            borderRadius: 999,
+                            background: '#000000',
+                            border: '1px solid rgba(255,255,255,0.12)',
+                          }}
+                        />
+                        <span>5G 🔋</span>
+                      </div>
+
+                      {/* App Header + Stories / Category Pills */}
+                      <div
+                        style={{
+                          padding: '6px 12px 8px',
+                          borderBottom: '1px solid rgba(255,255,255,0.1)',
+                          background: phone.headerBg,
+                          zIndex: 3,
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            marginBottom: 6,
+                          }}
+                        >
+                          <span style={{ fontWeight: 900, fontSize: 13.5, color: '#ffffff' }}>
+                            {phone.platform}
+                          </span>
+                          <span style={{ fontSize: 10, color: '#94a3b8', fontWeight: 700 }}>
+                            {phone.handle}
+                          </span>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: 6, overflow: 'hidden' }}>
+                          {phone.stories.map((st, i) => (
+                            <span
+                              key={st}
+                              style={{
+                                padding: '3px 8px',
+                                borderRadius: 999,
+                                fontSize: 9.5,
+                                fontWeight: 700,
+                                background: i === 0 ? phone.badgeBg : 'rgba(255,255,255,0.08)',
+                                color: '#ffffff',
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
+                              {st}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Vertically Auto-Scrolling App Feed Track (Duplicated for Seamless Infinite Loop) */}
+                      <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 12,
+                            padding: 10,
+                            animation: `phoneFeedScroll ${phone.speed} linear infinite`,
+                            animationPlayState: socialScrollPaused ? 'paused' : 'running',
+                          }}
+                        >
+                          {[...phone.posts, ...phone.posts].map((post, pIdx) => (
+                            <div
+                              key={`${phone.platform}-${pIdx}`}
+                              style={{
+                                borderRadius: 14,
+                                background: 'rgba(255, 255, 255, 0.05)',
+                                border: '1px solid rgba(255, 255, 255, 0.1)',
+                                overflow: 'hidden',
+                              }}
+                            >
+                              <div style={{ position: 'relative', height: 132, overflow: 'hidden' }}>
+                                <img
+                                  src={post.img}
+                                  alt={post.title}
+                                  style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover',
+                                     display: 'block',
+                                  }}
+                                />
+                                <span
+                                  style={{
+                                    position: 'absolute',
+                                    top: 7,
+                                    left: 7,
+                                    padding: '2px 7px',
+                                    borderRadius: 6,
+                                    background: 'rgba(0, 0, 0, 0.78)',
+                                    color: '#ffffff',
+                                    fontSize: 8.5,
+                                    fontWeight: 800,
+                                    letterSpacing: '0.04em',
+                                  }}
+                                >
+                                  {post.tag}
+                                </span>
+                                <span
+                                  style={{
+                                    position: 'absolute',
+                                    bottom: 7,
+                                    right: 7,
+                                    padding: '2px 7px',
+                                    borderRadius: 6,
+                                    background: phone.badgeBg,
+                                    color: '#ffffff',
+                                    fontSize: 8.5,
+                                    fontWeight: 800,
+                                  }}
+                                >
+                                  ● LIVE
+                                </span>
+                              </div>
+                              <div style={{ padding: '9px 10px' }}>
+                                <div
+                                  style={{
+                                    fontSize: 11,
+                                    fontWeight: 700,
+                                    color: '#f8fafc',
+                                    lineHeight: 1.35,
+                                    marginBottom: 5,
+                                  }}
+                                >
+                                  {post.title}
+                                </div>
+                                <div style={{ fontSize: 9.5, color: '#94a3b8', fontWeight: 700 }}>
+                                  {post.stats}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Bottom Native Mobile App Navigation Bar */}
+                      <div
+                        style={{
+                          padding: '8px 10px 10px',
+                          background: phone.headerBg,
+                          borderTop: '1px solid rgba(255,255,255,0.1)',
+                          display: 'flex',
+                          justifyContent: 'space-around',
+                          alignItems: 'center',
+                          fontSize: 10,
+                          fontWeight: 700,
+                          color: '#cbd5e1',
+                          zIndex: 3,
+                        }}
+                      >
+                        {phone.navIcons.map((ic, idx) => (
+                          <span key={idx} style={{ opacity: idx === 0 ? 1 : 0.72 }}>
+                            {ic}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* High-Res Multi-Phone Studio Render Banner Below */}
+            <div
+              onClick={() =>
+                setLightboxImg({
+                  src: '/images/social-phones-showcase.jpg',
+                  title: 'Instagram, YouTube, TikTok & Facebook Live Mobile App Feeds',
+                  caption:
+                    'Multi-platform mobile showcase displaying Instagram Reels, YouTube Shorts, TikTok For You feed, and Facebook Watch running inside smartphone bodies.',
+                })
+              }
+              style={{
+                marginTop: 32,
+                borderRadius: 20,
+                overflow: 'hidden',
+                border: '1px solid rgba(56, 189, 248, 0.35)',
+                background: '#071428',
+                cursor: 'pointer',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))',
+                alignItems: 'center',
+              }}
+            >
+              <img
+                src="/images/social-phones-showcase.jpg"
+                alt="Instagram, YouTube, TikTok and Facebook Mobile Phones Showcase"
+                style={{ width: '100%', height: 280, objectFit: 'cover', display: 'block' }}
+              />
+              <div style={{ padding: '24px 28px' }}>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 800,
+                    color: '#38bdf8',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  4-PLATFORM SYNCHRONIZED PUBLISHING ENGINE
+                </span>
+                <h3 style={{ color: '#ffffff', fontSize: 22, marginTop: 6, marginBottom: 10 }}>
+                  One AI Prompt → 4 Native Vertical Video Feeds
+                </h3>
+                <p style={{ color: '#cbd5e1', fontSize: 14.5, lineHeight: 1.65, margin: 0 }}>
+                  Every video is automatically formatted to 9:16 vertical aspect ratio, loudness-normalized, captions
+                  burned in, and published natively to Instagram Reels, YouTube Shorts, TikTok, and Facebook Reels.
+                  Click to inspect full resolution.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -1207,6 +1763,125 @@ export default function ProjectDetailPage() {
                 alt="Scott Miles LinkedIn Recommendation"
                 style={{ width: '100%', borderRadius: 12, border: '1px solid #e2e8f0' }}
               />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* OFFICIAL VSI EXPERIENCE CERTIFICATE ON VALYRIAN SYSTEMS PROJECT PAGE */}
+      {project.slug === 'valyrian-systems' && (
+        <section
+          style={{
+            padding: '64px 0',
+            background: 'linear-gradient(180deg, #f8fafc 0%, #eef6ff 100%)',
+            borderTop: '1px solid rgba(0, 127, 190, 0.16)',
+            borderBottom: '1px solid rgba(0, 127, 190, 0.16)',
+          }}
+        >
+          <div className="container">
+            <div style={{ maxWidth: 820, marginBottom: 28 }}>
+              <span className="eyebrow">Official Valyrian Systems Inc. (VSI) Verification</span>
+              <div className="ea-scene-rule" aria-hidden="true" />
+              <h2>Official Experience Certificate (Dec 2021 – Jan 2025)</h2>
+              <p style={{ color: '#475569', fontSize: 15.5, lineHeight: 1.65 }}>
+                Official company certification signed by Ch. Muhammad Asim (Manager HR, Valyrian Systems Incorporation,
+                Ref: VSI-I/HR/G-180) verifying Shoaib Tashrif&apos;s tenure on the Frontend Development, Protocol
+                Decoding, and DevOps Team for Valyrian&apos;s proprietary Network Management System (NMS).
+              </p>
+            </div>
+
+            <div
+              onClick={() =>
+                setLightboxImg({
+                  src: '/images/reviews/vsi-experience-letter.jpg',
+                  title: 'Valyrian Systems Incorporation (VSI) — Official Experience Certificate',
+                  caption:
+                    'Signed by Ch. Muhammad Asim (Manager HR, VSI, Ref: VSI-I/HR/G-180) verifying Shoaib Tashrif’s work from December 01, 2021 through January 31, 2025.',
+                })
+              }
+              style={{
+                background: '#ffffff',
+                borderRadius: 20,
+                padding: 28,
+                border: '1px solid rgba(0, 127, 190, 0.25)',
+                boxShadow: '0 18px 44px rgba(10, 22, 48, 0.08)',
+                cursor: 'pointer',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
+                gap: 28,
+                alignItems: 'center',
+              }}
+            >
+              <div>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    padding: '5px 12px',
+                    borderRadius: 999,
+                    background: 'rgba(0, 127, 190, 0.12)',
+                    color: '#007fbe',
+                    fontSize: 11.5,
+                    fontWeight: 800,
+                    marginBottom: 12,
+                  }}
+                >
+                  📄 OFFICIAL EXPERIENCE LETTER · REF: VSI-I/HR/G-180
+                </span>
+                <h3 style={{ fontSize: 22, color: '#0f172a', margin: '0 0 10px' }}>
+                  3+ Years on VSI Proprietary Network Management System
+                </h3>
+                <p style={{ fontSize: 15, lineHeight: 1.7, color: '#334155', marginBottom: 16 }}>
+                  &ldquo;This is to certify that Shoaib Tashrif has served as a Jr. Member Technical Staff in this
+                  organization from December 01, 2021 through January 31, 2025. During this period, he assisted with
+                  the Frontend Development, Protocol Decoding and DevOps Team for Valyrian&apos;s proprietary Network
+                  Management System.&rdquo;
+                </p>
+                <div
+                  style={{
+                    padding: '12px 16px',
+                    borderRadius: 12,
+                    background: '#f8fafc',
+                    border: '1px solid #e2e8f0',
+                    fontSize: 13.5,
+                    color: '#1e293b',
+                    fontWeight: 700,
+                    marginBottom: 16,
+                  }}
+                >
+                  Signed by: Ch. Muhammad Asim — Manager (HR), Valyrian Systems Incorporation (Islamabad)
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: '#007fbe' }}>
+                    🔍 Click certificate to inspect full-screen
+                  </span>
+                  <Link
+                    to="/reviews"
+                    onClick={(e) => e.stopPropagation()}
+                    style={{ fontSize: 13, fontWeight: 800, color: '#0f172a', textDecoration: 'underline' }}
+                  >
+                    See all 14 Client Reviews &amp; Letters →
+                  </Link>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  borderRadius: 14,
+                  overflow: 'hidden',
+                  border: '1px solid #cbd5e1',
+                  background: '#f8fafc',
+                  maxHeight: 460,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <img
+                  src="/images/reviews/vsi-experience-letter.jpg"
+                  alt="Valyrian Systems Incorporation Official Experience Certificate"
+                  style={{ width: '100%', height: 'auto', maxHeight: 450, objectFit: 'contain', display: 'block' }}
+                />
+              </div>
             </div>
           </div>
         </section>
