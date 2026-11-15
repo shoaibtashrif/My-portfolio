@@ -887,21 +887,72 @@ export default function ProjectDetailPage() {
 
                   <div
                     style={{
-                      borderRadius: 14,
-                      overflow: 'hidden',
-                      border: '1px solid rgba(56, 189, 248, 0.35)',
-                      background: '#040a14',
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
+                      gap: 14,
                     }}
                   >
-                    <video
-                      src={project.videoUrl}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      controls
-                      style={{ width: '100%', height: 'auto', display: 'block' }}
-                    />
+                    <div
+                      style={{
+                        borderRadius: 14,
+                        overflow: 'hidden',
+                        border: '2px solid rgba(56, 189, 248, 0.55)',
+                        background: '#040a14',
+                      }}
+                    >
+                      <div
+                        style={{
+                          padding: '6px 12px',
+                          background: 'rgba(0, 127, 190, 0.22)',
+                          fontSize: 11,
+                          fontWeight: 800,
+                          color: '#38bdf8',
+                          letterSpacing: '0.04em',
+                        }}
+                      >
+                        🎬 OFFICIAL AI COACH PROMO VIDEO
+                      </div>
+                      <video
+                        src={project.videoUrl}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        controls
+                        style={{ width: '100%', height: 'auto', display: 'block' }}
+                      />
+                    </div>
+
+                    <div
+                      style={{
+                        borderRadius: 14,
+                        overflow: 'hidden',
+                        border: '1px solid rgba(56, 189, 248, 0.3)',
+                        background: '#040a14',
+                      }}
+                    >
+                      <div
+                        style={{
+                          padding: '6px 12px',
+                          background: 'rgba(15, 23, 42, 0.9)',
+                          fontSize: 11,
+                          fontWeight: 800,
+                          color: '#cbd5e1',
+                          letterSpacing: '0.04em',
+                        }}
+                      >
+                        📞 LIVE CALL ANIMATION PREVIEW
+                      </div>
+                      <video
+                        src="/videos/sergeant-ai-video-call.mp4"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        controls
+                        style={{ width: '100%', height: 'auto', display: 'block' }}
+                      />
+                    </div>
                   </div>
                 </div>
               )}
@@ -1080,7 +1131,7 @@ export default function ProjectDetailPage() {
                         { label: 'Your story', img: '/images/real/h2o-jugs.png', active: false },
                         { label: 'h2o.water', img: '/images/real/h2o-alkaline.png', active: true },
                         { label: 'shoaib.ai', img: '/images/shoaib-tech-talk.jpg', active: true },
-                        { label: 'reels.bot', img: '/images/proj-social-automation.jpg', active: true },
+                        { label: 'reels.bot', img: '/images/ai-social-video-studio.jpg', active: true },
                       ].map((story) => (
                         <div key={story.label} style={{ textAlign: 'center', width: 52, flexShrink: 0 }}>
                           <div
@@ -1145,7 +1196,7 @@ export default function ProjectDetailPage() {
                           {
                             user: 'shoaib.ai.studio',
                             avatar: '/images/shoaib-tech-talk.jpg',
-                            photo: '/images/proj-social-automation.jpg',
+                            photo: '/images/ai-social-video-studio.jpg',
                             likes: '9,412 likes',
                             caption: '30 branded Reels generated, captioned & auto-published via Meta Graph API 🚀',
                           },
@@ -1168,7 +1219,7 @@ export default function ProjectDetailPage() {
                             {
                               user: 'shoaib.ai.studio',
                               avatar: '/images/shoaib-tech-talk.jpg',
-                              photo: '/images/proj-social-automation.jpg',
+                              photo: '/images/ai-social-video-studio.jpg',
                               likes: '9,412 likes',
                               caption: '30 branded Reels generated, captioned & auto-published via Meta Graph API 🚀',
                             },
@@ -1615,7 +1666,7 @@ export default function ProjectDetailPage() {
                             shares: '8,410',
                           },
                           {
-                            bg: '/images/proj-social-automation.jpg',
+                            bg: '/images/ai-social-video-studio.jpg',
                             avatar: '/images/real/h2o-jugs.png',
                             handle: '@h2owater.bayarea',
                             caption: 'From product photo to trending TikTok Reel in 15 seconds ⚡💧 #marketing #saas',
@@ -1639,7 +1690,7 @@ export default function ProjectDetailPage() {
                               shares: '8,410',
                             },
                             {
-                              bg: '/images/proj-social-automation.jpg',
+                              bg: '/images/ai-social-video-studio.jpg',
                               avatar: '/images/real/h2o-jugs.png',
                               handle: '@h2owater.bayarea',
                               caption: 'From product photo to trending TikTok Reel in 15 seconds ⚡💧 #marketing #saas',

@@ -107,3 +107,4 @@ export default function ChatMessageText({ text }: { text: string }) {
     </div>
   );
 }
+

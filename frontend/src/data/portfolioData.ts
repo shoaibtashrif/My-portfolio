@@ -389,7 +389,7 @@ export const PROJECTS: ProjectItem[] = [
         caption: 'Simultaneous native vertical publishing across Instagram Reels, YouTube Shorts, TikTok, and Facebook.',
       },
       {
-        src: '/images/proj-social-automation.jpg',
+        src: '/images/ai-social-video-studio.jpg',
         title: 'AI Social Media Content Calendar & Auto-Poster',
         badge: 'Automation Studio',
         caption: 'Generates branded visuals & captions and auto-schedules across 4 social networks.',
@@ -451,7 +451,7 @@ export const PROJECTS: ProjectItem[] = [
     title: 'Sergeant AI ("Better You") — Animated Character Video Call & Accountability Coach',
     image: '/images/proj-sergeant-ui.jpg',
     workImage: '/images/shoaib-whiteboard-architecture.jpg',
-    videoUrl: '/videos/sergeant-ai-video-call.mp4',
+    videoUrl: '/videos/sergeant-ai-coach-promo.mp4',
     category: ['Animated Video AI', 'Voice AI', 'Accountability Coach', 'Full Stack'],
     clientLabel: 'Better You / Shaista AI Coaching Platform',
     role: 'Lead AI & Full Stack Engineer',
