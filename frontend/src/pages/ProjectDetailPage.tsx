@@ -1018,6 +1018,200 @@ export default function ProjectDetailPage() {
         alt={`Shoaib Tashrif — ${project.shortTitle}`}
       />
 
+      {/* OFFICIAL WOSLER DIAGNOSTICS LETTERS ON THE WOSLER / HILUM PROJECT PAGE */}
+      {project.slug === 'hilum-healthcare-ai' && (
+        <section
+          className="section-space ea-approved-section"
+          style={{ background: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}
+        >
+          <div className="container">
+            <div style={{ marginBottom: 28 }}>
+              <span className="eyebrow">Official Wosler Diagnostics Endorsement</span>
+              <h2 style={{ marginTop: 8 }}>
+                <RevealText text="Reference & Experience Letters from Wosler Leadership." />
+              </h2>
+              <p style={{ color: '#475569', maxWidth: 720, marginTop: 8, marginBottom: 0 }}>
+                Official letters issued by Wosler Diagnostics (Canada) verifying Shoaib Tashrif&apos;s tenure as AI Software Engineer (October 2024 – September 2026) across healthcare voice AI, appointment automation, backend architecture, and production engineering. Click either letter to inspect in full resolution.
+              </p>
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gap: 24,
+              }}
+            >
+              {[
+                {
+                  src: '/images/reviews/wosler-reference-letter-leah-groves.jpg',
+                  badge: 'Official Reference Letter',
+                  title: 'Reference Letter — Leah Groves',
+                  role: 'Authorized Signatory · Wosler Corp (leah.groves@wosler.ca)',
+                  quote:
+                    'Shoaib made significant contributions to our healthcare AI systems, particularly our conversational AI and voice calling solutions. His work included AI workflows, appointment automation, backend integrations, and improving the reliability and scalability of systems running in production.',
+                },
+                {
+                  src: '/images/reviews/wosler-experience-letter-marco-gallone.jpg',
+                  badge: 'Official Experience Letter',
+                  title: 'Experience Letter — Marco Gallone',
+                  role: 'Authorized Signatory · Wosler Corp (marco@wosler.ca)',
+                  quote:
+                    'This letter confirms that Shoaib Tashrif worked with Wosler Corp as an AI Software Engineer from October 2024 to September 2026... contributing to conversational AI and voice-calling workflows, appointment automation, backend systems, and production engineering.',
+                },
+              ].map((doc) => (
+                <article
+                  key={doc.title}
+                  onClick={() =>
+                    setLightboxImg({
+                      src: doc.src,
+                      title: doc.title,
+                      caption: doc.role,
+                    })
+                  }
+                  style={{
+                    background: '#ffffff',
+                    borderRadius: 16,
+                    border: '1px solid #cbd5e1',
+                    overflow: 'hidden',
+                    boxShadow: '0 12px 32px rgba(10, 25, 48, 0.07)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                >
+                  <div
+                    style={{
+                      background: '#0f172a',
+                      padding: 16,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      position: 'relative',
+                      maxHeight: 420,
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <img
+                      src={doc.src}
+                      alt={doc.title}
+                      style={{
+                        width: '100%',
+                        maxWidth: 420,
+                        height: 'auto',
+                        borderRadius: 8,
+                        objectFit: 'contain',
+                        boxShadow: '0 8px 24px rgba(0,0,0,0.35)',
+                      }}
+                    />
+                    <span
+                      style={{
+                        position: 'absolute',
+                        top: 14,
+                        left: 14,
+                        padding: '4px 10px',
+                        borderRadius: 999,
+                        fontSize: 11,
+                        fontWeight: 700,
+                        background: '#0284c7',
+                        color: '#ffffff',
+                      }}
+                    >
+                      {doc.badge}
+                    </span>
+                  </div>
+                  <div style={{ padding: 22, display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
+                    <div style={{ fontSize: 17, fontWeight: 800, color: '#0a1930' }}>{doc.title}</div>
+                    <div style={{ fontSize: 12.5, fontWeight: 600, color: '#0284c7' }}>{doc.role}</div>
+                    <p style={{ fontSize: 13.5, lineHeight: 1.6, color: '#334155', margin: '4px 0 12px' }}>
+                      &ldquo;{doc.quote}&rdquo;
+                    </p>
+                    <span
+                      style={{
+                        marginTop: 'auto',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        fontSize: 12.5,
+                        fontWeight: 700,
+                        color: '#0a1930',
+                      }}
+                    >
+                      <Maximize2 size={14} /> Click to inspect full signed letter
+                    </span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* SCOTT MILES LINKEDIN ENDORSEMENT ON EXECUTIVE ALLY PROJECT PAGE */}
+      {project.slug === 'executive-ally-platform' && (
+        <section
+          className="section-space ea-approved-section"
+          style={{ background: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }}
+        >
+          <div className="container">
+            <div style={{ marginBottom: 24 }}>
+              <span className="eyebrow">Client Recommendation</span>
+              <h2 style={{ marginTop: 8 }}>
+                <RevealText text="Endorsed by Scott Miles, CMF — Founder of Executive Ally." />
+              </h2>
+            </div>
+            <div
+              onClick={() =>
+                setLightboxImg({
+                  src: '/images/reviews/linkedin-scott-miles.jpg',
+                  title: 'Scott Miles, CMF — LinkedIn Recommendation',
+                  caption: 'Founder, Executive Ally – Miles LeHane',
+                })
+              }
+              style={{
+                background: '#ffffff',
+                borderRadius: 16,
+                border: '1px solid #cbd5e1',
+                padding: 24,
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: 24,
+                alignItems: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 12px 32px rgba(10, 25, 48, 0.06)',
+              }}
+            >
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
+                  <img
+                    src="/images/reviews/avatar-scott-miles.jpg"
+                    alt="Scott Miles, CMF"
+                    style={{ width: 56, height: 56, borderRadius: '50%', objectFit: 'cover', border: '2px solid #0284c7' }}
+                  />
+                  <div>
+                    <div style={{ fontWeight: 800, fontSize: 17, color: '#0a1930' }}>Scott Miles, CMF</div>
+                    <div style={{ fontSize: 13, color: '#475569' }}>
+                      Executive career transition coach &amp; outplacement · Executive Ally – Miles LeHane
+                    </div>
+                  </div>
+                </div>
+                <p style={{ fontSize: 14.5, lineHeight: 1.7, color: '#1e293b', margin: '0 0 12px' }}>
+                  &ldquo;I hired Shoaib to build the website and client platform for Executive Ally – Miles LeHane, and he delivered far more than a website. He built the full system behind it, which includes payments, e-signatures, booking, automated email, and an admin panel I can run the business from, and he handled our migration and launch without missing a beat.&rdquo;
+                </p>
+                <p style={{ fontSize: 14.5, lineHeight: 1.7, color: '#1e293b', margin: 0 }}>
+                  &ldquo;If you need a developer you can trust with something that matters, Shoaib is that person.&rdquo;
+                </p>
+              </div>
+              <img
+                src="/images/reviews/linkedin-scott-miles.jpg"
+                alt="Scott Miles LinkedIn Recommendation"
+                style={{ width: '100%', borderRadius: 12, border: '1px solid #e2e8f0' }}
+              />
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* OTHER PROJECTS VISUAL GRID */}
       <section className="ea-photo-paths">
         <div className="container">

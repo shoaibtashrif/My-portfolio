@@ -3,6 +3,7 @@ import { ArrowUpRight, Bot } from 'lucide-react';
 import { RevealText } from '../components/RevealText';
 import { CinematicSection } from '../components/CinematicSection';
 import { StoryPhoto } from '../components/StoryPhoto';
+import ClientReviewsSection from '../components/ClientReviewsSection';
 import { EXPERTISE_AREAS, PORTFOLIO_PROFILE, PROJECTS } from '../data/portfolioData';
 
 export default function HomePage() {
@@ -246,6 +247,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* VERIFIED CLIENT ENDORSEMENTS, LINKEDIN RECOMMENDATIONS & 5.0 UPWORK REVIEWS */}
+      <ClientReviewsSection />
 
       {/* APPROVED CLOSE CTA — IDENTICAL TO SCOTT'S CLOSE */}
       <section className="ea-cta">

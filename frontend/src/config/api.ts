@@ -24,3 +24,4 @@ export function voiceWsUrl(): string {
   const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
   return `${protocol}//${window.location.host}/api/v1/voice`;
 }
+
