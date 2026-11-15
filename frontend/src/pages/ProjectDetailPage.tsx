@@ -418,15 +418,15 @@ export default function ProjectDetailPage() {
                     marginBottom: 10,
                   }}
                 >
-                  <Video size={15} /> ● INTERACTIVE 3D ANIME AI VIDEO CALL (HUMAN-LIKE REACTIONS)
+                  <Video size={15} /> ● LIVE ANIMATED AI ACCOUNTABILITY VIDEO CALL
                 </span>
                 <h2 style={{ color: '#ffffff', fontSize: 'clamp(1.7rem, 3vw, 2.4rem)', margin: 0 }}>
-                  Face-to-Face Video Call with Interactive AI Anime Coach
+                  Face-to-Face Video Call with Animated Sergeant AI Coach
                 </h2>
                 <p style={{ color: '#cbd5e1', fontSize: 15, marginTop: 8, marginBottom: 0, maxWidth: 760 }}>
-                  Just like talking to a real person on FaceTime or Zoom — you speak face-to-face on webcam while the
-                  expressive AI Anime Sergeant maintains eye contact, nods while listening, reacts with human-like facial
-                  expressions, and speaks back with real-time lip-sync.
+                  Just like talking to a real accountability partner on FaceTime or Zoom, you speak on live video
+                  while the animated Sergeant Hall maintains eye contact, nods while listening, reacts dynamically, and
+                  replies with synchronized voice and lip movement.
                 </p>
               </div>
 
@@ -451,511 +451,380 @@ export default function ProjectDetailPage() {
               </button>
             </div>
 
-            {/* Interactive FaceTime / Zoom Style Full-Screen Anime Video Call Stage */}
+            {/* REDESIGNED STAGE: Official Mobile Video Promo Left + Interactive Sergeant Hall Console Right */}
             <div
               style={{
                 borderRadius: 24,
                 background: '#050d1a',
-                border: '2px solid rgba(56, 189, 248, 0.45)',
+                border: '2px solid rgba(56, 189, 248, 0.4)',
                 boxShadow: '0 28px 70px rgba(0, 0, 0, 0.65)',
-                padding: 22,
+                padding: 24,
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
+                gap: 26,
+                alignItems: 'center',
               }}
             >
-              {/* Top Call HUD Bar + Human Reaction Selector */}
+              {/* LEFT COLUMN: OFFICIAL SERGEANT AI PROMO VIDEO PLAYER */}
               <div
                 style={{
                   display: 'flex',
-                  flexWrap: 'wrap',
+                  flexDirection: 'column',
                   alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: 12,
-                  paddingBottom: 16,
-                  marginBottom: 18,
-                  borderBottom: '1px solid rgba(148, 163, 184, 0.16)',
+                  background: 'radial-gradient(circle at 50% 35%, rgba(0, 127, 190, 0.25) 0%, #071428 75%)',
+                  borderRadius: 20,
+                  padding: 18,
+                  border: '1px solid rgba(56, 189, 248, 0.35)',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: 12,
+                    fontSize: 11.5,
+                    fontWeight: 800,
+                    color: '#38bdf8',
+                  }}
+                >
+                  <span>🎬 BETTER YOU · SERGEANT AI VIDEO CALL DEMO</span>
                   <span
                     style={{
-                      width: 10,
-                      height: 10,
-                      borderRadius: '50%',
-                      background: '#22c55e',
-                      boxShadow: '0 0 12px #22c55e',
+                      padding: '3px 9px',
+                      borderRadius: 999,
+                      background: 'rgba(34, 197, 94, 0.2)',
+                      color: '#4ade80',
                     }}
-                  />
-                  <span style={{ fontWeight: 800, fontSize: 13.5, color: '#f8fafc', letterSpacing: '0.03em' }}>
-                    SERGEANT AI ANIME COACH · LIVE WEBRTC FACE-TO-FACE CALL
+                  >
+                    ● LIVE APP PREVIEW
                   </span>
                 </div>
 
-                {/* Human-Like Reaction Triggers */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 11.5, color: '#94a3b8', fontWeight: 700, marginRight: 4 }}>
-                    AI Human Reaction:
-                  </span>
-                  {[
-                    { id: 'encouraging', label: '😊 Warm & Encouraging' },
-                    { id: 'listening', label: '👂 Active Listening & Nodding' },
-                    { id: 'tactical', label: '🤔 Tactical Thinking' },
-                    { id: 'celebrating', label: '🔥 Fired Up Salute (96% Streak)' },
-                  ].map((react) => {
-                    const activeReaction =
-                      coachReactionOverride ||
-                      (currentTurn.speaker === 'caller'
-                        ? 'listening'
-                        : callTurnIdx === 3
-                          ? 'celebrating'
-                          : callTurnIdx === 1
-                            ? 'tactical'
-                            : 'encouraging');
-                    const isSelected = activeReaction === react.id;
-                    return (
-                      <button
-                        key={react.id}
-                        type="button"
-                        onClick={() => setCoachReactionOverride(react.id)}
-                        style={{
-                          padding: '5px 11px',
-                          borderRadius: 999,
-                          fontSize: 11.5,
-                          fontWeight: 800,
-                          cursor: 'pointer',
-                          border: isSelected ? '1px solid #38bdf8' : '1px solid rgba(148,163,184,0.25)',
-                          background: isSelected ? '#007fbe' : 'rgba(15, 23, 42, 0.8)',
-                          color: '#ffffff',
-                          transition: 'all 0.2s ease',
-                        }}
-                      >
-                        {react.label}
-                      </button>
-                    );
-                  })}
+                <div
+                  style={{
+                    width: '100%',
+                    maxWidth: 330,
+                    borderRadius: 22,
+                    overflow: 'hidden',
+                    border: '2px solid rgba(56, 189, 248, 0.5)',
+                    boxShadow: '0 22px 50px rgba(0, 0, 0, 0.65)',
+                    background: '#000000',
+                  }}
+                >
+                  <video
+                    src={project.videoUrl}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    controls
+                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                  />
                 </div>
               </div>
 
-              {/* MAIN FULL-SCREEN ANIME VIDEO CALL VIEWPORT WITH PIP CALLER WEBCAM */}
-              <div
-                style={{
-                  position: 'relative',
-                  borderRadius: 20,
-                  overflow: 'hidden',
-                  border:
-                    currentTurn.speaker === 'coach'
-                      ? '3px solid #38bdf8'
-                      : '2px solid rgba(34, 197, 94, 0.65)',
-                  boxShadow:
-                    currentTurn.speaker === 'coach'
-                      ? '0 0 42px rgba(56, 189, 248, 0.35)'
-                      : '0 0 36px rgba(34, 197, 94, 0.25)',
-                  background: '#071428',
-                  minHeight: 500,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                }}
-              >
-                {/* Full-Screen 3D Anime Coach Video Stream with Human Breathing / Nodding Motion */}
-                <img
-                  src="/images/sergeant-anime-videocall.jpg"
-                  alt="Interactive AI Anime Sergeant Coach in Live Face-to-Face Video Call"
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center 20%',
-                    animation:
-                      currentTurn.speaker === 'coach'
-                        ? 'animeHumanSpeak 2.8s infinite ease-in-out'
-                        : 'animeHumanListenNod 3.2s infinite ease-in-out',
-                    filter:
-                      (coachReactionOverride || (currentTurn.speaker === 'caller' ? 'listening' : 'encouraging')) ===
-                      'celebrating'
-                        ? 'saturate(1.22) contrast(1.06) brightness(1.05)'
-                        : 'contrast(1.03)',
-                    transition: 'filter 0.4s ease',
-                  }}
-                />
-
-                {/* Subtle Vignette Gradient for HUD Readability */}
+              {/* RIGHT COLUMN: INTERACTIVE SERGEANT HALL REACTION & CONVERSATION CONSOLE */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+                {/* Top HUD */}
                 <div
                   style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background:
-                      'linear-gradient(180deg, rgba(4,10,22,0.72) 0%, rgba(4,10,22,0.08) 32%, rgba(4,10,22,0.18) 62%, rgba(4,10,22,0.92) 100%)',
-                    pointerEvents: 'none',
-                  }}
-                />
-
-                {/* TOP OVERLAY: Anime Coach Identity + Live Emotion Telemetry */}
-                <div
-                  style={{
-                    position: 'relative',
-                    zIndex: 2,
-                    padding: '18px 20px',
                     display: 'flex',
                     flexWrap: 'wrap',
+                    alignItems: 'center',
                     justifyContent: 'space-between',
-                    alignItems: 'flex-start',
-                    gap: 12,
+                    gap: 10,
+                    paddingBottom: 14,
+                    borderBottom: '1px solid rgba(148, 163, 184, 0.16)',
                   }}
                 >
-                  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 10 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
                     <span
                       style={{
-                        padding: '6px 14px',
-                        borderRadius: 999,
-                        background: 'rgba(7, 18, 36, 0.88)',
-                        border: '1px solid rgba(56, 189, 248, 0.55)',
-                        fontSize: 12.5,
-                        fontWeight: 800,
-                        color: '#38bdf8',
-                        backdropFilter: 'blur(8px)',
+                        width: 10,
+                        height: 10,
+                        borderRadius: '50%',
+                        background: '#22c55e',
+                        boxShadow: '0 0 12px #22c55e',
                       }}
-                    >
-                      🎌 Sergeant AI Anime Coach · 60fps Neural Lip-Sync
-                    </span>
-                    <span
-                      style={{
-                        padding: '6px 13px',
-                        borderRadius: 999,
-                        background:
-                          currentTurn.speaker === 'coach'
-                            ? 'rgba(0, 127, 190, 0.92)'
-                            : 'rgba(22, 163, 74, 0.9)',
-                        color: '#ffffff',
-                        fontSize: 12,
-                        fontWeight: 800,
-                      }}
-                    >
-                      {currentTurn.speaker === 'coach'
-                        ? '● AI ANIME SPEAKING TO YOU'
-                        : '👂 NODDING & LISTENING TO YOUR MIC'}
+                    />
+                    <span style={{ fontWeight: 800, fontSize: 13.5, color: '#f8fafc', letterSpacing: '0.03em' }}>
+                      SERGEANT HALL · INTERACTIVE COACHING ENGINE
                     </span>
                   </div>
-
-                  {/* Emotion & Eye-Contact Pill */}
-                  <div
+                  <span
                     style={{
-                      padding: '6px 14px',
+                      padding: '4px 12px',
                       borderRadius: 999,
-                      background: 'rgba(7, 18, 36, 0.88)',
-                      border: '1px solid rgba(74, 222, 128, 0.45)',
+                      background: 'rgba(34, 197, 94, 0.2)',
                       color: '#4ade80',
                       fontSize: 12,
                       fontWeight: 800,
-                      backdropFilter: 'blur(8px)',
                     }}
                   >
-                    Eye Contact: Locked · Streak: {currentTurn.streak} ({currentTurn.score}%)
-                  </div>
+                    Streak: {currentTurn.streak} ({currentTurn.score}%)
+                  </span>
                 </div>
 
-                {/* BOTTOM AREA: Live Subtitle + Voice Waveform + Picture-in-Picture (PiP) User Webcam */}
+                {/* Animated Sergeant Hall Avatar + Caller Webcam Tile */}
                 <div
                   style={{
-                    position: 'relative',
-                    zIndex: 2,
-                    padding: '18px 20px',
                     display: 'grid',
-                    gridTemplateColumns: '1fr auto',
-                    gap: 18,
-                    alignItems: 'end',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
+                    gap: 16,
                   }}
                 >
-                  {/* Left: Live Face-to-Face Dialogue Subtitles & Equalizer */}
+                  {/* Sergeant Hall Live Tile */}
                   <div
                     style={{
-                      padding: '16px 20px',
+                      position: 'relative',
                       borderRadius: 16,
-                      background: 'rgba(7, 18, 36, 0.88)',
+                      padding: '20px 14px 14px',
+                      background: 'radial-gradient(circle at 50% 35%, rgba(0, 127, 190, 0.35) 0%, #071428 75%)',
                       border:
                         currentTurn.speaker === 'coach'
-                          ? '1px solid rgba(56, 189, 248, 0.55)'
-                          : '1px solid rgba(34, 197, 94, 0.55)',
-                      backdropFilter: 'blur(12px)',
+                          ? '2px solid #38bdf8'
+                          : '1px solid rgba(148, 163, 184, 0.25)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      textAlign: 'center',
                     }}
                   >
-                    <div
+                    <span
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: 10,
-                        marginBottom: 8,
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontSize: 11.5,
-                          fontWeight: 800,
-                          letterSpacing: '0.06em',
-                          textTransform: 'uppercase',
-                          color: currentTurn.speaker === 'coach' ? '#38bdf8' : '#4ade80',
-                        }}
-                      >
-                        {currentTurn.speaker === 'coach'
-                          ? '🎌 SERGEANT AI ANIME COACH (SPEAKING LIVE)'
-                          : '🎙️ YOU (CALLER WEBCAM MICROPHONE)'}
-                      </span>
-
-                      {/* Animated Voice Equalizer Bars */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 3, height: 18 }}>
-                        {[0, 1, 2, 3, 4, 5, 6].map((b) => (
-                          <span
-                            key={b}
-                            style={{
-                              width: 3,
-                              height: 14,
-                              background: currentTurn.speaker === 'coach' ? '#38bdf8' : '#4ade80',
-                              borderRadius: 2,
-                              display: 'inline-block',
-                              animation: `eqBar ${0.42 + b * 0.07}s infinite ease-in-out`,
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-
-                    <div style={{ fontSize: 15.5, fontWeight: 600, color: '#ffffff', lineHeight: 1.55 }}>
-                      &ldquo;{currentTurn.text}&rdquo;
-                    </div>
-
-                    {/* FaceTime / Zoom Call Controls Bar */}
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        alignItems: 'center',
-                        gap: 8,
-                        marginTop: 12,
-                        paddingTop: 10,
-                        borderTop: '1px solid rgba(148, 163, 184, 0.18)',
-                      }}
-                    >
-                      <span
-                        style={{
-                          padding: '4px 10px',
-                          borderRadius: 999,
-                          background: 'rgba(34, 197, 94, 0.18)',
-                          color: '#4ade80',
-                          fontSize: 11,
-                          fontWeight: 800,
-                        }}
-                      >
-                        🎥 HD Camera On
-                      </span>
-                      <span
-                        style={{
-                          padding: '4px 10px',
-                          borderRadius: 999,
-                          background: 'rgba(56, 189, 248, 0.18)',
-                          color: '#38bdf8',
-                          fontSize: 11,
-                          fontWeight: 800,
-                        }}
-                      >
-                        ⚡ Expression Engine: Human-Like Anime v2
-                      </span>
-                      <span style={{ fontSize: 11.5, color: '#94a3b8', marginLeft: 'auto' }}>
-                        Click any turn below to test conversation
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Right: Picture-in-Picture (PiP) Caller Webcam Window (Like Real Video Calling) */}
-                  <div
-                    style={{
-                      width: 195,
-                      height: 142,
-                      borderRadius: 16,
-                      overflow: 'hidden',
-                      position: 'relative',
-                      border:
-                        currentTurn.speaker === 'caller'
-                          ? '3px solid #22c55e'
-                          : '2px solid rgba(255, 255, 255, 0.35)',
-                      boxShadow: '0 16px 36px rgba(0, 0, 0, 0.65)',
-                      background: '#0a1930',
-                      flexShrink: 0,
-                    }}
-                  >
-                    <img
-                      src="/images/shoaib-cafe-coding.jpg"
-                      alt="You (Caller Picture-in-Picture Webcam)"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
-                    />
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: 8,
-                        left: 8,
-                        padding: '3px 8px',
-                        borderRadius: 999,
-                        background: 'rgba(7, 18, 36, 0.85)',
-                        color: '#4ade80',
-                        fontSize: 10,
+                        fontSize: 11,
                         fontWeight: 800,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 4,
+                        color: '#38bdf8',
+                        marginBottom: 10,
                       }}
                     >
-                      <Mic size={10} /> You (Webcam)
-                    </div>
-                    {currentTurn.speaker === 'caller' && (
-                      <div
-                        style={{
-                          position: 'absolute',
-                          bottom: 8,
-                          right: 8,
-                          padding: '2px 8px',
-                          borderRadius: 999,
-                          background: '#16a34a',
-                          color: '#ffffff',
-                          fontSize: 9.5,
-                          fontWeight: 800,
-                        }}
-                      >
-                        ● SPEAKING
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
+                      {currentTurn.speaker === 'coach' ? '● SERGEANT HALL SPEAKING' : '👂 SERGEANT LISTENING'}
+                    </span>
 
-              {/* Recorded Video Call Demo MP4 Player Below */}
-              {project.videoUrl && (
-                <div
-                  style={{
-                    marginTop: 22,
-                    paddingTop: 20,
-                    borderTop: '1px solid rgba(148, 163, 184, 0.16)',
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 380px), 1fr))',
-                    gap: 20,
-                    alignItems: 'center',
-                  }}
-                >
-                  <div>
-                    <div style={{ fontSize: 12, fontWeight: 800, color: '#38bdf8', textTransform: 'uppercase' }}>
-                      INTERACTIVE DIALOGUE TURNS & RECORDED DEMO
+                    <div
+                      style={{
+                        width: 132,
+                        height: 132,
+                        borderRadius: '50%',
+                        overflow: 'hidden',
+                        border: '3px solid #38bdf8',
+                        boxShadow: '0 12px 30px rgba(0,0,0,0.45)',
+                        animation:
+                          currentTurn.speaker === 'coach'
+                            ? 'animeHumanSpeak 2.4s infinite ease-in-out'
+                            : 'animeHumanListenNod 3s infinite ease-in-out',
+                        background: '#0a1930',
+                      }}
+                    >
+                      <img
+                        src="/images/sergeant-avatar.png"
+                        alt="Sergeant Hall AI Coach"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          objectPosition: 'center top',
+                        }}
+                      />
                     </div>
-                    <h3 style={{ color: '#ffffff', fontSize: 19, marginTop: 4, marginBottom: 8 }}>
-                      Test Live Anime Video Call Turns & Reactions
-                    </h3>
-                    <p style={{ color: '#cbd5e1', fontSize: 14, lineHeight: 1.6, margin: 0 }}>
-                      Click any dialogue turn below to watch the AI Anime Coach switch between active listening,
-                      nodding, tactical analysis, and speaking with real-time voice synthesis.
-                    </p>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 14 }}>
-                      {COACH_CALL_SCRIPT.map((turn, idx) => (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() => {
-                            setCoachReactionOverride(null);
-                            setCallTurnIdx(idx);
-                          }}
+
+                    {/* Equalizer */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 3, height: 18, marginTop: 12 }}>
+                      {[0, 1, 2, 3, 4, 5].map((b) => (
+                        <span
+                          key={b}
                           style={{
-                            padding: '6px 12px',
-                            borderRadius: 8,
-                            border:
-                              callTurnIdx === idx
-                                ? '1px solid #38bdf8'
-                                : '1px solid rgba(148,163,184,0.25)',
-                            background:
-                              callTurnIdx === idx ? '#007fbe' : 'rgba(255,255,255,0.05)',
-                            color: '#ffffff',
-                            fontSize: 12,
-                            fontWeight: 700,
-                            cursor: 'pointer',
+                            width: 3,
+                            height: 12,
+                            background: currentTurn.speaker === 'coach' ? '#38bdf8' : '#4ade80',
+                            borderRadius: 2,
+                            display: 'inline-block',
+                            animation: `eqBar ${0.42 + b * 0.08}s infinite ease-in-out`,
                           }}
-                        >
-                          Turn 0{idx + 1}: {turn.speaker === 'coach' ? '🎌 Anime Coach' : '🎙️ You'}
-                        </button>
+                        />
                       ))}
                     </div>
                   </div>
 
+                  {/* Caller Webcam Tile */}
                   <div
                     style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
-                      gap: 14,
+                      position: 'relative',
+                      borderRadius: 16,
+                      overflow: 'hidden',
+                      minHeight: 200,
+                      border:
+                        currentTurn.speaker === 'caller'
+                          ? '2px solid #22c55e'
+                          : '1px solid rgba(148, 163, 184, 0.25)',
                     }}
                   >
+                    <img
+                      src="/images/shoaib-cafe-coding.jpg"
+                      alt="User on Live Accountability Call"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    />
                     <div
                       style={{
-                        borderRadius: 14,
-                        overflow: 'hidden',
-                        border: '2px solid rgba(56, 189, 248, 0.55)',
-                        background: '#040a14',
+                        position: 'absolute',
+                        top: 10,
+                        left: 10,
+                        padding: '4px 10px',
+                        borderRadius: 999,
+                        background: 'rgba(7, 18, 36, 0.85)',
+                        color: '#4ade80',
+                        fontSize: 11,
+                        fontWeight: 800,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 5,
                       }}
                     >
-                      <div
-                        style={{
-                          padding: '6px 12px',
-                          background: 'rgba(0, 127, 190, 0.22)',
-                          fontSize: 11,
-                          fontWeight: 800,
-                          color: '#38bdf8',
-                          letterSpacing: '0.04em',
-                        }}
-                      >
-                        🎬 OFFICIAL AI COACH PROMO VIDEO
-                      </div>
-                      <video
-                        src={project.videoUrl}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        controls
-                        style={{ width: '100%', height: 'auto', display: 'block' }}
-                      />
-                    </div>
-
-                    <div
-                      style={{
-                        borderRadius: 14,
-                        overflow: 'hidden',
-                        border: '1px solid rgba(56, 189, 248, 0.3)',
-                        background: '#040a14',
-                      }}
-                    >
-                      <div
-                        style={{
-                          padding: '6px 12px',
-                          background: 'rgba(15, 23, 42, 0.9)',
-                          fontSize: 11,
-                          fontWeight: 800,
-                          color: '#cbd5e1',
-                          letterSpacing: '0.04em',
-                        }}
-                      >
-                        📞 LIVE CALL ANIMATION PREVIEW
-                      </div>
-                      <video
-                        src="/videos/sergeant-ai-video-call.mp4"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        controls
-                        style={{ width: '100%', height: 'auto', display: 'block' }}
-                      />
+                      <Mic size={11} /> Caller Webcam · HD
                     </div>
                   </div>
                 </div>
-              )}
+
+                {/* Human-Like Reaction Triggers */}
+                <div>
+                  <div style={{ fontSize: 11.5, color: '#94a3b8', fontWeight: 700, marginBottom: 8 }}>
+                    Coach Reaction State:
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                    {[
+                      { id: 'encouraging', label: '🎖️ Drill Accountability' },
+                      { id: 'listening', label: '👂 Active Listening & Nodding' },
+                      { id: 'tactical', label: '📋 Tactical Review' },
+                      { id: 'celebrating', label: '🔥 Streak Salute (96%)' },
+                    ].map((react) => {
+                      const activeReaction =
+                        coachReactionOverride ||
+                        (currentTurn.speaker === 'caller'
+                          ? 'listening'
+                          : callTurnIdx === 3
+                            ? 'celebrating'
+                            : callTurnIdx === 1
+                              ? 'tactical'
+                              : 'encouraging');
+                      const isSelected = activeReaction === react.id;
+                      return (
+                        <button
+                          key={react.id}
+                          type="button"
+                          onClick={() => setCoachReactionOverride(react.id)}
+                          style={{
+                            padding: '6px 12px',
+                            borderRadius: 999,
+                            fontSize: 11.5,
+                            fontWeight: 800,
+                            cursor: 'pointer',
+                            border: isSelected ? '1px solid #38bdf8' : '1px solid rgba(148,163,184,0.25)',
+                            background: isSelected ? '#007fbe' : 'rgba(15, 23, 42, 0.85)',
+                            color: '#ffffff',
+                          }}
+                        >
+                          {react.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Live Conversation Transcript Box */}
+                <div
+                  style={{
+                    padding: '14px 18px',
+                    borderRadius: 14,
+                    background: 'rgba(10, 25, 48, 0.92)',
+                    border:
+                      currentTurn.speaker === 'coach'
+                        ? '1px solid rgba(56, 189, 248, 0.45)'
+                        : '1px solid rgba(34, 197, 94, 0.45)',
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 800,
+                      color: currentTurn.speaker === 'coach' ? '#38bdf8' : '#4ade80',
+                      marginBottom: 6,
+                      letterSpacing: '0.05em',
+                    }}
+                  >
+                    {currentTurn.speaker === 'coach'
+                      ? '🎖️ SERGEANT HALL (SPEAKING LIVE)'
+                      : '🎙️ CALLER (LIVE MICROPHONE)'}
+                  </div>
+                  <div style={{ fontSize: 14.5, color: '#f8fafc', lineHeight: 1.55, fontWeight: 500 }}>
+                    &ldquo;{currentTurn.text}&rdquo;
+                  </div>
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
+                    {COACH_CALL_SCRIPT.map((turn, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          setCoachReactionOverride(null);
+                          setCallTurnIdx(idx);
+                        }}
+                        style={{
+                          padding: '5px 11px',
+                          borderRadius: 8,
+                          border:
+                            callTurnIdx === idx
+                              ? '1px solid #38bdf8'
+                              : '1px solid rgba(148,163,184,0.25)',
+                          background: callTurnIdx === idx ? '#007fbe' : 'rgba(255,255,255,0.05)',
+                          color: '#ffffff',
+                          fontSize: 11.5,
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        Turn 0{idx + 1}: {turn.speaker === 'coach' ? 'Sergeant' : 'Caller'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Live Telemetry Architecture Loop */}
+                <div
+                  style={{
+                    borderRadius: 14,
+                    overflow: 'hidden',
+                    border: '1px solid rgba(56, 189, 248, 0.28)',
+                    background: '#040a14',
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 180px',
+                    gap: 12,
+                    alignItems: 'center',
+                    padding: 12,
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: 11, fontWeight: 800, color: '#38bdf8', textTransform: 'uppercase' }}>
+                      REAL-TIME LIP-SYNC &amp; STREAK TELEMETRY
+                    </div>
+                    <p style={{ fontSize: 12.5, color: '#cbd5e1', margin: '4px 0 0', lineHeight: 1.5 }}>
+                      Sub-second STT → Memory RAG → TTS audio stream synchronized to Sergeant Hall&apos;s animated jaw
+                      and reaction states.
+                    </p>
+                  </div>
+                  <div style={{ borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(56,189,248,0.3)' }}>
+                    <video
+                      src="/videos/sergeant-ai-video-call.mp4"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      style={{ width: '100%', height: 'auto', display: 'block' }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>

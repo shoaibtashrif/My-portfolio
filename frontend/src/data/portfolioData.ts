@@ -456,10 +456,10 @@ export const PROJECTS: ProjectItem[] = [
     clientLabel: 'Better You / Shaista AI Coaching Platform',
     role: 'Lead AI & Full Stack Engineer',
     summary:
-      'Interactive AI accountability coach where you talk on a real FaceTime/Zoom-style video call with an expressive 3D Anime Sergeant AI character featuring human-like facial reactions, eye contact, nodding, and real-time voice lip-sync.',
+      'Interactive AI accountability coach where you talk on a real mobile FaceTime-style video call with the animated Sergeant Hall character featuring real-time facial reactions, eye contact, daily check-ins, and persistent coaching memory.',
     metrics: [
-      { label: 'Live Interaction', value: 'Anime Video Call' },
-      { label: 'AI Reactions', value: 'Human-Like Emotions' },
+      { label: 'Live Interaction', value: 'Animated Video Call' },
+      { label: 'Coach Persona', value: 'Sergeant Hall AI' },
       { label: 'Coaching Memory', value: 'Cross-Session RAG' },
       { label: 'Accountability', value: 'Daily Check-In Calls' },
     ],
@@ -471,16 +471,10 @@ export const PROJECTS: ProjectItem[] = [
         caption: 'Welcome screen, goal & aspiration selection, live voice/video call stage, and coaching chat.',
       },
       {
-        src: '/images/sergeant-anime-videocall.jpg',
-        title: 'Face-to-Face Video Call with Interactive AI Anime Sergeant',
-        badge: 'Live Anime Video Call',
-        caption: 'Talk just like a normal human video call while the AI Anime Coach reacts with natural expressions, nodding, and lip-sync.',
-      },
-      {
         src: '/images/sergeant-avatar.png',
-        title: 'Animated Sergeant AI Character Avatar',
+        title: 'Sergeant Hall — Animated AI Accountability Coach',
         badge: 'Interactive Character',
-        caption: 'Expressive animated coach character with live audio-driven lip-sync and visual states.',
+        caption: 'Expressive animated coach character with live audio-driven lip-sync and human-like reactions.',
       },
       {
         src: '/images/sergeant-flow.png',
