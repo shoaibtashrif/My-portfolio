@@ -9,7 +9,7 @@ declare global {
 const rawMeasurementId = String(import.meta.env.VITE_GA_MEASUREMENT_ID || '').trim();
 export const GA_MEASUREMENT_ID = /^G-[A-Z0-9]+$/i.test(rawMeasurementId)
   ? rawMeasurementId
-  : '';
+  : 'G-BVPETB7MYK';
 
 function isAutomatedTraffic(): boolean {
   if (typeof navigator === 'undefined') return true;
@@ -52,3 +52,4 @@ export function trackEvent(name: string, params?: Record<string, string | number
   if (!GA_MEASUREMENT_ID || typeof window === 'undefined' || !window.gtag || isAutomatedTraffic()) return;
   window.gtag('event', name, params || {});
 }
+

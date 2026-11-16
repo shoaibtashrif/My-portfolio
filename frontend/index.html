@@ -93,6 +93,24 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <!-- Google Analytics 4 (Shoaib Tashrif) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BVPETB7MYK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+      (function () {
+        var ua = navigator.userAgent || '';
+        var isBot = Boolean(navigator.webdriver) || /bot|crawl|spider|slurp|headless/i.test(ua);
+        if (!isBot) {
+          gtag('js', new Date());
+          gtag('config', 'G-BVPETB7MYK', { send_page_view: false });
+          window.__eaGaInitialized = true;
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
