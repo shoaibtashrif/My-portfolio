@@ -87,10 +87,10 @@ export default function HomePage() {
             <div className="ea-portrait-backplate" aria-hidden="true" />
             <div className="ea-portrait-window">
               <img
-                src="/images/shoaib-hero-workspace.jpg"
+                src="/images/shoaib-hero-portrait.jpg"
                 alt="Shoaib Tashrif — Full Stack AI Software Engineer"
-                width="1264"
-                height="1568"
+                width="1024"
+                height="991"
                 fetchPriority="high"
               />
             </div>

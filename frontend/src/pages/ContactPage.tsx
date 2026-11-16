@@ -80,7 +80,7 @@ export default function ContactPage() {
           </div>
           <HeroScene
             variant="about"
-            src="/images/shoaib-hero-workspace.jpg"
+            src="/images/shoaib-contact-portrait.jpg"
             alt="Shoaib Tashrif — Contact"
             label="Shoaib Tashrif"
             note="Response within 24 hours · Global Remote"

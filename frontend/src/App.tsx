@@ -23,7 +23,8 @@ function preloadPortfolioImages() {
   if (retainedImageObjects.length > 0) return;
   const urls = new Set<string>([
     '/images/shoaib-logo.png',
-    '/images/shoaib-hero-workspace.jpg',
+    '/images/shoaib-hero-portrait.jpg',
+    '/images/shoaib-contact-portrait.jpg',
     '/images/shoaib-whiteboard-architecture.jpg',
     '/images/shoaib-cafe-coding.jpg',
     '/images/shoaib-tech-talk.jpg',
