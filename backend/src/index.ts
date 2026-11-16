@@ -22,6 +22,7 @@ app.use(
   })
 );
 app.use(express.json({ limit: '15mb' }));
+app.use(express.text({ type: 'text/plain', limit: '256kb' }));
 
 app.get('/api/health', (_req, res) => {
   res.json({

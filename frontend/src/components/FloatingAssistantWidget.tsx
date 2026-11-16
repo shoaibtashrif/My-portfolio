@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { Bot, Calendar, Loader2, MessageSquare, Mic, MicOff, Phone, PhoneOff, Send, X } from 'lucide-react';
 import { useVoiceCall } from '../hooks/useVoiceCall';
 import { PORTFOLIO_PROFILE } from '../data/portfolioData';
@@ -6,18 +6,84 @@ import { apiUrl } from '../config/api';
 import ChatMessageText from './ChatMessageText';
 import './assistant.css';
 
-type Message = { role: 'user' | 'assistant'; content: string; calendlyUrl?: string };
+type Message = {
+  role: 'user' | 'assistant';
+  content: string;
+  calendlyUrl?: string;
+  channel?: 'chat' | 'voice';
+};
+
+const INITIAL_GREETING = "Hi, I'm Shoaib's AI assistant. What are you working on?";
+
+function createSessionId(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `sess_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+}
 
 export default function FloatingAssistantWidget() {
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<'chat' | 'voice'>('chat');
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "Hi, I'm Shoaib's AI assistant. What are you working on?" },
+    { role: 'assistant', content: INITIAL_GREETING },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const end = useRef<HTMLDivElement>(null);
-  const voice = useVoiceCall((message) => setMessages((previous) => [...previous, message]));
+  const sessionIdRef = useRef<string>(createSessionId());
+  const messagesRef = useRef<Message[]>(messages);
+  messagesRef.current = messages;
+  const lastSentCountRef = useRef(0);
+
+  const voice = useVoiceCall({
+    sessionId: sessionIdRef.current,
+    onTurnMessage: (message) =>
+      setMessages((previous) => [...previous, { ...message, channel: message.channel || 'voice' }]),
+  });
+
+  const flushTranscript = useCallback(
+    (trigger: 'widget_closed' | 'voice_ended' | 'page_leave', useBeacon = false) => {
+      const meaningful = messagesRef.current.filter(
+        (m) => !(m.role === 'assistant' && m.content === INITIAL_GREETING),
+      );
+      const hasUserMessage = meaningful.some((m) => m.role === 'user');
+      if (!hasUserMessage || meaningful.length <= lastSentCountRef.current) {
+        return;
+      }
+
+      lastSentCountRef.current = meaningful.length;
+      const hasVoice = meaningful.some((m) => m.channel === 'voice');
+      const hasChat = meaningful.some((m) => m.channel !== 'voice');
+      const resolvedMode = hasVoice && hasChat ? 'mixed' : hasVoice ? 'voice' : 'chat';
+
+      const payload = JSON.stringify({
+        sessionId: sessionIdRef.current,
+        trigger,
+        mode: resolvedMode,
+        pageUrl: typeof window !== 'undefined' ? window.location.href : undefined,
+        messages: meaningful.map((m) => ({
+          role: m.role,
+          content: m.content,
+          channel: m.channel || 'chat',
+        })),
+      });
+
+      const endpoint = apiUrl('/api/assistant/transcript');
+      if (useBeacon && typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
+        const sent = navigator.sendBeacon(endpoint, new Blob([payload], { type: 'text/plain' }));
+        if (sent) return;
+      }
+
+      void fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+        keepalive: true,
+      }).catch(() => {});
+    },
+    [],
+  );
 
   useEffect(() => {
     const show = () => setOpen(true);
@@ -29,9 +95,31 @@ export default function FloatingAssistantWidget() {
     end.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading, open]);
 
+  useEffect(() => {
+    if (voice.status === 'ended' || voice.status === 'error') {
+      flushTranscript('voice_ended');
+    }
+  }, [flushTranscript, voice.status]);
+
+  useEffect(() => {
+    const onPageHide = () => flushTranscript('page_leave', true);
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        flushTranscript('page_leave', true);
+      }
+    };
+    window.addEventListener('pagehide', onPageHide);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () => {
+      window.removeEventListener('pagehide', onPageHide);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
+  }, [flushTranscript]);
+
   const close = () => {
     voice.stopCall();
     setOpen(false);
+    flushTranscript('widget_closed');
   };
 
   async function submit(event: FormEvent) {
@@ -39,20 +127,25 @@ export default function FloatingAssistantWidget() {
     const text = input.trim();
     if (!text || loading) return;
     const history = messages.slice(-10);
-    setMessages((old) => [...old, { role: 'user', content: text }]);
+    setMessages((old) => [...old, { role: 'user', content: text, channel: 'chat' }]);
     setInput('');
     setLoading(true);
     try {
       const response = await fetch(apiUrl('/api/assistant/chat'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, history }),
+        body: JSON.stringify({
+          message: text,
+          history,
+          sessionId: sessionIdRef.current,
+          pageUrl: typeof window !== 'undefined' ? window.location.href : undefined,
+        }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error();
       setMessages((old) => [
         ...old,
-        { role: 'assistant', content: data.reply, calendlyUrl: data.calendlyUrl },
+        { role: 'assistant', content: data.reply, calendlyUrl: data.calendlyUrl, channel: 'chat' },
       ]);
     } catch {
       setMessages((old) => [
@@ -61,6 +154,7 @@ export default function FloatingAssistantWidget() {
           role: 'assistant',
           content: 'Sorry, I could not connect. Please try again.',
           calendlyUrl: PORTFOLIO_PROFILE.calendlyUrl,
+          channel: 'chat',
         },
       ]);
     } finally {

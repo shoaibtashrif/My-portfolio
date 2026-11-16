@@ -3,6 +3,7 @@ import { IncomingMessage, Server as HttpServer } from 'node:http';
 import { Duplex } from 'node:stream';
 import WebSocket, { RawData, WebSocketServer } from 'ws';
 import { GoogleLiveSession, SpeechAccount, VoiceTicketPayload } from './googleLiveSession.js';
+import { recordVoiceTurn, scheduleVoiceEndFlush } from '../services/transcriptStore.js';
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
 
@@ -26,16 +27,20 @@ export function attachVoiceGateway(server: HttpServer): VoiceGateway {
         return rejectUpgrade(socket, 404, 'Not found');
       }
 
+      const clientSessionId = (url.searchParams.get('sessionId') || '').trim();
+      const pageUrl = (url.searchParams.get('pageUrl') || '').trim();
+      const conversationId = clientSessionId || randomUUID();
+
       const payload: VoiceTicketPayload = {
         userId: 'visitor',
-        conversationId: randomUUID(),
+        conversationId,
         callId: randomUUID(),
         openingContext:
           "Greet the caller warmly in 1 short sentence as Shoaib Tashrif's personal AI assistant and let them know they can speak in any language.",
       };
 
       webSocketServer.handleUpgrade(request, socket, head, (client) => {
-        const session = new VoiceCallSession(client, payload, () => sessions.delete(session));
+        const session = new VoiceCallSession(client, payload, pageUrl, () => sessions.delete(session));
         sessions.add(session);
         session.start();
       });
@@ -65,6 +70,7 @@ class VoiceCallSession {
   constructor(
     private readonly client: WebSocket,
     private readonly ticket: VoiceTicketPayload,
+    private readonly pageUrl: string,
     private readonly onClosed: () => void,
   ) {}
 
@@ -191,6 +197,19 @@ class VoiceCallSession {
   }
 
   private sendJson(payload: Record<string, unknown>) {
+    if (payload.type === 'transcript.final' && typeof payload.text === 'string') {
+      recordVoiceTurn(this.ticket.conversationId, {
+        pageUrl: this.pageUrl || undefined,
+        role: 'user',
+        content: payload.text,
+      });
+    } else if (payload.type === 'assistant.text.final' && typeof payload.text === 'string') {
+      recordVoiceTurn(this.ticket.conversationId, {
+        pageUrl: this.pageUrl || undefined,
+        role: 'assistant',
+        content: payload.text,
+      });
+    }
     if (this.client.readyState === WebSocket.OPEN) {
       this.client.send(JSON.stringify(payload));
     }
@@ -215,6 +234,7 @@ class VoiceCallSession {
       this.googleLive = null;
     }
     this.queuedAudio = [];
+    scheduleVoiceEndFlush(this.ticket.conversationId, 4000);
     this.onClosed();
   }
 }

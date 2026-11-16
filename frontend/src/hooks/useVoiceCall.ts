@@ -17,9 +17,11 @@ export type VoiceStatus = VoiceCallStatus;
 export interface VoiceTurnMessage {
   role: 'user' | 'assistant';
   content: string;
+  channel?: 'chat' | 'voice';
 }
 
 interface UseVoiceCallOptions {
+  sessionId?: string;
   onTurnMessage?: (message: VoiceTurnMessage) => void;
 }
 
@@ -30,6 +32,8 @@ export function useVoiceCall(
     typeof optionsOrCallback === 'function'
       ? optionsOrCallback
       : optionsOrCallback.onTurnMessage;
+  const sessionId =
+    typeof optionsOrCallback === 'function' ? undefined : optionsOrCallback.sessionId;
 
   const [status, setStatus] = useState<VoiceCallStatus>('idle');
   const [errorMessage, setErrorMessage] = useState('');
@@ -200,7 +204,12 @@ export function useVoiceCall(
         captureNode.connect(silentGain);
         silentGain.connect(audioContext.destination);
 
-        const wsUrl = voiceWsUrl();
+        const baseWs = voiceWsUrl();
+        const wsParams = new URLSearchParams();
+        if (sessionId) wsParams.set('sessionId', sessionId);
+        if (typeof window !== 'undefined') wsParams.set('pageUrl', window.location.href);
+        const query = wsParams.toString();
+        const wsUrl = query ? `${baseWs}${baseWs.includes('?') ? '&' : '?'}${query}` : baseWs;
         const socket = new WebSocket(wsUrl);
         socket.binaryType = 'arraybuffer';
         socketRef.current = socket;
@@ -328,7 +337,7 @@ export function useVoiceCall(
               case 'transcript.final': {
                 const text = typeof message.text === 'string' ? message.text : '';
                 setLiveTranscript(text);
-                if (text) onTurnMessageRef.current?.({ role: 'user', content: text });
+                if (text) onTurnMessageRef.current?.({ role: 'user', content: text, channel: 'voice' });
                 break;
               }
               case 'assistant.started':
@@ -343,7 +352,7 @@ export function useVoiceCall(
               case 'assistant.text.final': {
                 const text = typeof message.text === 'string' ? message.text : '';
                 setLiveAssistantText(text);
-                if (text) onTurnMessageRef.current?.({ role: 'assistant', content: text });
+                if (text) onTurnMessageRef.current?.({ role: 'assistant', content: text, channel: 'voice' });
                 break;
               }
               case 'audio.start': {
@@ -419,7 +428,7 @@ export function useVoiceCall(
         }
       }
     },
-    [releaseResources, status],
+    [releaseResources, sessionId, status],
   );
 
   const toggleMute = useCallback(() => {

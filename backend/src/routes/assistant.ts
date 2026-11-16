@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { SHOAIB_SYSTEM_PROMPT } from '../data/shoaibKnowledge.js';
-import { sendInquiryEmails } from '../services/mailer.js';
+import { sendInquiryEmails, TranscriptEmailPayload, TranscriptMessageItem } from '../services/mailer.js';
+import { flushTranscript, recordChatTurn } from '../services/transcriptStore.js';
 
 const router = Router();
 
@@ -92,10 +93,12 @@ async function callGroqChat(messages: any[], useTools = true) {
 // POST /api/assistant/chat — Powered by Groq GPT-OSS 120B (openai/gpt-oss-120b)
 router.post('/chat', async (req: Request, res: Response) => {
   try {
-    const { message, history = [], messages: legacyMessages } = req.body as {
+    const { message, history = [], messages: legacyMessages, sessionId, pageUrl } = req.body as {
       message?: string;
       history?: ChatTurn[];
       messages?: Array<{ role: string; text?: string; content?: string }>;
+      sessionId?: string;
+      pageUrl?: string;
     };
 
     let resolvedMessage = message?.trim() || '';
@@ -192,9 +195,18 @@ router.post('/chat', async (req: Request, res: Response) => {
         "I am Shoaib's personal AI assistant. How can I help you learn about Shoaib's AI engineering work or book a 30-minute call?";
     }
 
+    const cleanReply = sanitizeChatReply(finalReply);
+    if (typeof sessionId === 'string' && sessionId.trim()) {
+      recordChatTurn(sessionId.trim(), {
+        pageUrl: typeof pageUrl === 'string' ? pageUrl.trim() : undefined,
+        userMessage: resolvedMessage,
+        assistantReply: cleanReply,
+      });
+    }
+
     return res.json({
       ok: true,
-      reply: sanitizeChatReply(finalReply),
+      reply: cleanReply,
       bookingSubmitted,
       emailSent,
       calendlyUrl: CALENDLY_URL,
@@ -203,6 +215,64 @@ router.post('/chat', async (req: Request, res: Response) => {
     console.error('Assistant chat error:', error);
     return res.status(500).json({
       error: error?.message || 'Failed to process chat message.',
+    });
+  }
+});
+
+// POST /api/assistant/transcript — sends a single transcript email when user finishes interacting
+router.post('/transcript', async (req: Request, res: Response) => {
+  try {
+    let body: any = req.body;
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch {
+        return res.status(400).json({ error: 'Invalid transcript JSON payload.' });
+      }
+    }
+
+    const sessionId = typeof body?.sessionId === 'string' ? body.sessionId.trim() : '';
+    if (!sessionId) {
+      return res.status(400).json({ error: 'sessionId is required.' });
+    }
+
+    const validTriggers = new Set<TranscriptEmailPayload['trigger']>([
+      'widget_closed',
+      'voice_ended',
+      'page_leave',
+      'idle_timeout',
+    ]);
+    const trigger: TranscriptEmailPayload['trigger'] = validTriggers.has(body?.trigger)
+      ? body.trigger
+      : 'widget_closed';
+
+    const validModes = new Set<TranscriptEmailPayload['mode']>(['chat', 'voice', 'mixed']);
+    const mode: TranscriptEmailPayload['mode'] | undefined = validModes.has(body?.mode)
+      ? body.mode
+      : undefined;
+
+    const messages: TranscriptMessageItem[] | undefined = Array.isArray(body?.messages)
+      ? body.messages
+          .filter((m: any) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
+          .map((m: any) => ({
+            role: m.role,
+            content: m.content.trim().slice(0, 8000),
+            channel: m.channel === 'voice' ? 'voice' : 'chat',
+          }))
+      : undefined;
+
+    const result = await flushTranscript(sessionId, {
+      trigger,
+      mode,
+      pageUrl: typeof body?.pageUrl === 'string' ? body.pageUrl.trim().slice(0, 500) : undefined,
+      messages,
+    });
+
+    return res.json({ ok: true, ...result });
+  } catch (error: any) {
+    console.error('Assistant transcript email error:', error);
+    return res.status(500).json({
+      error: error?.message || 'Failed to email conversation transcript.',
     });
   }
 });
