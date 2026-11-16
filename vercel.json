@@ -6,7 +6,7 @@
   "outputDirectory": "frontend/dist",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!robots\\.txt$|sitemap\\.xml$|assets/|images/|videos/|audio/).*)",
       "destination": "/index.html"
     }
   ]

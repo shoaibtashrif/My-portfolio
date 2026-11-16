@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingAssistantWidget from './components/FloatingAssistantWidget';
@@ -12,6 +13,8 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import ReviewsPage from './pages/ReviewsPage';
 import { usePublicMotion } from './hooks/usePublicMotion';
+import { usePortfolioSeo } from './hooks/usePortfolioSeo';
+import { trackEvent } from './utils/analytics';
 import { PROJECTS } from './data/portfolioData';
 
 const retainedImageObjects: HTMLImageElement[] = [];
@@ -49,6 +52,7 @@ function AppLayout() {
   const { pathname } = useLocation();
   const [calendlyUrl, setCalendlyUrl] = useState<string | null>(null);
   usePublicMotion(pathname);
+  usePortfolioSeo(pathname);
 
   useEffect(() => {
     preloadPortfolioImages();
@@ -69,6 +73,7 @@ function AppLayout() {
       if (/^https?:\/\/(www\.)?calendly\.com\//i.test(href)) {
         e.preventDefault();
         e.stopPropagation();
+        trackEvent('calendly_open', { path: window.location.pathname });
         setCalendlyUrl(href);
       }
     };
@@ -96,6 +101,7 @@ function AppLayout() {
       <Footer />
       <FloatingAssistantWidget />
       <CalendlyModal url={calendlyUrl} onClose={() => setCalendlyUrl(null)} />
+      <Analytics />
     </div>
   );
 }
