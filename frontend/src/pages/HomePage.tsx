@@ -107,6 +107,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* TRUSTED BY — LARGE MOVING ORIGINAL LOGOS RIGHT BELOW HERO */}
+      <TrustedLogosMarquee />
+
       {/* TWO DOORS — IDENTICAL TO SCOTT'S PHOTO PATHS */}
       <section className="ea-photo-paths">
         <div className="container">
@@ -168,9 +171,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* TRUSTED BY — LARGE MOVING CLIENT & PROJECT LOGOS */}
-      <TrustedLogosMarquee />
 
       {/* EDITORIAL SPLIT SECTION — IDENTICAL TO SCOTT'S COPY SECTION */}
       <section className="section-space ea-approved-section ea-section-with-photo">
