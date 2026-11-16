@@ -28,6 +28,11 @@ export interface TranscriptEmailPayload {
   messages: TranscriptMessageItem[];
 }
 
+const DEFAULT_CALENDLY_URL = 'https://calendly.com/shoaib-tashrif/30min';
+const DEFAULT_LINKEDIN_URL = 'https://www.linkedin.com/in/shoaibtashrif';
+const DEFAULT_GITHUB_URL = 'https://github.com/shoaibtashrif';
+const DEFAULT_SITE_URL = 'https://shoaibtashrif.vercel.app';
+
 function escapeHtml(input: string): string {
   return input
     .replace(/&/g, '&amp;')
@@ -51,6 +56,54 @@ function getSenderEmail(): string {
     process.env.SMTP_USER?.trim() ||
     getOwnerEmail()
   );
+}
+
+function renderEmailShell(params: {
+  eyebrow: string;
+  heading: string;
+  subheading: string;
+  bodyHtml: string;
+  calendlyUrl: string;
+  ctaHeading?: string;
+  ctaLabel?: string;
+}): string {
+  const safeEyebrow = escapeHtml(params.eyebrow);
+  const safeHeading = escapeHtml(params.heading);
+  const safeSubheading = escapeHtml(params.subheading);
+  const safeCalendly = escapeHtml(params.calendlyUrl);
+  const ctaHeading = escapeHtml(
+    params.ctaHeading || 'Schedule a 30-Minute Discovery Call',
+  );
+  const ctaLabel = escapeHtml(params.ctaLabel || 'Book a Call on Calendly');
+
+  return `
+  <div style="background:#F1F5F9;padding:24px 12px;font-family:Inter,'Segoe UI',Arial,sans-serif;color:#0F172A;">
+    <div style="max-width:620px;margin:0 auto;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:12px;overflow:hidden;">
+      <div style="border-top:4px solid #0284C7;padding:24px 28px 18px;border-bottom:1px solid #E2E8F0;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#0284C7;margin-bottom:6px;">${safeEyebrow}</div>
+        <h2 style="margin:0 0 6px;font-size:21px;line-height:1.3;color:#0F172A;font-weight:700;">${safeHeading}</h2>
+        <p style="margin:0;font-size:13px;color:#64748B;">${safeSubheading}</p>
+      </div>
+
+      <div style="padding:22px 28px;">
+        ${params.bodyHtml}
+
+        <div style="margin-top:24px;padding:18px 20px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;">
+          <p style="margin:0 0 12px;font-size:14px;font-weight:600;color:#0F172A;">${ctaHeading}</p>
+          <a href="${safeCalendly}" style="display:inline-block;background:#0284C7;color:#FFFFFF;text-decoration:none;font-size:13px;font-weight:600;padding:10px 18px;border-radius:7px;margin-right:10px;">${ctaLabel}</a>
+          <a href="${DEFAULT_LINKEDIN_URL}" style="display:inline-block;background:#FFFFFF;color:#0F172A;border:1px solid #CBD5E1;text-decoration:none;font-size:13px;font-weight:600;padding:9px 16px;border-radius:7px;">Connect on LinkedIn</a>
+        </div>
+      </div>
+
+      <div style="padding:16px 28px;background:#F8FAFC;border-top:1px solid #E2E8F0;font-size:12px;line-height:1.6;color:#64748B;">
+        <strong style="color:#0F172A;">Shoaib Tashrif</strong> &middot; Full Stack AI Software Engineer<br/>
+        <a href="${safeCalendly}" style="color:#0284C7;text-decoration:none;">Schedule a Call</a> &middot;
+        <a href="${DEFAULT_LINKEDIN_URL}" style="color:#0284C7;text-decoration:none;">LinkedIn</a> &middot;
+        <a href="${DEFAULT_GITHUB_URL}" style="color:#0284C7;text-decoration:none;">GitHub</a> &middot;
+        <a href="${DEFAULT_SITE_URL}" style="color:#0284C7;text-decoration:none;">Website</a>
+      </div>
+    </div>
+  </div>`;
 }
 
 async function sendSingleEmail(params: {
@@ -188,7 +241,7 @@ export async function sendInquiryEmails(payload: InquiryPayload): Promise<{
   visitorMessageId: string;
 }> {
   const ownerEmail = getOwnerEmail();
-  const calendlyUrl = process.env.CALENDLY_URL || 'https://calendly.com/shoaib-tashrif/30min';
+  const calendlyUrl = process.env.CALENDLY_URL || DEFAULT_CALENDLY_URL;
   const submittedAt = new Date().toLocaleString('en-US', {
     dateStyle: 'medium',
     timeStyle: 'short',
@@ -197,10 +250,10 @@ export async function sendInquiryEmails(payload: InquiryPayload): Promise<{
 
   const sourceLabel =
     payload.source === 'ai_assistant_voice'
-      ? 'AI Voice Assistant'
+      ? 'Voice Call Inquiry'
       : payload.source === 'ai_assistant_chat'
-      ? 'AI Chat Assistant'
-      : 'Portfolio Contact Form';
+      ? 'Live Chat Inquiry'
+      : 'Website Contact Form';
 
   const safeName = escapeHtml(payload.name);
   const safeEmail = escapeHtml(payload.email);
@@ -210,77 +263,67 @@ export async function sendInquiryEmails(payload: InquiryPayload): Promise<{
   const safeMessage = escapeHtml(payload.message).replace(/\n/g, '<br/>');
   const safePreferredTime = escapeHtml(payload.preferredTime || 'Flexible / To be scheduled on Calendly');
 
-  const ownerHtml = `
-  <div style="font-family:Inter,Segoe UI,Arial,sans-serif;background:#070D1E;color:#F8FAFC;padding:28px;border-radius:14px;max-width:640px;margin:0 auto;border:1px solid rgba(56,189,248,0.22);">
-    <div style="border-bottom:1px solid rgba(148,163,184,0.2);padding-bottom:16px;margin-bottom:20px;">
-      <span style="display:inline-block;background:#0284C7;color:#FFFFFF;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;">New Portfolio Inquiry</span>
-      <h2 style="margin:12px 0 4px;font-size:20px;color:#FFFFFF;">${safeTopic}</h2>
-      <p style="margin:0;color:#94A3B8;font-size:13px;">Source: ${sourceLabel} &middot; ${submittedAt} PKT</p>
-    </div>
+  const ownerHtml = renderEmailShell({
+    eyebrow: `New Client Lead · ${sourceLabel}`,
+    heading: payload.topic,
+    subheading: `Submitted by ${payload.name} on ${submittedAt} PKT`,
+    calendlyUrl,
+    ctaHeading: 'Quick Links for Follow-Up',
+    ctaLabel: 'Open Calendly Link',
+    bodyHtml: `
+      <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:18px;">
+        <tr><td style="padding:7px 0;color:#64748B;width:130px;border-bottom:1px solid #F1F5F9;">Name</td><td style="padding:7px 0;color:#0F172A;font-weight:600;border-bottom:1px solid #F1F5F9;">${safeName}</td></tr>
+        <tr><td style="padding:7px 0;color:#64748B;border-bottom:1px solid #F1F5F9;">Email</td><td style="padding:7px 0;border-bottom:1px solid #F1F5F9;"><a href="mailto:${safeEmail}" style="color:#0284C7;text-decoration:none;font-weight:500;">${safeEmail}</a></td></tr>
+        <tr><td style="padding:7px 0;color:#64748B;border-bottom:1px solid #F1F5F9;">Company</td><td style="padding:7px 0;color:#0F172A;border-bottom:1px solid #F1F5F9;">${safeCompany}</td></tr>
+        <tr><td style="padding:7px 0;color:#64748B;border-bottom:1px solid #F1F5F9;">Role</td><td style="padding:7px 0;color:#0F172A;border-bottom:1px solid #F1F5F9;">${safeRole}</td></tr>
+        <tr><td style="padding:7px 0;color:#64748B;">Preferred Time</td><td style="padding:7px 0;color:#0F172A;">${safePreferredTime}</td></tr>
+      </table>
 
-    <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:20px;">
-      <tr><td style="padding:8px 0;color:#94A3B8;width:140px;">Name</td><td style="padding:8px 0;color:#FFFFFF;font-weight:600;">${safeName}</td></tr>
-      <tr><td style="padding:8px 0;color:#94A3B8;">Email</td><td style="padding:8px 0;color:#38BDF8;">${safeEmail}</td></tr>
-      <tr><td style="padding:8px 0;color:#94A3B8;">Company</td><td style="padding:8px 0;color:#E2E8F0;">${safeCompany}</td></tr>
-      <tr><td style="padding:8px 0;color:#94A3B8;">Role</td><td style="padding:8px 0;color:#E2E8F0;">${safeRole}</td></tr>
-      <tr><td style="padding:8px 0;color:#94A3B8;">Preferred Time</td><td style="padding:8px 0;color:#E2E8F0;">${safePreferredTime}</td></tr>
-    </table>
+      <div style="background:#F8FAFC;border-left:3px solid #0284C7;border-radius:0 8px 8px 0;padding:14px 16px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#64748B;margin-bottom:6px;">Project Details</div>
+        <div style="font-size:14px;line-height:1.65;color:#1E293B;">${safeMessage}</div>
+      </div>
 
-    <div style="background:#0E172C;border:1px solid rgba(56,189,248,0.18);border-radius:10px;padding:16px;margin-bottom:20px;">
-      <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#38BDF8;font-weight:700;margin-bottom:8px;">Message / Inquiry Copy</div>
-      <div style="font-size:14px;line-height:1.65;color:#E2E8F0;">${safeMessage}</div>
-    </div>
+      <p style="margin:14px 0 0;font-size:13px;color:#475569;">
+        An instant confirmation copy with your Calendly link and LinkedIn profile has been sent to <strong>${safeEmail}</strong>. Hit <strong>Reply</strong> to write back directly to ${safeName}.
+      </p>
+    `,
+  });
 
-    <div style="background:rgba(2,132,199,0.12);border-left:3px solid #0284C7;padding:12px 14px;border-radius:6px;font-size:13px;color:#CBD5E1;">
-      <strong>Follow-up Action:</strong> Confirmation email with your Calendly link (<a href="${calendlyUrl}" style="color:#38BDF8;">${calendlyUrl}</a>) is being delivered to ${safeEmail}. Reply directly to respond to ${safeName}.
-    </div>
-  </div>`;
+  const visitorHtml = renderEmailShell({
+    eyebrow: 'Shoaib Tashrif · Inquiry Confirmation',
+    heading: `Thanks for reaching out, ${payload.name}`,
+    subheading: `We received your inquiry via ${sourceLabel}`,
+    calendlyUrl,
+    ctaHeading: 'Want to lock in a 30-minute discovery call right away?',
+    ctaLabel: 'Book 30-Min Discovery Call',
+    bodyHtml: `
+      <p style="margin:0 0 16px;font-size:14px;line-height:1.65;color:#334155;">
+        Hi ${safeName},<br/><br/>
+        Thank you for getting in touch. I review every technical and project inquiry personally and will respond to you shortly. Below is a copy of what you shared:
+      </p>
 
-  const visitorHtml = `
-  <div style="font-family:Inter,Segoe UI,Arial,sans-serif;background:#F8FAFC;color:#0F172A;padding:28px;border-radius:14px;max-width:640px;margin:0 auto;border:1px solid #E2E8F0;">
-    <div style="background:#070D1E;color:#FFFFFF;padding:20px 24px;border-radius:10px;margin-bottom:22px;">
-      <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#38BDF8;font-weight:700;">Shoaib Tashrif &middot; Full Stack AI Software Engineer</div>
-      <h2 style="margin:8px 0 4px;font-size:20px;color:#FFFFFF;">Thanks for reaching out, ${safeName}!</h2>
-      <p style="margin:0;color:#CBD5E1;font-size:13px;">Here is a copy of your inquiry and next steps to schedule a call.</p>
-    </div>
-
-    <p style="font-size:14px;line-height:1.65;color:#334155;">
-      Your message has been received via <strong>${sourceLabel}</strong>. Shoaib reviews all technical and project inquiries personally and will follow up with you shortly.
-    </p>
-
-    <div style="background:#FFFFFF;border:1px solid #CBD5E1;border-radius:10px;padding:16px;margin:18px 0;">
-      <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#0284C7;font-weight:700;margin-bottom:10px;">Your Submitted Inquiry Copy</div>
-      <p style="margin:4px 0;font-size:13px;"><strong>Topic:</strong> ${safeTopic}</p>
-      <p style="margin:4px 0;font-size:13px;"><strong>Preferred Time:</strong> ${safePreferredTime}</p>
-      <p style="margin:8px 0 0;font-size:13px;color:#334155;line-height:1.6;"><strong>Details:</strong><br/>${safeMessage}</p>
-    </div>
-
-    <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:10px;padding:18px;text-align:center;margin:20px 0;">
-      <p style="margin:0 0 12px;font-size:14px;color:#0F172A;font-weight:600;">Want to lock in a 30-minute discovery call right away?</p>
-      <a href="${calendlyUrl}" style="display:inline-block;background:#0284C7;color:#FFFFFF;text-decoration:none;font-weight:600;font-size:14px;padding:11px 22px;border-radius:8px;">Book 30-Min Call on Calendly</a>
-    </div>
-
-    <p style="font-size:12px;color:#64748B;margin-top:18px;border-top:1px solid #E2E8F0;padding-top:14px;">
-      Best regards,<br/>
-      <strong>Shoaib Tashrif</strong> &middot; Full Stack AI Software Engineer<br/>
-      Email: <a href="mailto:shoaib.tashrif@gmail.com" style="color:#0284C7;">shoaib.tashrif@gmail.com</a> &middot;
-      GitHub: <a href="https://github.com/shoaibtashrif" style="color:#0284C7;">github.com/shoaibtashrif</a>
-    </p>
-  </div>`;
+      <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:14px 16px;">
+        <p style="margin:0 0 6px;font-size:13px;color:#0F172A;"><strong>Topic:</strong> ${safeTopic}</p>
+        <p style="margin:0 0 8px;font-size:13px;color:#0F172A;"><strong>Preferred Time:</strong> ${safePreferredTime}</p>
+        <p style="margin:0;font-size:13px;line-height:1.6;color:#334155;"><strong>Details:</strong><br/>${safeMessage}</p>
+      </div>
+    `,
+  });
 
   const [ownerResult, visitorResult] = await Promise.all([
     sendSingleEmail({
       to: ownerEmail,
       replyTo: payload.email,
-      fromName: 'Shoaib Tashrif Portfolio',
-      subject: `[Portfolio Inquiry] ${payload.topic} — ${payload.name}`,
+      fromName: 'Shoaib Tashrif — Lead Desk',
+      subject: `New Project Lead: ${payload.topic} — ${payload.name}`,
       html: ownerHtml,
     }),
     sendSingleEmail({
       to: payload.email,
       replyTo: ownerEmail,
       fromName: 'Shoaib Tashrif',
-      subject: `Copy of your inquiry for Shoaib Tashrif — ${payload.topic}`,
+      subject: `Received: ${payload.topic} — Next steps with Shoaib Tashrif`,
       html: visitorHtml,
     }),
   ]);
@@ -297,6 +340,7 @@ export async function sendTranscriptEmail(payload: TranscriptEmailPayload): Prom
   transport: string;
 }> {
   const ownerEmail = getOwnerEmail();
+  const calendlyUrl = process.env.CALENDLY_URL || DEFAULT_CALENDLY_URL;
   const endedAt = new Date().toLocaleString('en-US', {
     dateStyle: 'medium',
     timeStyle: 'short',
@@ -304,63 +348,62 @@ export async function sendTranscriptEmail(payload: TranscriptEmailPayload): Prom
   });
 
   const triggerLabels: Record<TranscriptEmailPayload['trigger'], string> = {
-    widget_closed: 'Visitor closed assistant',
+    widget_closed: 'Visitor closed chat window',
     voice_ended: 'Voice call ended',
-    page_leave: 'Visitor left / hid site',
-    idle_timeout: 'Session completed (idle timeout)',
+    page_leave: 'Visitor left site',
+    idle_timeout: 'Session idle timeout',
   };
 
   const modeLabels: Record<TranscriptEmailPayload['mode'], string> = {
-    chat: 'AI Chat',
-    voice: 'AI Voice Call',
-    mixed: 'AI Chat + Voice',
+    chat: 'Website Chat',
+    voice: 'Voice Call',
+    mixed: 'Chat + Voice Call',
   };
 
   const userMessagesCount = payload.messages.filter((m) => m.role === 'user').length;
-  const safePageUrl = escapeHtml(payload.pageUrl || 'https://shoaibtashrif.vercel.app');
-  const followUpBadge = payload.isFollowUp ? ' (Updated Follow-up)' : '';
+  const safePageUrl = escapeHtml(payload.pageUrl || DEFAULT_SITE_URL);
+  const followUpLabel = payload.isFollowUp ? ' (Follow-up)' : '';
 
   const turnsHtml = payload.messages
     .map((m) => {
       const isUser = m.role === 'user';
       const label = isUser
         ? `Visitor${m.channel === 'voice' ? ' (Voice)' : ''}`
-        : `Shoaib's AI${m.channel === 'voice' ? ' (Voice)' : ''}`;
-      const bg = isUser ? '#0F2544' : '#0E172C';
-      const border = isUser ? 'rgba(56,189,248,0.45)' : 'rgba(148,163,184,0.22)';
-      const badgeColor = isUser ? '#38BDF8' : '#94A3B8';
+        : `Assistant${m.channel === 'voice' ? ' (Voice)' : ''}`;
+      const bg = isUser ? '#F0F9FF' : '#F8FAFC';
+      const borderLeft = isUser ? '3px solid #0284C7' : '3px solid #CBD5E1';
+      const labelColor = isUser ? '#0284C7' : '#64748B';
       return `
-        <div style="background:${bg};border:1px solid ${border};border-radius:10px;padding:12px 14px;margin-bottom:10px;">
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:${badgeColor};margin-bottom:4px;">${label}</div>
-          <div style="font-size:14px;line-height:1.6;color:#F1F5F9;">${escapeHtml(m.content).replace(/\n/g, '<br/>')}</div>
+        <div style="background:${bg};border:1px solid #E2E8F0;border-left:${borderLeft};border-radius:8px;padding:12px 14px;margin-bottom:10px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:${labelColor};margin-bottom:4px;">${label}</div>
+          <div style="font-size:14px;line-height:1.6;color:#1E293B;">${escapeHtml(m.content).replace(/\n/g, '<br/>')}</div>
         </div>
       `;
     })
     .join('');
 
-  const html = `
-  <div style="font-family:Inter,Segoe UI,Arial,sans-serif;background:#070D1E;color:#F8FAFC;padding:28px;border-radius:14px;max-width:660px;margin:0 auto;border:1px solid rgba(56,189,248,0.22);">
-    <div style="border-bottom:1px solid rgba(148,163,184,0.2);padding-bottom:16px;margin-bottom:18px;">
-      <span style="display:inline-block;background:#0284C7;color:#FFFFFF;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;">New ${modeLabels[payload.mode]} Interaction${followUpBadge}</span>
-      <h2 style="margin:12px 0 4px;font-size:20px;color:#FFFFFF;">${modeLabels[payload.mode]} Transcript (${payload.messages.length} turns)</h2>
-      <p style="margin:0;color:#94A3B8;font-size:13px;">Trigger: ${escapeHtml(triggerLabels[payload.trigger])} &middot; ${endedAt} PKT</p>
-    </div>
+  const html = renderEmailShell({
+    eyebrow: `New Visitor Conversation · ${modeLabels[payload.mode]}${followUpLabel}`,
+    heading: `${modeLabels[payload.mode]} Transcript (${payload.messages.length} turns)`,
+    subheading: `${triggerLabels[payload.trigger]} · ${endedAt} PKT`,
+    calendlyUrl,
+    ctaHeading: 'Share Your Booking or Profile Links',
+    ctaLabel: 'Open Calendly Link',
+    bodyHtml: `
+      <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px;">
+        <tr><td style="padding:5px 0;color:#64748B;width:110px;border-bottom:1px solid #F1F5F9;">Page Visited</td><td style="padding:5px 0;border-bottom:1px solid #F1F5F9;"><a href="${safePageUrl}" style="color:#0284C7;text-decoration:none;">${safePageUrl}</a></td></tr>
+        <tr><td style="padding:5px 0;color:#64748B;border-bottom:1px solid #F1F5F9;">Visitor Turns</td><td style="padding:5px 0;color:#0F172A;font-weight:600;border-bottom:1px solid #F1F5F9;">${userMessagesCount}</td></tr>
+        <tr><td style="padding:5px 0;color:#64748B;">Session ID</td><td style="padding:5px 0;color:#475569;font-family:monospace;font-size:12px;">${escapeHtml(payload.sessionId)}</td></tr>
+      </table>
 
-    <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:18px;">
-      <tr><td style="padding:5px 0;color:#94A3B8;width:120px;">Session ID</td><td style="padding:5px 0;color:#E2E8F0;">${escapeHtml(payload.sessionId)}</td></tr>
-      <tr><td style="padding:5px 0;color:#94A3B8;">Page URL</td><td style="padding:5px 0;color:#38BDF8;">${safePageUrl}</td></tr>
-      <tr><td style="padding:5px 0;color:#94A3B8;">Visitor Turns</td><td style="padding:5px 0;color:#FFFFFF;font-weight:600;">${userMessagesCount}</td></tr>
-    </table>
-
-    <div style="margin-top:14px;">
-      ${turnsHtml}
-    </div>
-  </div>`;
+      <div>${turnsHtml}</div>
+    `,
+  });
 
   return sendSingleEmail({
     to: ownerEmail,
-    fromName: 'Shoaib Portfolio AI',
-    subject: `[Portfolio ${modeLabels[payload.mode]}]${followUpBadge} New interaction (${userMessagesCount} visitor ${userMessagesCount === 1 ? 'message' : 'messages'})`,
+    fromName: 'Shoaib Tashrif — Lead Desk',
+    subject: `New Lead Transcript (${modeLabels[payload.mode]}${followUpLabel}) — ${userMessagesCount} visitor ${userMessagesCount === 1 ? 'message' : 'messages'}`,
     html,
   });
 }
