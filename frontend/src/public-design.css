@@ -539,6 +539,132 @@
   font-weight: 800;
   font-size: 1.4rem;
 }
+.ea-trust-band {
+  padding-block: 44px 48px;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+.ea-trust-band-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 26px;
+}
+.ea-trust-band-sub {
+  margin: 6px 0 0;
+  font-size: 0.98rem;
+  color: #475569;
+  font-weight: 500;
+}
+.ea-trust-reviews-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: #0a1930;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 180ms ease, transform 180ms ease;
+}
+.ea-trust-reviews-pill:hover {
+  background: #0284c7;
+  transform: translateY(-1px);
+}
+.ea-trust-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%);
+}
+.ea-trust-marquee-inner {
+  display: flex;
+  width: max-content;
+  animation: ea-logo-scroll 34s linear infinite;
+}
+.ea-trust-marquee:hover .ea-trust-marquee-inner {
+  animation-play-state: paused;
+}
+.ea-trust-track {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding-right: 22px;
+  flex-shrink: 0;
+}
+.ea-trust-logo-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 24px;
+  min-height: 76px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+.ea-trust-logo-card:hover {
+  border-color: #0284c7;
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(10, 25, 48, 0.08);
+}
+.ea-trust-logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ea-trust-logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.15;
+}
+.ea-trust-logo-text strong {
+  font-family: 'Archivo', 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.24rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #0a1930;
+  white-space: nowrap;
+}
+.ea-trust-logo-text small {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748b;
+  white-space: nowrap;
+}
+@keyframes ea-logo-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@media (max-width: 720px) {
+  .ea-trust-band {
+    padding-block: 34px 38px;
+  }
+  .ea-trust-logo-card {
+    padding: 12px 18px;
+    min-height: 66px;
+  }
+  .ea-trust-logo-text strong {
+    font-size: 1.08rem;
+  }
+}
 .ea-split {
   display: grid;
   grid-template-columns: 1fr 1fr;

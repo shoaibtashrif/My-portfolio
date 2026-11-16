@@ -4,6 +4,7 @@ import { RevealText } from '../components/RevealText';
 import { CinematicSection } from '../components/CinematicSection';
 import { StoryPhoto } from '../components/StoryPhoto';
 import ClientReviewsSection from '../components/ClientReviewsSection';
+import TrustedLogosMarquee from '../components/TrustedLogosMarquee';
 import { EXPERTISE_AREAS, PORTFOLIO_PROFILE, PROJECTS } from '../data/portfolioData';
 
 export default function HomePage() {
@@ -168,41 +169,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TRUSTED REGIONS & METRICS BAR (LIKE SCOTT'S TRUSTED ORGANIZATIONS) */}
-      <section className="ea-trusted-strip">
-        <div
-          className="container"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: 14,
-          }}
-        >
-          <p className="ea-trusted-label" style={{ margin: 0 }}>
-            Trusted by 15+ international clients across Canada, the United States, the United Kingdom, and Australia · Top Rated (100% JSS · 5.0 ★)
-          </p>
-          <Link
-            to="/reviews"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              padding: '8px 16px',
-              borderRadius: 999,
-              background: '#0284c7',
-              color: '#ffffff',
-              fontWeight: 700,
-              fontSize: 13,
-              textDecoration: 'none',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            Read Verified Client Reviews &amp; Reference Letters <ArrowUpRight size={15} />
-          </Link>
-        </div>
-      </section>
+      {/* TRUSTED BY — LARGE MOVING CLIENT & PROJECT LOGOS */}
+      <TrustedLogosMarquee />
 
       {/* EDITORIAL SPLIT SECTION — IDENTICAL TO SCOTT'S COPY SECTION */}
       <section className="section-space ea-approved-section ea-section-with-photo">
